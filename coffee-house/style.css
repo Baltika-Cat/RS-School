@@ -254,3 +254,58 @@ h2 span {
     height: 590px;
 }
 
+#homeMobileApp {
+    margin: 100px 40px 0px 40px;
+    display: flex;
+    gap: 100px;
+}
+
+#homeMobileAppLeft {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+#homeMobileAppDescription {
+    color: #403F3D;
+    font-size: 16px;
+    line-height: 150%;
+}
+
+#homeMobileAppButtons {
+    display: flex;
+    gap: 20px;
+}
+
+#homeMobileAppButtons button {
+    width: 200px;
+    padding: 12px 20px;
+    border-radius: 100px;
+    border: 1px #665F55 solid;
+    color: #403F3D;
+    background-color: #E1D4C9;
+}
+
+.homeMobileAppDiv {
+    display: flex;
+    gap: 8px;
+}
+
+.homeDownloadButton {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: flex-start;
+}
+
+.smallText {
+    font-size: 10px;
+    line-height: 140%;
+}
+
+.bigText {
+    font-size: 16px;
+    line-height: 150%;
+}
