@@ -222,3 +222,35 @@ h2 span {
 #homeControls hr.controlActive {
     background-color: #665F55;
 }
+
+#homeAbout {
+    display: flex;
+    flex-direction: column;
+    margin: 100px 40px 0px 40px;
+}
+
+#homeAboutPhotos {
+    display: flex;
+    margin-top: 40px;
+    gap: 40px;
+}
+
+#homeAboutPhotosLeft, #homeAboutPhotosRight {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+#homeAbout img {
+    border-radius: 20px;
+    width: 660px;
+}
+
+.smallPhoto {
+    height: 430px;
+}
+
+.bigPhoto {
+    height: 590px;
+}
+
