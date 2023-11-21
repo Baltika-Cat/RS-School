@@ -25,18 +25,18 @@ header {
     display: flex;
     margin: 20px 40px 0px 40px;
     font-size: 16px;
+    justify-content: space-between;
 }
 
 #logoHead {
     display: flex;
-    width: 8%;
     justify-content: flex-start;
     align-items: center;
 }
 
 nav {
     display: flex;
-    width: 85%;
+    color: #403F3D;
 }
 
 #homeHeadCenter {
@@ -48,13 +48,101 @@ nav {
     gap: 40px;
 }
 
+#homeHeadCenter li {
+    padding-bottom: 2px;
+    line-height: 150%;
+    border-bottom: 2px #E1D4C9 solid; 
+    transition: .7s;
+}
+
+#homeHeadCenter li:hover {
+    border-bottom: 2px #403F3D solid;
+    transition: .7s;
+}
+
 #homeHeadCenter a {
     text-decoration: none;
+    color: #403F3D;
 }
 
 #homeHeadMenu {
     display: flex;
-    width: 7%;
     justify-content: flex-end;
     align-items: center;
+}
+
+#homeHeadMenuSmall {
+    display: flex;
+    gap: 8px;
+    padding-bottom: 2px;
+    position: relative;
+    border-bottom: 2px #E1D4C9 solid;
+    transition: .7s;
+}
+
+#homeHeadMenuSmall p {
+    line-height: 24px;
+}
+
+#homeHeadMenuSmall:hover {
+    border-bottom: 2px #403F3D solid;
+    cursor: pointer;
+    transition: .7s;
+}
+
+#homeHeadMenuSmall img {
+    margin-bottom: 4px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+#homeEnjoy {
+    display: flex;
+    width: 1160px;
+    border-radius: 40px;
+    margin: 20px 40px 0px 40px;
+    padding: 100px;
+    background-image: url(images/enjoy_home_picture.png);
+    justify-content: flex-start;
+    align-self: stretch;
+}
+
+#homeEnjoyText {
+    display: flex;
+    flex-direction: column;
+    width: 530px;
+    color: #E1D4C9;
+}
+
+h1 {
+    font-size: 72px;
+    line-height: 76px;
+    font-weight: 600;
+}
+
+h1 span {
+    font-style: italic;
+    color: #B0907A;
+}
+
+#homeEnjoyText p {
+    margin: 40px 0px;
+    font-size: 16px;
+    line-height: 150%;
+}
+
+#homeEnjoyText button {
+    width: 200px;
+    border-radius: 100px;
+    background-color: #E1D4C9;
+    padding: 20px 78px;
+    color: #403F3D;
+    border: none;
+    line-height: 150%;
+    font-size: 16px;
 }
