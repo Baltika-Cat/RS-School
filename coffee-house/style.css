@@ -1,0 +1,60 @@
+@font-face {
+    font-family: 'Inter';
+    src: url(fonts/Inter-V.ttf);
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+html {
+    scroll-behavior: smooth;
+    background-color: #E1D4C9;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    width: 1440px;
+    font-family: 'Inter';
+    margin: 0px auto;
+}
+
+header {
+    display: flex;
+    margin: 20px 40px 0px 40px;
+    font-size: 16px;
+}
+
+#logoHead {
+    display: flex;
+    width: 8%;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+nav {
+    display: flex;
+    width: 85%;
+}
+
+#homeHeadCenter {
+    display: flex;
+    width: 100%;
+    list-style: none;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+#homeHeadCenter a {
+    text-decoration: none;
+}
+
+#homeHeadMenu {
+    display: flex;
+    width: 7%;
+    justify-content: flex-end;
+    align-items: center;
+}
