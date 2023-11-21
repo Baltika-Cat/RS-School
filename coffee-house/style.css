@@ -146,3 +146,79 @@ h1 span {
     line-height: 150%;
     font-size: 16px;
 }
+
+#homeFavoriteCoffee {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 100px 40px 0px 40px;
+}
+
+h2 {
+    color: #403F3D;
+    font-size: 60px;
+    line-height: 125%;
+}
+
+h2 span {
+    color: #B0907A;
+    font-style: italic;
+}
+
+#homeFavoriteCoffeeSlider {
+    display: flex;
+    justify-content: space-between;
+    align-items: space-between;
+    gap: 40px;
+}
+
+#homeBeverages {
+    display: flex;
+    flex-direction: column;
+    width: 1152px;
+    align-items: center;
+    margin-top: 40px;
+}
+
+#homeBeverages img {
+    width: 480px;
+    height: 480px;
+}
+
+#homeBeveragesData {
+    display: flex;
+    flex-direction: column;
+    width: 480px;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+    color: #403F3D;
+    margin-top: 20px;
+}
+
+#homeBeveragesData h3 {
+    font-size: 24px;
+    line-height: 125%;
+}
+
+#homeBeveragesData p {
+    font-size: 16px;
+    line-height: 150%;
+}
+
+#homeControls {
+    display: flex;
+    gap: 12px;
+    margin-top: 40px;
+}
+
+#homeControls hr {
+    border: none;
+    height: 4px;
+    width: 40px;
+    background-color: #C1B6AD;
+}
+
+#homeControls hr.controlActive {
+    background-color: #665F55;
+}
