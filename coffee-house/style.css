@@ -309,3 +309,71 @@ h2 span {
     font-size: 16px;
     line-height: 150%;
 }
+
+#homeFooter {
+    display: flex;
+    margin: 100px 40px 40px 40px;
+    border-radius: 40px;
+    padding: 100px;
+    gap: 100px;
+    background-color: #665F55;
+}
+
+#homeFooter h2 {
+    color: #E1D4C9;
+}
+
+#homeFooterLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+#homeFooterLeftIcons {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+#homeFooterRight {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 40px;
+}
+
+#homeFooterRight h3 {
+    font-size: 24px;
+    color: #E1D4C9;
+    line-height: 125%;
+}
+
+#homeFooterRightSmallText {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+#homeFooterRightSmallText p {
+    display: inline-flex;
+    align-items: flex-start;
+    width: 67%;
+    padding-bottom: 2px;
+    border-bottom: 2px #665F55 solid;
+    transition: .7s;
+    font-size: 16px;
+    line-height: 150%;
+    gap: 8px;
+    color: #E1D4C9;
+}
+
+#homeFooterRightSmallText p:last-child {
+    width: auto;
+}
+
+#homeFooterRightSmallText p:hover {
+    border-bottom: 2px #403F3D solid;
+    transition: .7s;
+    cursor: pointer;
+}
