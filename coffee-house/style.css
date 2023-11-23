@@ -336,6 +336,29 @@ h2 span {
     align-items: flex-start;
 }
 
+.footerSocialNetworks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 59px;
+    height: 59px;
+    border-radius: 100px;
+    border: 1px #C1B6AD solid;
+    transition: .7s;
+}
+
+.footerSocialNetworks:hover {
+    border: 1px #E1D4C9 solid;
+    background-color: #E1D4C9;
+    transition: .7s;
+    cursor: pointer;
+}
+
+.footerSocialNetworks:hover path {
+    stroke: #403F3D;
+    transition: .7s;
+}
+
 #homeFooterRight {
     display: inline-flex;
     flex-direction: column;
@@ -494,6 +517,7 @@ h2 span {
 .menuMenuPositionPhoto:hover img {
     scale: 1;
     transition: .7s;
+    cursor: pointer;
 }
 
 .menuMenuPositionData {
