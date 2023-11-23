@@ -377,3 +377,123 @@ h2 span {
     transition: .7s;
     cursor: pointer;
 }
+
+#menuMenu {
+    margin-left: 40px;
+    margin-right: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.menuMenuButtons {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.menuMenuButtons button {
+    display: flex;
+    padding: 7px 16px 7px 7px;
+    gap: 8px;
+    align-items: center;
+    border: 1px #C1B6AD solid;
+    border-radius: 100px;
+    color: #403F3D;
+    background-color: transparent;
+    transition: .7s;
+}
+
+.menuMenuButtonsIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    width: 30px;
+    height: 30px;
+    background-color: #C1B6AD;
+    transition: .7s;
+}
+
+.menuMenuButtons .menuMenuButtonsActive {
+    color: #E1D4C9;
+    background-color: #665F55;
+    border: 1px #665F55 solid;
+}
+
+.menuMenuButtons .menuMenuButtonsActive .menuMenuButtonsIcon {
+    background-color: #E1D4C9;
+}
+
+#menuMenuButtonsCoffee:hover {
+    background-color: #665F55;
+    border-color: #665F55;
+    color: #E1D4C9;
+    transition: .7s;
+    cursor: pointer;
+}
+
+#menuMenuButtonsCoffee:hover .menuMenuButtonsIcon {
+    background-color: #E1D4C9;
+    transition: .7s;
+}
+
+#menuMenuButtonsTea:hover {
+    background-color: #665F55;
+    border-color: #665F55;
+    color: #E1D4C9;
+    transition: .7s;
+    cursor: pointer;
+}
+
+#menuMenuButtonsTea:hover .menuMenuButtonsIcon {
+    background-color: #E1D4C9;
+    transition: .7s;
+}
+
+#menuMenuButtonsDessert:hover {
+    background-color: #665F55;
+    border-color: #665F55;
+    color: #E1D4C9;
+    transition: .7s;
+    cursor: pointer;
+}
+
+#menuMenuButtonsDessert:hover .menuMenuButtonsIcon {
+    background-color: #E1D4C9;
+    transition: .7s;
+}
+
+#menuMenuTop {
+    display: flex;
+    gap: 40px;
+}
+
+.menuMenuPostiion {
+    display: flex;
+    flex-direction: column;
+    width: 310px;
+}
+
+.menuMenuPositionPhoto {
+    display: flex;
+    border-radius: 40px;
+    width: 310px;
+    height: 310px;
+    overflow: hidden;
+}
+
+.menuMenuPositionPhoto img {
+    scale: 1.1;
+    transition: .7s;
+}
+
+.menuMenuPositionPhoto:hover img {
+    scale: 1;
+    transition: .7s;
+}
+
+.menuMenuPositionData {
+    
+}
