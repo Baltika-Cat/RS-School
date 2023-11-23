@@ -176,7 +176,7 @@ h1 span {
     margin: 0px;
 }
 
-#homeEnjoyText button {
+#homeMenuButton {
     width: 200px;
     border-radius: 100px;
     background-color: #E1D4C9;
@@ -625,6 +625,7 @@ h2 span {
     width: 310px;
     border-radius: 40px;
     border: 1px #C1B6AD solid;
+    cursor: pointer;
 }
 
 .menuMenuPositionPhoto {
@@ -640,10 +641,9 @@ h2 span {
     transition: .7s;
 }
 
-.menuMenuPositionPhoto:hover img {
+.menuMenuPosition:hover img {
     scale: 1;
     transition: .7s;
-    cursor: pointer;
 }
 
 .menuMenuPositionData {
