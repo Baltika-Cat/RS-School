@@ -241,17 +241,33 @@ h2 span {
     gap: 40px;
 }
 
-#homeAbout img {
+.photoDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 20px;
     width: 660px;
+    overflow: hidden;
+    cursor: pointer;
 }
 
-.smallPhoto {
+.smallPhotoDiv {
     height: 430px;
 }
 
-.bigPhoto {
+.bigPhotoDiv {
     height: 590px;
+}
+
+.photoDiv img {
+    max-width: 100%;
+    scale: 1.1;
+    transition: .7s;
+}
+
+.photoDiv:hover img {
+    scale: 1;
+    transition: .7s;
 }
 
 #homeMobileApp {
