@@ -84,6 +84,13 @@ nav {
     transition: .7s;
 }
 
+#menuHeadMenuSmall {
+    display: flex;
+    gap: 8px;
+    padding-bottom: 2px;
+    border-bottom: 2px #403F3D solid;
+}
+
 #homeHeadMenuSmall p {
     line-height: 24px;
 }
@@ -148,6 +155,7 @@ main {
 }
 
 h1 {
+    color: #E1D4C9;
     font-size: 72px;
     line-height: 76px;
     font-weight: 600;
@@ -276,6 +284,13 @@ h2 span {
     height: 4px;
     width: 40px;
     background-color: #C1B6AD;
+    transition: .7s;
+    cursor: pointer;
+}
+
+#homeControls hr:hover {
+    background-color: #665F55;
+    transition: .7s;
 }
 
 #homeControls hr.controlActive {
@@ -495,6 +510,21 @@ h2 span {
     border-bottom: 2px #E1D4C9 solid;
     transition: .7s;
     cursor: pointer;
+}
+
+#menuTitle {
+    margin-top: 20px;
+    display: flex;
+    width: 800px;
+    justify-content: center;
+    align-items: center;
+}
+
+#menuTitle h1 {
+    color: #403F3D;
+    font-size: 60px;
+    line-height: 125%;
+    text-align: center;
 }
 
 #menuMenu {
