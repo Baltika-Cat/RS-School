@@ -470,10 +470,12 @@ h2 span {
     gap: 40px;
 }
 
-.menuMenuPostiion {
+.menuMenuPosition {
     display: flex;
     flex-direction: column;
     width: 310px;
+    border-radius: 40px;
+    border: 1px #C1B6AD solid;
 }
 
 .menuMenuPositionPhoto {
@@ -495,5 +497,26 @@ h2 span {
 }
 
 .menuMenuPositionData {
-    
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 20px;
+    color: #403F3D;
+}
+
+.menuMenuCoffeeTitle {
+    font-size: 24px;
+    line-height: 125%;
+}
+
+.menuMenuCoffeeDescription {
+    font-size: 16px;
+    line-height: 150%;
+}
+
+#menuMenuBottom {
+    display: flex;
+    gap: 40px;
+    margin-top: 40px;
 }
