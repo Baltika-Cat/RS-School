@@ -8,6 +8,10 @@
     margin: 0px;
 }
 
+a {
+    text-decoration: none;
+}
+
 html {
     scroll-behavior: smooth;
     background-color: #E1D4C9;
@@ -119,6 +123,30 @@ main {
     color: #E1D4C9;
 }
 
+#homeMenuButtonText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    transform: translateX(14px);
+    transition: .7s;
+}
+
+#homeMenuButtonText img {
+    opacity: 0;
+    transition: .7s;
+}
+
+#homeMenuButton:hover img {
+    opacity: 1;
+    transition: .7s;
+}
+
+#homeMenuButton:hover #homeMenuButtonText {
+    transform: translateX(0px);
+    transition: .7s;
+}
+
 h1 {
     font-size: 72px;
     line-height: 76px;
@@ -136,6 +164,10 @@ h1 span {
     line-height: 150%;
 }
 
+#homeMenuButtonText p {
+    margin: 0px;
+}
+
 #homeEnjoyText button {
     width: 200px;
     border-radius: 100px;
@@ -145,6 +177,7 @@ h1 span {
     border: none;
     line-height: 150%;
     font-size: 16px;
+    cursor: pointer;
 }
 
 #homeFavoriteCoffee {
@@ -168,7 +201,7 @@ h2 span {
 #homeFavoriteCoffeeSlider {
     display: flex;
     justify-content: space-between;
-    align-items: space-between;
+    align-items: center;
     gap: 40px;
 }
 
@@ -204,6 +237,32 @@ h2 span {
 #homeBeveragesData p {
     font-size: 16px;
     line-height: 150%;
+}
+
+.homeArrowCircle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 59px;
+    height: 59px;
+    border: 1px #665F55 solid;
+    border-radius: 100px;
+    transition: .7s;
+}
+
+.homeArrowCircle:hover {
+    background-color: #665F55;
+    cursor: pointer;
+    transition: .7s;
+}
+
+.hoveArrowCircle path {
+    transition: .7s;
+}
+
+.homeArrowCircle:hover path {
+    stroke: #E1D4C9;
+    transition: .7s;
 }
 
 #homeControls {
@@ -302,6 +361,7 @@ h2 span {
     border: 1px #665F55 solid;
     color: #403F3D;
     background-color: #E1D4C9;
+    transition: .7s;
 }
 
 .homeMobileAppDiv {
@@ -324,6 +384,22 @@ h2 span {
 .bigText {
     font-size: 16px;
     line-height: 150%;
+}
+
+#homeMobileAppButtons button:hover {
+    background-color: #665F55;
+    color: #E1D4C9;
+    cursor: pointer;
+    transition: .7s;
+}
+
+#homeMobileAppButtons button path {
+    transition: .7s;
+}
+
+#homeMobileAppButtons button:hover path {
+    fill: #E1D4C9;
+    transition: .7s;
 }
 
 #homeFooter {
@@ -368,6 +444,10 @@ h2 span {
     background-color: #E1D4C9;
     transition: .7s;
     cursor: pointer;
+}
+
+.footerSocialNetworks path {
+    transition: .7s;
 }
 
 .footerSocialNetworks:hover path {
