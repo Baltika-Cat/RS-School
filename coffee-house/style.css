@@ -373,7 +373,7 @@ h2 span {
 }
 
 #homeFooterRightSmallText p:hover {
-    border-bottom: 2px #403F3D solid;
+    border-bottom: 2px #E1D4C9 solid;
     transition: .7s;
     cursor: pointer;
 }
