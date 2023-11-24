@@ -1,0 +1,674 @@
+@font-face {
+    font-family: 'Inter-light';
+    src: url(fonts/Inter-Regular.ttf);
+    font-weight: light;
+}
+
+
+@font-face {
+    font-family: 'Inter';
+    src: url(fonts/Inter-SemiBold.ttf);
+    font-weight: normal;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+a {
+    text-decoration: none;
+}
+
+html {
+    scroll-behavior: smooth;
+    background-color: #E1D4C9;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    width: 1440px;
+    font-family: 'Inter';
+    margin: 0px auto;
+}
+
+header {
+    display: flex;
+    margin: 20px 40px 0px 40px;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: space-between;
+}
+
+#logoHead {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+nav {
+    display: flex;
+    color: #403F3D;
+}
+
+#homeHeadCenter {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+#homeHeadCenter li {
+    padding-bottom: 2px;
+    line-height: 150%;
+    border-bottom: 2px #E1D4C9 solid; 
+    transition: .7s;
+}
+
+#homeHeadCenter li:hover {
+    border-bottom: 2px #403F3D solid;
+    transition: .7s;
+}
+
+#homeHeadCenter a {
+    text-decoration: none;
+    color: #403F3D;
+}
+
+#homeHeadMenu {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#homeHeadMenuSmall {
+    display: flex;
+    gap: 8px;
+    padding-bottom: 2px;
+    position: relative;
+    border-bottom: 2px #E1D4C9 solid;
+    transition: .7s;
+}
+
+#menuHeadMenuSmall {
+    display: flex;
+    gap: 8px;
+    padding-bottom: 2px;
+    border-bottom: 2px #403F3D solid;
+}
+
+#homeHeadMenuSmall p {
+    line-height: 24px;
+}
+
+#homeHeadMenuSmall:hover {
+    border-bottom: 2px #403F3D solid;
+    cursor: pointer;
+    transition: .7s;
+}
+
+#homeHeadMenuSmall img {
+    margin-bottom: 4px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+#homeEnjoy {
+    display: flex;
+    width: 1160px;
+    border-radius: 40px;
+    margin: 20px 40px 0px 40px;
+    padding: 100px;
+    background: url(images/enjoy_home_picture.png) lightgray 50% / cover;
+    justify-content: flex-start;
+    align-self: stretch;
+}
+
+#homeEnjoyText {
+    display: flex;
+    flex-direction: column;
+    width: 530px;
+    color: #E1D4C9;
+}
+
+#homeMenuButtonText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    transform: translateX(14px);
+    transition: .7s;
+}
+
+#homeMenuButtonText img {
+    opacity: 0;
+    transition: .7s;
+}
+
+#homeMenuButton:hover img {
+    opacity: 1;
+    transition: .7s;
+}
+
+#homeMenuButton:hover #homeMenuButtonText {
+    transform: translateX(0px);
+    transition: .7s;
+}
+
+h1 {
+    color: #E1D4C9;
+    font-size: 72px;
+    line-height: 76px;
+    font-weight: 600;
+}
+
+h1 span {
+    font-style: italic;
+    color: #B0907A;
+}
+
+#homeEnjoyText p {
+    font-family: 'Inter-light';
+    margin: 40px 0px;
+    font-size: 16px;
+    line-height: 150%;
+}
+
+#homeMenuButtonText p {
+    font-family: 'Inter';
+    margin: 0px;
+}
+
+#homeMenuButton {
+    width: 44px;
+    border-radius: 100px;
+    background-color: #E1D4C9;
+    padding: 20px 78px;
+    color: #403F3D;
+    border: none;
+    line-height: 150%;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#homeFavoriteCoffee {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 100px 40px 0px 40px;
+}
+
+h2 {
+    color: #403F3D;
+    font-size: 60px;
+    line-height: 125%;
+}
+
+h2 span {
+    color: #B0907A;
+    font-style: italic;
+}
+
+#homeFavoriteCoffeeSlider {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    gap: 40px;
+}
+
+#homeBeverages {
+    display: flex;
+    flex-direction: column;
+    width: 1152px;
+    align-items: center;
+}
+
+#homeBeverages img {
+    width: 480px;
+    height: 480px;
+}
+
+#homeBeveragesData {
+    display: flex;
+    flex-direction: column;
+    width: 480px;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+    color: #403F3D;
+    margin-top: 20px;
+}
+
+#homeBeveragesData h3 {
+    font-size: 24px;
+    line-height: 125%;
+}
+
+#homeBeveragesData p {
+    font-family: 'Inter-light';
+    font-size: 16px;
+    line-height: 150%;
+}
+
+.homeArrowCircle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 59px;
+    height: 59px;
+    border: 1px #665F55 solid;
+    border-radius: 100px;
+    transition: .7s;
+}
+
+.homeArrowCircle:hover {
+    background-color: #665F55;
+    cursor: pointer;
+    transition: .7s;
+}
+
+.hoveArrowCircle path {
+    transition: .7s;
+}
+
+.homeArrowCircle:hover path {
+    stroke: #E1D4C9;
+    transition: .7s;
+}
+
+#homeControls {
+    display: flex;
+    gap: 12px;
+    margin-top: 40px;
+}
+
+#homeControls hr {
+    border: none;
+    height: 4px;
+    width: 40px;
+    background-color: #C1B6AD;
+    transition: .7s;
+    cursor: pointer;
+}
+
+#homeControls hr:hover {
+    background-color: #665F55;
+    transition: .7s;
+}
+
+#homeControls hr.controlActive {
+    background-color: #665F55;
+}
+
+#homeAbout {
+    display: flex;
+    flex-direction: column;
+    margin: 100px 40px 0px 40px;
+}
+
+#homeAboutPhotos {
+    display: flex;
+    margin-top: 40px;
+    gap: 40px;
+}
+
+#homeAboutPhotosLeft, #homeAboutPhotosRight {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.photoDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    width: 660px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.smallPhotoDiv {
+    height: 430px;
+}
+
+.bigPhotoDiv {
+    height: 590px;
+}
+
+.photoDiv img {
+    max-width: 100%;
+    scale: 1.1;
+    transition: .7s;
+}
+
+.photoDiv:hover img {
+    scale: 1;
+    transition: .7s;
+}
+
+#homeMobileApp {
+    margin: 100px 40px 0px 40px;
+    display: flex;
+    gap: 100px;
+}
+
+#homeMobileAppLeft {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+#homeMobileAppDescription {
+    font-family: 'Inter-light';
+    color: #403F3D;
+    font-size: 16px;
+    line-height: 150%;
+}
+
+#homeMobileAppButtons {
+    display: flex;
+    gap: 20px;
+}
+
+.homeMobileAppButton {
+    display: flex;
+    width: 158px;
+    padding: 12px 20px;
+    border-radius: 100px;
+    border: 1px #665F55 solid;
+    color: #403F3D;
+    background-color: #E1D4C9;
+    gap: 0px;
+    transition: .7s;
+}
+
+.homeMobileAppDiv {
+    display: flex;
+    width: initial;
+    gap: 8px;
+}
+
+.homeDownloadButton {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: flex-start;
+}
+
+.smallText {
+    font-size: 10px;
+    line-height: 140%;
+}
+
+.bigText {
+    font-size: 16px;
+    line-height: 150%;
+}
+
+.homeMobileAppButton:hover {
+    background-color: #665F55;
+    color: #E1D4C9;
+    cursor: pointer;
+    transition: .7s;
+}
+
+.homeMobileAppButton path {
+    transition: .7s;
+}
+
+.homeMobileAppButton:hover path {
+    fill: #E1D4C9;
+    transition: .7s;
+}
+
+#homeFooter {
+    display: flex;
+    margin: 100px 40px 40px 40px;
+    border-radius: 40px;
+    padding: 100px;
+    gap: 100px;
+    background-color: #665F55;
+}
+
+#homeFooter h2 {
+    width: 530px;
+    color: #E1D4C9;
+}
+
+#homeFooterLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+#homeFooterLeftIcons {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.footerSocialNetworks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 59px;
+    height: 59px;
+    border-radius: 100px;
+    border: 1px #C1B6AD solid;
+    transition: .7s;
+}
+
+.footerSocialNetworks:hover {
+    border: 1px #E1D4C9 solid;
+    background-color: #E1D4C9;
+    transition: .7s;
+    cursor: pointer;
+}
+
+.footerSocialNetworks path {
+    transition: .7s;
+}
+
+.footerSocialNetworks:hover path {
+    stroke: #403F3D;
+    transition: .7s;
+}
+
+#homeFooterRight {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 40px;
+}
+
+#homeFooterRight h3 {
+    font-size: 24px;
+    color: #E1D4C9;
+    line-height: 125%;
+}
+
+#homeFooterRightSmallText {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+#homeFooterRightSmallText p {
+    display: inline-flex;
+    align-items: flex-start;
+    width: 69%;
+    padding-bottom: 2px;
+    border-bottom: 2px #665F55 solid;
+    transition: .7s;
+    font-size: 16px;
+    line-height: 150%;
+    gap: 8px;
+    color: #E1D4C9;
+}
+
+#homeFooterRightSmallText a {
+    color: #E1D4C9;
+}
+
+#homeFooterRightSmallText p:last-child {
+    width: auto;
+}
+
+#homeFooterRightSmallText p:hover {
+    border-bottom: 2px #E1D4C9 solid;
+    transition: .7s;
+    cursor: pointer;
+}
+
+#menuTitle {
+    margin-top: 20px;
+    display: flex;
+    width: 800px;
+    justify-content: center;
+    align-items: center;
+}
+
+#menuTitle h1 {
+    color: #403F3D;
+    font-size: 60px;
+    line-height: 125%;
+    text-align: center;
+}
+
+#menuMenu {
+    margin-left: 40px;
+    margin-right: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.menuMenuButtons {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.menuMenuButton {
+    display: flex;
+    padding: 7px 16px 7px 7px;
+    gap: 8px;
+    align-items: center;
+    border: 1px #C1B6AD solid;
+    border-radius: 100px;
+    color: #403F3D;
+    background-color: transparent;
+    transition: .7s;
+}
+
+.menuMenuButtonsIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    width: 30px;
+    height: 30px;
+    background-color: #C1B6AD;
+    transition: .7s;
+}
+
+.menuMenuButtons .menuMenuButtonsActive {
+    color: #E1D4C9;
+    background-color: #665F55;
+    border: 1px #665F55 solid;
+}
+
+.menuMenuButtons .menuMenuButtonsActive .menuMenuButtonsIcon {
+    background-color: #E1D4C9;
+}
+
+.menuMenuButton:hover {
+    background-color: #665F55;
+    border-color: #665F55;
+    color: #E1D4C9;
+    transition: .7s;
+    cursor: pointer;
+}
+
+.menuMenuButton:hover .menuMenuButtonsIcon {
+    background-color: #E1D4C9;
+    transition: .7s;
+}
+
+#menuMenuTop {
+    display: flex;
+    gap: 40px;
+}
+
+.menuMenuPosition {
+    display: flex;
+    flex-direction: column;
+    width: 308px;
+    height: 504px;
+    border-radius: 40px;
+    border: 1px #C1B6AD solid;
+    cursor: pointer;
+}
+
+.menuMenuPositionPhoto {
+    display: flex;
+    border-radius: 40px;
+    width: 309px;
+    height: 310px;
+    overflow: hidden;
+}
+
+.menuMenuPositionPhoto img {
+    scale: 1.1;
+    transition: .7s;
+}
+
+.menuMenuPosition:hover img {
+    scale: 1;
+    transition: .7s;
+}
+
+.menuMenuPositionData {
+    height: 155px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 20px;
+    color: #403F3D;
+}
+
+.menuMenuCoffeeTitle {
+    font-size: 24px;
+    line-height: 125%;
+}
+
+.menuMenuCoffeeDescription {
+    font-family: 'Inter-light';
+    font-size: 16px;
+    line-height: 150%;
+}
+
+.descriptionMenu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#menuMenuBottom {
+    display: flex;
+    gap: 40px;
+}
