@@ -1,6 +1,14 @@
 @font-face {
+    font-family: 'Inter-light';
+    src: url(fonts/Inter-Regular.ttf);
+    font-weight: light;
+}
+
+
+@font-face {
     font-family: 'Inter';
-    src: url(fonts/Inter-V.ttf);
+    src: url(fonts/Inter-SemiBold.ttf);
+    font-weight: normal;
 }
 
 * {
@@ -29,6 +37,7 @@ header {
     display: flex;
     margin: 20px 40px 0px 40px;
     font-size: 16px;
+    font-weight: 600;
     justify-content: space-between;
 }
 
@@ -45,7 +54,6 @@ nav {
 
 #homeHeadCenter {
     display: flex;
-    width: 100%;
     list-style: none;
     justify-content: center;
     align-items: center;
@@ -118,7 +126,7 @@ main {
     border-radius: 40px;
     margin: 20px 40px 0px 40px;
     padding: 100px;
-    background-image: url(images/enjoy_home_picture.png);
+    background: url(images/enjoy_home_picture.png) lightgray 50% / cover;
     justify-content: flex-start;
     align-self: stretch;
 }
@@ -167,17 +175,19 @@ h1 span {
 }
 
 #homeEnjoyText p {
+    font-family: 'Inter-light';
     margin: 40px 0px;
     font-size: 16px;
     line-height: 150%;
 }
 
 #homeMenuButtonText p {
+    font-family: 'Inter';
     margin: 0px;
 }
 
 #homeMenuButton {
-    width: 200px;
+    width: 44px;
     border-radius: 100px;
     background-color: #E1D4C9;
     padding: 20px 78px;
@@ -210,6 +220,7 @@ h2 span {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 40px;
     gap: 40px;
 }
 
@@ -218,7 +229,6 @@ h2 span {
     flex-direction: column;
     width: 1152px;
     align-items: center;
-    margin-top: 40px;
 }
 
 #homeBeverages img {
@@ -243,6 +253,7 @@ h2 span {
 }
 
 #homeBeveragesData p {
+    font-family: 'Inter-light';
     font-size: 16px;
     line-height: 150%;
 }
@@ -359,6 +370,7 @@ h2 span {
 }
 
 #homeMobileAppDescription {
+    font-family: 'Inter-light';
     color: #403F3D;
     font-size: 16px;
     line-height: 150%;
@@ -370,17 +382,20 @@ h2 span {
 }
 
 .homeMobileAppButton {
-    width: 200px;
+    display: flex;
+    width: 158px;
     padding: 12px 20px;
     border-radius: 100px;
     border: 1px #665F55 solid;
     color: #403F3D;
     background-color: #E1D4C9;
+    gap: 0px;
     transition: .7s;
 }
 
 .homeMobileAppDiv {
     display: flex;
+    width: initial;
     gap: 8px;
 }
 
@@ -427,6 +442,7 @@ h2 span {
 }
 
 #homeFooter h2 {
+    width: 530px;
     color: #E1D4C9;
 }
 
@@ -492,7 +508,7 @@ h2 span {
 #homeFooterRightSmallText p {
     display: inline-flex;
     align-items: flex-start;
-    width: 67%;
+    width: 69%;
     padding-bottom: 2px;
     border-bottom: 2px #665F55 solid;
     transition: .7s;
