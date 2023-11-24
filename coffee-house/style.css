@@ -612,7 +612,8 @@ h2 span {
 .menuMenuPosition {
     display: flex;
     flex-direction: column;
-    width: 310px;
+    width: 308px;
+    height: 504px;
     border-radius: 40px;
     border: 1px #C1B6AD solid;
     cursor: pointer;
@@ -621,7 +622,7 @@ h2 span {
 .menuMenuPositionPhoto {
     display: flex;
     border-radius: 40px;
-    width: 310px;
+    width: 309px;
     height: 310px;
     overflow: hidden;
 }
@@ -637,10 +638,11 @@ h2 span {
 }
 
 .menuMenuPositionData {
+    height: 155px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+    justify-content: space-between;
     padding: 20px;
     color: #403F3D;
 }
@@ -651,12 +653,18 @@ h2 span {
 }
 
 .menuMenuCoffeeDescription {
+    font-family: 'Inter-light';
     font-size: 16px;
     line-height: 150%;
+}
+
+.descriptionMenu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 #menuMenuBottom {
     display: flex;
     gap: 40px;
-    margin-top: 40px;
 }
