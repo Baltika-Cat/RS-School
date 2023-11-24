@@ -369,7 +369,7 @@ h2 span {
     gap: 20px;
 }
 
-#homeMobileAppButtons button {
+.homeMobileAppButton {
     width: 200px;
     padding: 12px 20px;
     border-radius: 100px;
@@ -401,18 +401,18 @@ h2 span {
     line-height: 150%;
 }
 
-#homeMobileAppButtons button:hover {
+.homeMobileAppButton:hover {
     background-color: #665F55;
     color: #E1D4C9;
     cursor: pointer;
     transition: .7s;
 }
 
-#homeMobileAppButtons button path {
+.homeMobileAppButton path {
     transition: .7s;
 }
 
-#homeMobileAppButtons button:hover path {
+.homeMobileAppButton:hover path {
     fill: #E1D4C9;
     transition: .7s;
 }
@@ -542,7 +542,7 @@ h2 span {
     gap: 16px;
 }
 
-.menuMenuButtons button {
+.menuMenuButton {
     display: flex;
     padding: 7px 16px 7px 7px;
     gap: 8px;
@@ -575,7 +575,7 @@ h2 span {
     background-color: #E1D4C9;
 }
 
-#menuMenuButtonsCoffee:hover {
+.menuMenuButton:hover {
     background-color: #665F55;
     border-color: #665F55;
     color: #E1D4C9;
@@ -583,33 +583,7 @@ h2 span {
     cursor: pointer;
 }
 
-#menuMenuButtonsCoffee:hover .menuMenuButtonsIcon {
-    background-color: #E1D4C9;
-    transition: .7s;
-}
-
-#menuMenuButtonsTea:hover {
-    background-color: #665F55;
-    border-color: #665F55;
-    color: #E1D4C9;
-    transition: .7s;
-    cursor: pointer;
-}
-
-#menuMenuButtonsTea:hover .menuMenuButtonsIcon {
-    background-color: #E1D4C9;
-    transition: .7s;
-}
-
-#menuMenuButtonsDessert:hover {
-    background-color: #665F55;
-    border-color: #665F55;
-    color: #E1D4C9;
-    transition: .7s;
-    cursor: pointer;
-}
-
-#menuMenuButtonsDessert:hover .menuMenuButtonsIcon {
+.menuMenuButton:hover .menuMenuButtonsIcon {
     background-color: #E1D4C9;
     transition: .7s;
 }
