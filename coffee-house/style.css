@@ -518,6 +518,10 @@ h2 span {
     color: #E1D4C9;
 }
 
+#homeFooterRightSmallText a {
+    color: #E1D4C9;
+}
+
 #homeFooterRightSmallText p:last-child {
     width: auto;
 }
