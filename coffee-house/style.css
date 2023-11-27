@@ -61,15 +61,26 @@ nav {
 }
 
 #homeHeadCenter li {
-    padding-bottom: 2px;
     line-height: 150%;
-    border-bottom: 2px #E1D4C9 solid; 
     transition: .7s;
+    cursor: pointer;
 }
 
-#homeHeadCenter li:hover {
-    border-bottom: 2px #403F3D solid;
+#homeHeadCenter li:after {
+    content: '';
+    width: 0px;
+    height: 2px;
+    display: block;
+    margin: 2px auto;
+    background-color: #403F3D;
     transition: .7s;
+    cursor: pointer;
+}
+
+#homeHeadCenter li:hover:after {
+    width: 100%;
+    transition: .7s;
+    cursor: pointer;
 }
 
 #homeHeadCenter a {
@@ -86,9 +97,6 @@ nav {
 #homeHeadMenuSmall {
     display: flex;
     gap: 8px;
-    padding-bottom: 2px;
-    position: relative;
-    border-bottom: 2px #E1D4C9 solid;
     transition: .7s;
 }
 
@@ -103,8 +111,19 @@ nav {
     line-height: 24px;
 }
 
-#homeHeadMenuSmall:hover {
-    border-bottom: 2px #403F3D solid;
+#homeHeadMenu a:after {
+    content: '';
+    width: 0px;
+    height: 2px;
+    display: block;
+    margin: 2px auto;
+    background-color: #403F3D;
+    transition: .7s;
+    cursor: pointer;
+}
+
+#homeHeadMenu a:hover:after {
+    width: 100%;
     cursor: pointer;
     transition: .7s;
 }
@@ -463,8 +482,8 @@ h2 span {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 59px;
-    height: 59px;
+    width: 58px;
+    height: 58px;
     border-radius: 100px;
     border: 1px #C1B6AD solid;
     transition: .7s;
@@ -501,6 +520,7 @@ h2 span {
 
 #homeFooterRightSmallText {
     display: flex;
+    align-items: flex-start;
     flex-direction: column;
     gap: 16px;
 }
@@ -508,9 +528,6 @@ h2 span {
 #homeFooterRightSmallText p {
     display: inline-flex;
     align-items: flex-start;
-    width: 69%;
-    padding-bottom: 2px;
-    border-bottom: 2px #665F55 solid;
     transition: .7s;
     font-size: 16px;
     line-height: 150%;
@@ -518,16 +535,27 @@ h2 span {
     color: #E1D4C9;
 }
 
+#homeFooterRightSmallText > p {
+    padding-bottom: 2px;
+}
+
 #homeFooterRightSmallText a {
     color: #E1D4C9;
 }
 
-#homeFooterRightSmallText p:last-child {
-    width: auto;
+#homeFooterRightSmallText a:after {
+    content: '';
+    width: 0px;
+    height: 2px;
+    display: block;
+    margin: 2px auto 0px auto;
+    background-color: #E1D4C9;
+    transition: .7s;
+    cursor: pointer;
 }
 
-#homeFooterRightSmallText p:hover {
-    border-bottom: 2px #E1D4C9 solid;
+#homeFooterRightSmallText a:hover:after {
+    width: 100%;
     transition: .7s;
     cursor: pointer;
 }
