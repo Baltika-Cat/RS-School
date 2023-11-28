@@ -28,7 +28,8 @@ html {
 body {
     display: flex;
     flex-direction: column;
-    width: 1440px;
+    max-width: 1440px;
+    width: 100%;
     font-family: 'Inter';
     margin: 0px auto;
 }
@@ -141,19 +142,21 @@ main {
 
 #homeEnjoy {
     display: flex;
-    width: 1160px;
+    max-width: 1360px;
+    width: 94%;
     border-radius: 40px;
-    margin: 20px 40px 0px 40px;
-    padding: 100px;
+    margin: 20px auto 0px auto;
     background: url(images/enjoy_home_picture.png) lightgray 50% / cover;
     justify-content: flex-start;
     align-self: stretch;
 }
 
 #homeEnjoyText {
+    margin: 100px;
     display: flex;
     flex-direction: column;
-    width: 530px;
+    max-width: 530px;
+    width: 100%;
     color: #E1D4C9;
 }
 
@@ -246,19 +249,22 @@ h2 span {
 #homeBeverages {
     display: flex;
     flex-direction: column;
-    width: 1152px;
+    max-width: 1152px;
+    width: 100%;
     align-items: center;
 }
 
 #homeBeverages img {
-    width: 480px;
+    max-width: 480px;
+    width: 100%;
     height: 480px;
 }
 
 #homeBeveragesData {
     display: flex;
     flex-direction: column;
-    width: 480px;
+    max-width: 480px;
+    width: 100%;
     align-items: center;
     text-align: center;
     gap: 16px;
@@ -350,7 +356,8 @@ h2 span {
     justify-content: center;
     align-items: center;
     border-radius: 20px;
-    width: 660px;
+    max-width: 660px;
+    width: 100%;
     overflow: hidden;
     cursor: pointer;
 }
@@ -364,7 +371,7 @@ h2 span {
 }
 
 .photoDiv img {
-    max-width: 100%;
+    width: 100%;
     scale: 1.1;
     transition: .7s;
 }
@@ -377,11 +384,16 @@ h2 span {
 #homeMobileApp {
     margin: 100px 40px 0px 40px;
     display: flex;
+    justify-content: center;
+    align-items: space-between;
+    flex-wrap: wrap;
     gap: 100px;
 }
 
 #homeMobileAppLeft {
     display: flex;
+    max-width: 630px;
+    width: 50%;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
@@ -461,7 +473,8 @@ h2 span {
 }
 
 #homeFooter h2 {
-    width: 530px;
+    max-width: 530px;
+    width: 100%;
     color: #E1D4C9;
 }
 
@@ -563,7 +576,8 @@ h2 span {
 #menuTitle {
     margin-top: 20px;
     display: flex;
-    width: 800px;
+    max-width: 800px;
+    width: 100%;
     justify-content: center;
     align-items: center;
 }
