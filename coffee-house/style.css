@@ -222,6 +222,7 @@ h1 span {
 
 #homeFavoriteCoffee {
     display: flex;
+    width: 100%;
     flex-direction: column;
     align-items: center;
     margin: 100px 40px 0px 40px;
@@ -240,17 +241,18 @@ h2 span {
 
 #homeFavoriteCoffeeSlider {
     display: flex;
+    max-width: 1360px;
+    width: 94%;
     justify-content: space-between;
     align-items: center;
-    margin-top: 40px;
-    gap: 40px;
+    margin: 40px;
 }
 
 #homeBeverages {
     display: flex;
     flex-direction: column;
     max-width: 1152px;
-    width: 100%;
+    width: 80%;
     align-items: center;
 }
 
@@ -383,6 +385,8 @@ h2 span {
 
 #homeMobileApp {
     margin: 100px 40px 0px 40px;
+    max-width: 1360px;
+    width: 95%;
     display: flex;
     justify-content: center;
     align-items: space-between;
@@ -393,11 +397,15 @@ h2 span {
 #homeMobileAppLeft {
     display: flex;
     max-width: 630px;
-    width: 50%;
+    width: 46.4%;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     gap: 40px;
+}
+
+#homeMobileAppTitle {
+    text-align: left;
 }
 
 #homeMobileAppDescription {
@@ -463,8 +471,14 @@ h2 span {
     transition: .7s;
 }
 
+#homeMobilePhones {
+    display: flex;
+    max-width: 630px;
+}
+
 #homeFooter {
     display: flex;
+    flex-wrap: wrap;
     margin: 100px 40px 40px 40px;
     border-radius: 40px;
     padding: 100px;
@@ -479,6 +493,7 @@ h2 span {
 }
 
 #homeFooterLeft {
+    width: 50%;
     display: flex;
     flex-direction: column;
     gap: 40px;
@@ -519,6 +534,7 @@ h2 span {
 }
 
 #homeFooterRight {
+    width: 50%;
     display: inline-flex;
     flex-direction: column;
     justify-content: center;
