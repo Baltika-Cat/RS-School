@@ -378,10 +378,8 @@ h2 span {
     left: calc(50% + 33px);
     transform: translateX(-50%);
     width: 660px;
-    object-fit: cover;
     scale: 1.1;
     transition: .7s;
-    flex-shrink: 0;
 }
 
 .smallPhoto {
@@ -431,7 +429,7 @@ h2 span {
 .homeMobileAppButton {
     display: flex;
     width: 158px;
-    padding: 12px 20px;
+    padding: 11px 20px;
     border-radius: 100px;
     border: 1px #665F55 solid;
     color: #403F3D;
@@ -744,6 +742,7 @@ h2 span {
 
     .photoDiv:hover img {
         scale: 1;
+        transform: translateX(calc((-50%) - 33px));
         transition: .7s;
     }
 
@@ -797,9 +796,19 @@ h2 span {
 }
 
 @media screen and (max-width: 768px) {
+    header {
+        align-items: center;
+    }
+
+    #homeEnjoy {
+        margin-left: 40px;
+        margin-right: 40px;
+        max-width: 688px;
+        width: 89.6%;
+    }
 
     #homeEnjoyText {
-        margin: 60px 0px;
+        margin: 100px 0px;
         margin-left: calc(2.4px + 7.5vw);
         margin-right: calc(2.4px + 7.5vw);
         max-width: 530px;
@@ -812,9 +821,34 @@ h2 span {
         font-size: calc(13.632px + 7.6vw);
     }
 
+    #homeMenuButtonText {
+        transform: translateX(0px);
+    }
+
+    #homeMenuButtonText img {
+        opacity: 1;
+    }
+
+    #homeFavoriteCoffeeSlider {
+        max-width: 688px;
+    }
+
+    #homeBeverages {
+        max-width: 480px;
+    }
+
+    .homeArrowCircle {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
     #homeAbout {
         max-width: 688px;
         width: 89.6%;
+    }
+
+    #homeAboutPhotosLeft, #homeAboutPhotosRight {
+        max-width: 688px;
     }
 
     .photoDiv {
@@ -848,6 +882,19 @@ h2 span {
 
     #burger-icon {
         display: flex;
+    }
+
+    #homeFooter {
+        max-width: 688px;
+        justify-content: space-between;
+    }
+
+    #homeFooterLeft {
+        margin-left: calc(21.6px + 5vw);
+    }
+
+    #homeFooterRight {
+        margin-left: calc(21.6px + 5vw);
     }
 }
 
