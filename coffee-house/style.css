@@ -309,10 +309,12 @@ h2 span {
 
 .homeArrowCircle {
     display: flex;
+    flex-shrink: 0;
+    flex-grow: 0;
     justify-content: center;
     align-items: center;
-    width: 59px;
-    height: 59px;
+    width: 58px;
+    height: 58px;
     border: 1px #665F55 solid;
     border-radius: 100px;
     transition: .7s;
@@ -504,8 +506,10 @@ h2 span {
     display: flex;
     max-width: 630px;
     width: 100%;
+    min-width: 348px;
     max-height: 630px;
     height: 100%;
+    min-height: 348px;
 }
 
 #homeFooter {
@@ -525,6 +529,7 @@ h2 span {
 #homeFooter h2 {
     max-width: 530px;
     width: 100%;
+    min-width: 316px;
     color: #E1D4C9;
 }
 
@@ -785,6 +790,10 @@ h2 span {
         font-size: calc(13.632px + 7.6vw);
     }
 
+    #homeFavoriteCoffee {
+        
+    }
+
     #homeAbout {
         max-width: 688px;
         width: 89.6%;
@@ -840,5 +849,40 @@ h2 span {
     #homeEnjoyText h1 {
         font-size: 42px;
         line-height: 115%;
+    }
+
+    #homeFavoriteCoffeeTitle {
+        font-size: 32px;
+        width: 348px;
+    }
+
+    #homeMobileAppButtons {
+        flex-wrap: wrap;
+    }
+
+    .homeArrowCircle {
+        display: none;
+    }
+
+    #homeFavoriteCoffeeSlider {
+        justify-content: center;
+    }
+
+    #homeAbout h2 {
+        font-size: 32px;
+        width: 348px;
+    }
+
+    #homeMobileAppTitle {
+        font-size: 32px;
+        width: 348px;
+    }
+
+    #homeFooter h2 {
+        font-size: 32px;
+    }
+
+    #homeFooter br {
+        display: none;
     }
 }
