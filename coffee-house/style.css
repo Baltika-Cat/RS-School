@@ -585,9 +585,12 @@ h2 span {
     margin-top: 20px;
     display: flex;
     max-width: 800px;
-    width: 100%;
+    width: 89.5%;
+    min-width: 688px;
     justify-content: center;
     align-items: center;
+    margin-left: 40px;
+    margin-right: 40px;
 }
 
 #menuTitle h1 {
@@ -595,6 +598,8 @@ h2 span {
     font-size: 60px;
     line-height: 125%;
     text-align: center;
+    max-width: 800px;
+    width: 100%;
 }
 
 #menuMenu {
@@ -647,7 +652,9 @@ h2 span {
 
 #menuMenuTop {
     display: flex;
+    flex-wrap: wrap;
     gap: 40px;
+    justify-content: center;
 }
 
 .menuMenuPosition {
@@ -702,7 +709,16 @@ h2 span {
 
 #menuMenuBottom {
     display: flex;
+    flex-wrap: wrap;
     gap: 40px;
+    justify-content: center;
+}
+
+.menuMenuTwoPositions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
 }
 
 @media (hover: hover) {
