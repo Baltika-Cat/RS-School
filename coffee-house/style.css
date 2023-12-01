@@ -1036,8 +1036,15 @@ h2 span {
     }
 
     #menuTitle {
-        font-size: 32px;
         min-width: 348px;
         width: 91.5%;
+    }
+
+    #menuTitle h1 {
+        font-size: 32px;
+    }
+
+    .menuMenuButtons {
+        gap: 8px;
     }
 }
