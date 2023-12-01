@@ -252,14 +252,17 @@ h2 span {
     flex-direction: column;
     max-width: 1152px;
     width: 80%;
+    min-width: 348px;
     align-items: center;
 }
 
 #homeBeverages img {
     max-width: 480px;
     width: 100%;
+    min-width: 348px;
     max-height: 480px;
     height: 100%;
+    min-height: 348px;
 }
 
 #homeBeveragesData {
@@ -394,6 +397,7 @@ h2 span {
     margin: 100px 40px 0px 40px;
     max-width: 1360px;
     width: 94.5%;
+    min-width: 348px;
     display: flex;
     justify-content: center;
     align-items: space-between;
@@ -805,6 +809,7 @@ h2 span {
         margin-right: 40px;
         max-width: 688px;
         width: 89.6%;
+        min-width: 348px;
     }
 
     #homeEnjoyText {
@@ -899,13 +904,20 @@ h2 span {
 }
 
 @media screen and (max-width: 530px) {
+    header {
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+
     #homeEnjoy {
         margin: 20px 16px 0px;
     }
 
     #homeEnjoyText {
+        margin-top: 60px;
         margin-left: calc(0.8px + 4vw);
         margin-right: calc(0.8px + 4vw);
+        margin-bottom: 60px;
         width: 316px;
     }
 
@@ -917,6 +929,8 @@ h2 span {
     #homeFavoriteCoffee {
         margin-left: 16px;
         margin-right: 16px;
+        width: 91.5%;
+        min-width: 348px;
     }
 
     #homeFavoriteCoffeeTitle {
@@ -946,6 +960,10 @@ h2 span {
         width: 348px;
     }
 
+    #homeMobileApp {
+        gap: 40px;
+    }
+
     #homeMobileAppTitle {
         font-size: 32px;
         width: 348px;
@@ -957,5 +975,21 @@ h2 span {
 
     #homeFooter br {
         display: none;
+    }
+
+    #homeFooter {
+        width: 91.5%;
+        min-width: 348px;
+        padding-top: 60px;
+        padding-bottom: 60px;
+        gap: 40px;
+    }
+
+    #homeFooterLeft {
+        margin-left: 16px;
+    }
+
+    #homeFooterRight {
+        margin-left: 16px;
     }
 }
