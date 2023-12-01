@@ -79,12 +79,6 @@ nav {
     cursor: pointer;
 }
 
-#homeHeadCenter li:hover:after {
-    width: 100%;
-    transition: .7s;
-    cursor: pointer;
-}
-
 #homeHeadCenter a {
     text-decoration: none;
     color: #403F3D;
@@ -124,12 +118,6 @@ nav {
     background-color: #403F3D;
     transition: .7s;
     cursor: pointer;
-}
-
-#homeHeadMenu a:hover:after {
-    width: 100%;
-    cursor: pointer;
-    transition: .7s;
 }
 
 #homeHeadMenuSmall img {
@@ -186,16 +174,6 @@ main {
 
 #homeMenuButtonText img {
     opacity: 0;
-    transition: .7s;
-}
-
-#homeMenuButton:hover img {
-    opacity: 1;
-    transition: .7s;
-}
-
-#homeMenuButton:hover #homeMenuButtonText {
-    transform: translateX(0px);
     transition: .7s;
 }
 
@@ -308,6 +286,8 @@ h2 span {
 }
 
 .homeArrowCircle {
+    margin-left: 4px;
+    margin-right: 4px;
     display: flex;
     flex-shrink: 0;
     flex-grow: 0;
@@ -320,18 +300,7 @@ h2 span {
     transition: .7s;
 }
 
-.homeArrowCircle:hover {
-    background-color: #665F55;
-    cursor: pointer;
-    transition: .7s;
-}
-
 .hoveArrowCircle path {
-    transition: .7s;
-}
-
-.homeArrowCircle:hover path {
-    stroke: #E1D4C9;
     transition: .7s;
 }
 
@@ -347,11 +316,6 @@ h2 span {
     background-color: #C1B6AD;
     transition: .7s;
     cursor: pointer;
-}
-
-#homeControls hr:hover {
-    background-color: #665F55;
-    transition: .7s;
 }
 
 #homeControls hr.controlActive {
@@ -428,11 +392,6 @@ h2 span {
     top: -35px;
 }
 
-.photoDiv:hover img {
-    scale: 1;
-    transition: .7s;
-}
-
 #homeMobileApp {
     margin: 100px 40px 0px 40px;
     max-width: 1360px;
@@ -504,19 +463,7 @@ h2 span {
     line-height: 150%;
 }
 
-.homeMobileAppButton:hover {
-    background-color: #665F55;
-    color: #E1D4C9;
-    cursor: pointer;
-    transition: .7s;
-}
-
 .homeMobileAppButton path {
-    transition: .7s;
-}
-
-.homeMobileAppButton:hover path {
-    fill: #E1D4C9;
     transition: .7s;
 }
 
@@ -577,19 +524,7 @@ h2 span {
     transition: .7s;
 }
 
-.footerSocialNetworks:hover {
-    border: 1px #E1D4C9 solid;
-    background-color: #E1D4C9;
-    transition: .7s;
-    cursor: pointer;
-}
-
 .footerSocialNetworks path {
-    transition: .7s;
-}
-
-.footerSocialNetworks:hover path {
-    stroke: #403F3D;
     transition: .7s;
 }
 
@@ -640,12 +575,6 @@ h2 span {
     display: block;
     margin: 2px auto 0px auto;
     background-color: #E1D4C9;
-    transition: .7s;
-    cursor: pointer;
-}
-
-#homeFooterRightSmallText a:hover:after {
-    width: 100%;
     transition: .7s;
     cursor: pointer;
 }
@@ -714,19 +643,6 @@ h2 span {
     background-color: #E1D4C9;
 }
 
-.menuMenuButton:hover {
-    background-color: #665F55;
-    border-color: #665F55;
-    color: #E1D4C9;
-    transition: .7s;
-    cursor: pointer;
-}
-
-.menuMenuButton:hover .menuMenuButtonsIcon {
-    background-color: #E1D4C9;
-    transition: .7s;
-}
-
 #menuMenuTop {
     display: flex;
     gap: 40px;
@@ -752,11 +668,6 @@ h2 span {
 
 .menuMenuPositionPhoto img {
     scale: 1.1;
-    transition: .7s;
-}
-
-.menuMenuPosition:hover img {
-    scale: 1;
     transition: .7s;
 }
 
@@ -790,6 +701,99 @@ h2 span {
 #menuMenuBottom {
     display: flex;
     gap: 40px;
+}
+
+@media (hover: hover) {
+    #homeHeadCenter li:hover:after {
+        width: 100%;
+        transition: .7s;
+        cursor: pointer;
+    }
+    
+    #homeHeadMenu a:hover:after {
+        width: 100%;
+        cursor: pointer;
+        transition: .7s;
+    }
+    
+    #homeMenuButton:hover img {
+        opacity: 1;
+        transition: .7s;
+    }
+
+    #homeMenuButton:hover #homeMenuButtonText {
+        transform: translateX(0px);
+        transition: .7s;
+    }
+        
+    .homeArrowCircle:hover {
+        background-color: #665F55;
+        cursor: pointer;
+        transition: .7s;
+    }
+
+    .homeArrowCircle:hover path {
+        stroke: #E1D4C9;
+        transition: .7s;
+    }
+
+    #homeControls hr:hover {
+        background-color: #665F55;
+        transition: .7s;
+    }
+
+    .photoDiv:hover img {
+        scale: 1;
+        transition: .7s;
+    }
+
+    .homeMobileAppButton:hover {
+        background-color: #665F55;
+        color: #E1D4C9;
+        cursor: pointer;
+        transition: .7s;
+    }
+
+    .homeMobileAppButton:hover path {
+        fill: #E1D4C9;
+        transition: .7s;
+    }
+
+    .footerSocialNetworks:hover {
+        border: 1px #E1D4C9 solid;
+        background-color: #E1D4C9;
+        transition: .7s;
+        cursor: pointer;
+    }
+
+    .footerSocialNetworks:hover path {
+        stroke: #403F3D;
+        transition: .7s;
+    }
+
+    #homeFooterRightSmallText a:hover:after {
+        width: 100%;
+        transition: .7s;
+        cursor: pointer;
+    }
+
+    .menuMenuButton:hover {
+        background-color: #665F55;
+        border-color: #665F55;
+        color: #E1D4C9;
+        transition: .7s;
+        cursor: pointer;
+    }
+
+    .menuMenuButton:hover .menuMenuButtonsIcon {
+        background-color: #E1D4C9;
+        transition: .7s;
+    }
+
+    .menuMenuPosition:hover img {
+        scale: 1;
+        transition: .7s;
+    }
 }
 
 @media screen and (max-width: 768px) {
