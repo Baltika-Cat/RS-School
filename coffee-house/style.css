@@ -608,6 +608,7 @@ h2 span {
     display: flex;
     flex-direction: column;
     gap: 40px;
+    align-items: center;
 }
 
 .menuMenuButtons {
@@ -719,6 +720,17 @@ h2 span {
     flex-wrap: wrap;
     gap: 40px;
     justify-content: center;
+}
+
+#menuRefreshButton {
+    display: flex;
+    width: 58px;
+    height: 58px;
+    justify-content: center;
+    align-items: center;
+    border: 1px #665F55 solid;
+    border-radius: 100px;
+    display: none;
 }
 
 @media (hover: hover) {
@@ -917,6 +929,20 @@ h2 span {
     #homeFooterRight {
         margin-left: calc(21.6px + 5vw);
     }
+
+    #menuTitle {
+        max-width: 688px;
+        width: 89.5%;
+        min-width: 348px;
+    }
+
+    #menuMenuBottom {
+        display: none;
+    }
+
+    #menuRefreshButton {
+        display: flex;
+    }
 }
 
 @media screen and (max-width: 530px) {
@@ -1007,5 +1033,11 @@ h2 span {
 
     #homeFooterRight {
         margin-left: 16px;
+    }
+
+    #menuTitle {
+        font-size: 32px;
+        min-width: 348px;
+        width: 91.5%;
     }
 }
