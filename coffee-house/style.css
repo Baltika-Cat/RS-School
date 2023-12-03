@@ -109,6 +109,10 @@ nav {
     line-height: 24px;
 }
 
+#homeHeadMenu a, #homeHeadMenu a:active {
+    color: #403F3D;
+}
+
 #homeHeadMenu a:after {
     content: '';
     width: 0px;
