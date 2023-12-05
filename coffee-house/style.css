@@ -671,7 +671,7 @@ h2 span {
 .menuMenuPositionPhoto {
     display: flex;
     border-radius: 40px;
-    width: 309px;
+    width: 308px;
     height: 310px;
     overflow: hidden;
 }
@@ -731,6 +731,135 @@ h2 span {
     border: 1px #665F55 solid;
     border-radius: 100px;
     display: none;
+}
+
+.menuModalWindow {
+    max-width: 768px;
+    width: 85.42%;
+    display: flex;
+    padding: 16px;
+    gap: 20px;
+    background-color: #E1D4C9;
+    border-radius: 40px;
+    position: fixed;
+    z-index: 101;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #403F3D;
+    display: none; 
+}
+
+.active {
+    display: flex;
+
+}
+
+.background {
+    position: fixed;
+    display: flex;
+    z-index: 100;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(64, 63, 61);
+    opacity: .8;
+    display: none;
+}
+
+.background.backgroundActive {
+    display: flex;
+}
+
+.menuPhotoPlace {
+    display: flex;
+    width: 310px;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.menuPhotoDiv {
+    display: flex;
+    width: 310px;
+    height: 310px;
+    border-radius: 40px;
+    overflow: hidden;
+}
+
+.menuPhotoDiv img {
+    scale: 1.1;
+}
+
+.menuDescriptionDiv {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.menuModalDescription {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.menuModalDescription h3 {
+    font-size: 24px;
+    line-height: 125%;
+}
+
+.menuDescriptionDiv p {
+    font-family: 'Inter-light';
+    font-size: 16px;
+    line-height: 150%;
+}
+
+.menuMenuModalButtons {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.menuModalTotalPrice {
+    display: flex;
+    gap: 20px;
+}
+
+.menuModalTotalPrice h3 {
+    font-size: 24px;
+    line-height: 125%;
+}
+
+.menuModalPrice {
+    text-align: right;
+}
+
+.menuModalWarning {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    padding: 12px 0px;
+}
+
+.menuModalWarning p {
+    font-size: 10px;
+    line-height: 140%;
+    font-family: 'Inter';
+}
+
+.menuModalCloseButton {
+    display: flex;
+    border-radius: 100px;
+    border: 1px #665F55 solid;
+    font-size: 16px;
+    line-height: 150%;
+    text-align: center;
+    justify-content: center;
+    padding: 9px 0px;
 }
 
 @media (hover: hover) {
@@ -825,6 +954,10 @@ h2 span {
         scale: 1;
         transition: .7s;
     }
+}
+
+.menuModalWindow .menuMenuButton:hover .menuMenuButtonsIcon {
+    color: #403F3D;
 }
 
 @media screen and (max-width: 768px) {
