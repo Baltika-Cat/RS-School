@@ -290,6 +290,7 @@
   {
     "name": "Moroccan",
     "description": "Fragrant black tea with the addition of tangerine, cinnamon, honey, lemon and mint",
+    "photo": "../images/morrocan.png",
     "price": "4.50",
     "category": "tea",
     "sizes": {
@@ -325,6 +326,7 @@
   {
     "name": "Ginger",
     "description": "Original black tea with fresh ginger, lemon and honey",
+    "photo": "../images/ginger.png",
     "price": "5.00",
     "category": "tea",
     "sizes": {
@@ -360,6 +362,7 @@
   {
     "name": "Cranberry",
     "description": "Invigorating black tea with cranberry and honey",
+    "photo": "../images/cranberry.png",
     "price": "5.00",
     "category": "tea",
     "sizes": {
@@ -395,6 +398,7 @@
   {
     "name": "Sea buckthorn",
     "description": "Toning sweet black tea with sea buckthorn, fresh thyme and cinnamon",
+    "photo": "../images/sea_backthorn.png",
     "price": "5.50",
     "category": "tea",
     "sizes": {
@@ -430,6 +434,7 @@
   {
     "name": "Marble cheesecake",
     "description": "Philadelphia cheese with lemon zest on a light sponge cake and red currant jam",
+    "photo": "../images/marble_cheesecake.png",
     "price": "3.50",
     "category": "dessert",
     "sizes": {
@@ -465,6 +470,7 @@
   {
     "name": "Red velvet",
     "description": "Layer cake with cream cheese frosting",
+    "photo": "../images/red_velvet.png",
     "price": "4.00",
     "category": "dessert",
     "sizes": {
@@ -500,6 +506,7 @@
   {
     "name": "Cheesecakes",
     "description": "Soft cottage cheese pancakes with sour cream and fresh berries and sprinkled with powdered sugar",
+    "photo": "../images/cheesecakes.png",
     "price": "4.50",
     "category": "dessert",
     "sizes": {
@@ -535,6 +542,7 @@
   {
     "name": "Creme brulee",
     "description": "Delicate creamy dessert in a caramel basket with wild berries",
+    "photo": "../images/creme_brulee.png",
     "price": "4.00",
     "category": "dessert",
     "sizes": {
@@ -570,6 +578,7 @@
   {
     "name": "Pancakes",
     "description": "Tender pancakes with strawberry jam and fresh strawberries",
+    "photo": "../images/pancakes.png",
     "price": "4.50",
     "category": "dessert",
     "sizes": {
@@ -605,6 +614,7 @@
   {
     "name": "Honey cake",
     "description": "Classic honey cake with delicate custard",
+    "photo": "../images/honey_cake.png",
     "price": "4.50",
     "category": "dessert",
     "sizes": {
@@ -640,6 +650,7 @@
   {
     "name": "Chocolate cake",
     "description": "Cake with hot chocolate filling and nuts with dried apricots",
+    "photo": "../images/chocolate_cake.png",
     "price": "5.50",
     "category": "dessert",
     "sizes": {
@@ -675,6 +686,7 @@
   {
     "name": "Black forest",
     "description": "A combination of thin sponge cake with cherry jam and light chocolate mousse",
+    "photo": "../images/black_forest.png",
     "price": "6.50",
     "category": "dessert",
     "sizes": {
