@@ -12,8 +12,17 @@ const menuModalPrice = document.querySelector('.menuModalPrice');
 const menuModalSizeButtons = [...document.querySelectorAll('.menuModalSize .menuMenuButton')];
 const menuModalAdditivesButtons = [...document.querySelectorAll('.menuModalAdditives .menuMenuButton')];
 const closeButton = document.querySelector('.menuModalCloseButton');
+const coffeeTeaDessertButtons = [...document.querySelectorAll('.menuMenuButtons .menuMenuButton')];
+const menuCoffee = [...document.querySelectorAll('.coffee')];
+const menuTea = [...document.querySelectorAll('.tea')];
+const menuDessert = [...document.querySelectorAll('.dessert')];
 
 let productIndex = 0;
+
+const menu = [menuCoffee, menuTea, menuDessert];
+const unactiveCoffeeTeaDessertButtons = function() {
+    coffeeTeaDessertButtons.map((item) => item.classList.remove('menuMenuButtonsActive'));
+}
 
 const unactiveMenuSizeButtons = function() {
     menuModalSizeButtons.map((item) => item.classList.remove('menuMenuButtonsActive'));
@@ -22,6 +31,21 @@ const unactiveMenuSizeButtons = function() {
 const unactiveMenuAdditivesButtons = function() {
     menuModalAdditivesButtons.map((item) => item.classList.remove('menuMenuButtonsActive'));
 }
+
+coffeeTeaDessertButtons.forEach((button) => {
+    button.addEventListener('click', function(e) {
+        unactiveCoffeeTeaDessertButtons();
+        button.classList.add('menuMenuButtonsActive');
+        console.log(button.textContent.trim().toLowerCase())
+        for (let i = 0; i < menu.length; i += 1) {
+            if (menu[i][0].classList.contains(button.textContent.trim().toLowerCase())) {
+                menu[i].map((item) => item.classList.add('menuOpen'));
+            } else {
+                menu[i].map((item) => item.classList.remove('menuOpen'));
+            }
+        }
+    })
+})
 
 let priceSum = 0;
 let indexOld = 0;

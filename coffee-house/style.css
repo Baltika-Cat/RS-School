@@ -651,12 +651,16 @@ h2 span {
     background-color: #E1D4C9;
 }
 
-#menuMenuTop {
+.menuMenuTop {
     display: flex;
     flex-wrap: wrap;
     gap: 40px;
+    row-gap: 40px;
+    column-gap: 40px;
     justify-content: center;
+    display: none;
 }
+
 
 .menuMenuPosition {
     display: flex;
@@ -708,11 +712,17 @@ h2 span {
     gap: 12px;
 }
 
-#menuMenuBottom {
+.menuMenuBottom {
     display: flex;
     flex-wrap: wrap;
     gap: 40px;
     justify-content: center;
+    display: none;
+}
+
+
+.menuOpen {
+    display: flex;
 }
 
 .menuMenuTwoPositions {
@@ -1091,7 +1101,7 @@ h2 span {
         min-width: 348px;
     }
 
-    #menuMenuBottom {
+    .menuMenuBottom {
         display: none;
     }
 
