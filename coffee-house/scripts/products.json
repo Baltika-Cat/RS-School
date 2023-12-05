@@ -2,6 +2,7 @@
   {
     "name": "Irish coffee",
     "description": "Fragrant black coffee with Jameson Irish whiskey and whipped milk",
+    "photo": "../images/irish_coffee.png",
     "price": "7.00",
     "category": "coffee",
     "sizes": {
@@ -37,6 +38,7 @@
   {
     "name": "Kahlua coffee",
     "description": "Classic coffee with milk and Kahlua liqueur under a cap of frothed milk",
+    "photo": "../images/kahlua_coffee.png",
     "price": "7.00",
     "category": "coffee",
     "sizes": {
@@ -72,6 +74,7 @@
   {
     "name": "Honey raf",
     "description": "Espresso with frothed milk, cream and aromatic honey",
+    "photo": "../images/honey_raf.png",
     "price": "5.50",
     "category": "coffee",
     "sizes": {
@@ -107,6 +110,7 @@
   {
     "name": "Ice cappuccino",
     "description": "Cappuccino with soft thick foam in summer version with ice",
+    "photo": "../images/ice_cappuccino.png",
     "price": "5.00",
     "category": "coffee",
     "sizes": {
@@ -142,6 +146,7 @@
   {
     "name": "Espresso",
     "description": "Classic black coffee",
+    "photo": "../images/espresso.png",
     "price": "4.50",
     "category": "coffee",
     "sizes": {
@@ -177,6 +182,7 @@
   {
     "name": "Latte",
     "description": "Espresso coffee with the addition of steamed milk and dense milk foam",
+    "photo": "../images/latte.png",
     "price": "5.50",
     "category": "coffee",
     "sizes": {
@@ -212,6 +218,7 @@
   {
     "name": "Latte macchiato",
     "description": "Espresso with frothed milk and chocolate",
+    "photo": "../images/latte_macchiato.png",
     "price": "5.50",
     "category": "coffee",
     "sizes": {
@@ -247,6 +254,7 @@
   {
     "name": "Coffee with cognac",
     "description": "Fragrant black coffee with cognac and whipped cream",
+    "photo": "../images/coffee_cognac.png",
     "price": "6.50",
     "category": "coffee",
     "sizes": {
