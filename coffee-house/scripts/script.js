@@ -11,20 +11,29 @@ const menuModalAdditivesButtonsTitle = [...document.querySelectorAll('.menuModal
 const menuModalPrice = document.querySelector('.menuModalPrice');
 const menuModalSizeButtons = [...document.querySelectorAll('.menuModalSize .menuMenuButton')];
 const menuModalAdditivesButtons = [...document.querySelectorAll('.menuModalAdditives .menuMenuButton')];
+const closeButton = document.querySelector('.menuModalCloseButton');
 
 let productIndex = 0;
 
-const unactiveMenuButtons = function() {
+const unactiveMenuSizeButtons = function() {
     menuModalSizeButtons.map((item) => item.classList.remove('menuMenuButtonsActive'));
+}
+
+const unactiveMenuAdditivesButtons = function() {
     menuModalAdditivesButtons.map((item) => item.classList.remove('menuMenuButtonsActive'));
-}   
+}
+
+let priceSum = 0;
+let indexOld = 0;
 
 menuPositions.forEach((element) => {
     element.addEventListener('click', function(e) {
+        indexOld = 0;
         for (let i = 0; i < products.length; i += 1) {
             if (products[i].name === element.querySelector('h3').textContent) {
                 productIndex = i;
-                unactiveMenuButtons();
+                unactiveMenuSizeButtons();
+                unactiveMenuAdditivesButtons();
                 menuModalSizeButtons[0].classList.add('menuMenuButtonsActive');
 
                 menuModal.classList.add('active');
@@ -41,7 +50,9 @@ menuPositions.forEach((element) => {
                     menuModalSizeButtonsTitle[j].textContent = keysValues[j][1].size;
                     menuModalAdditivesButtonsTitle[j].textContent = keysAdditives[j][1].name;
                 }
-                menuModalPrice.textContent = `$${products[i].price}`;
+
+                priceSum = parseFloat(products[i].price);
+                menuModalPrice.textContent = `$${priceSum.toFixed(2)}`;
             }
         }
     })
@@ -49,19 +60,46 @@ menuPositions.forEach((element) => {
 
 menuModalSizeButtons.forEach((sizeButton) => {
     sizeButton.addEventListener('click', function() {
-        unactiveMenuButtons();
+        for (let i = 0; i < 3; i += 1) {
+            if (menuModalSizeButtons[i].classList.contains('menuMenuButtonsActive')) {
+                indexOld = i;
+            }
+        }
+        unactiveMenuSizeButtons();
         sizeButton.classList.add('menuMenuButtonsActive');
         let index = menuModalSizeButtons.indexOf(sizeButton);
         let keysValues = Object.entries(products[productIndex].sizes);
         console.log(productIndex)
         console.log(products[productIndex].price)
         console.log(keysValues[index][1]['add-price']);
+        priceSum += parseFloat(keysValues[index][1]['add-price']);
+        priceSum -= parseFloat(keysValues[indexOld][1]['add-price']);
+        menuModalPrice.textContent = `$${priceSum.toFixed(2)}`;
+    })
+})
 
-        menuModalPrice.textContent = `$${(parseFloat(products[productIndex].price) + parseFloat(keysValues[index][1]['add-price'])).toFixed(2)}`;
+menuModalAdditivesButtons.forEach((additivesButton) => {
+    additivesButton.addEventListener('click', function() {
+        additivesButton.classList.toggle('menuMenuButtonsActive');
+        let index = menuModalAdditivesButtons.indexOf(additivesButton);
+        let keysAdditives = Object.entries(products[productIndex].additives);
+        if (additivesButton.classList.contains('menuMenuButtonsActive')) {
+            priceSum += parseFloat(keysAdditives[index][1]['add-price']);
+        } else {
+            priceSum -= parseFloat(keysAdditives[index][1]['add-price']);
+        }
+        menuModalPrice.textContent = `$${parseFloat(priceSum).toFixed(2)}`;
     })
 })
 
 background.addEventListener('click', function() {
+    background.classList.remove('backgroundActive');
+    menuModal.classList.remove('active');
+    let img = menuModalPhoto.querySelector('img');
+    menuModalPhoto.removeChild(img);
+})
+
+closeButton.addEventListener('click', function() {
     background.classList.remove('backgroundActive');
     menuModal.classList.remove('active');
     let img = menuModalPhoto.querySelector('img');

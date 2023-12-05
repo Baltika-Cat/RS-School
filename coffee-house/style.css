@@ -873,6 +873,8 @@ h2 span {
     text-align: center;
     justify-content: center;
     padding: 9px 0px;
+    cursor: pointer;
+    transition: .7s;
 }
 
 @media (hover: hover) {
@@ -967,10 +969,17 @@ h2 span {
         scale: 1;
         transition: .7s;
     }
-}
 
-.menuModalWindow .menuMenuButton:hover .menuMenuButtonsIcon {
-    color: #403F3D;
+    .menuModalWindow .menuMenuButton:hover .menuMenuButtonsIcon {
+        color: #403F3D;
+    }
+
+    .menuModalCloseButton:hover {
+        background-color: #665F55;
+        color: #E1D4C9;
+        transition: .7s;
+        cursor: pointer;
+    }
 }
 
 @media screen and (max-width: 768px) {
