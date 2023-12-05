@@ -887,6 +887,10 @@ h2 span {
     transition: .7s;
 }
 
+body.block {
+    overflow-y: hidden;
+}
+
 @media (hover: hover) {
     #homeHeadCenter li:hover:after {
         width: 100%;

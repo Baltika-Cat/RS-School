@@ -16,6 +16,7 @@ const coffeeTeaDessertButtons = [...document.querySelectorAll('.menuMenuButtons 
 const menuCoffee = [...document.querySelectorAll('.coffee')];
 const menuTea = [...document.querySelectorAll('.tea')];
 const menuDessert = [...document.querySelectorAll('.dessert')];
+const body = document.body;
 
 let productIndex = 0;
 
@@ -59,9 +60,9 @@ menuPositions.forEach((element) => {
                 unactiveMenuSizeButtons();
                 unactiveMenuAdditivesButtons();
                 menuModalSizeButtons[0].classList.add('menuMenuButtonsActive');
-
                 menuModal.classList.add('active');
                 background.classList.add('backgroundActive');
+                body.classList.add('block');
                 menuModalTitle.textContent = products[i].name;
                 menuModalDescription.textContent = products[i].description;
                 let img = document.createElement('img');
@@ -121,6 +122,7 @@ background.addEventListener('click', function() {
     menuModal.classList.remove('active');
     let img = menuModalPhoto.querySelector('img');
     menuModalPhoto.removeChild(img);
+    body.classList.remove('block');
 })
 
 closeButton.addEventListener('click', function() {
@@ -128,4 +130,5 @@ closeButton.addEventListener('click', function() {
     menuModal.classList.remove('active');
     let img = menuModalPhoto.querySelector('img');
     menuModalPhoto.removeChild(img);
+    body.classList.remove('block');
 })
