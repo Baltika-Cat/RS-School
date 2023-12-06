@@ -84,13 +84,13 @@ nav {
     color: #403F3D;
 }
 
-#homeHeadMenu {
+.homeHeadMenu {
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
 
-#homeHeadMenuSmall {
+.homeHeadMenuSmall {
     display: flex;
     gap: 8px;
     transition: .7s;
@@ -105,11 +105,11 @@ nav {
     color: #403F3D;
 }
 
-#homeHeadMenuSmall p {
+.homeHeadMenuSmall p {
     line-height: 24px;
 }
 
-#homeHeadMenu a:after {
+.homeHeadMenu a:after {
     content: '';
     width: 0px;
     height: 2px;
@@ -118,10 +118,6 @@ nav {
     background-color: #403F3D;
     transition: .7s;
     cursor: pointer;
-}
-
-#homeHeadMenuSmall img {
-    margin-bottom: 4px;
 }
 
 #burger-icon {
@@ -134,6 +130,21 @@ nav {
     height: 42px;
     border: 1px #665F55 solid;
     border-radius: 100px;
+    display: none;
+}
+
+.burger-line {
+    width: 16px;
+    height: 0px;
+    border: 1.5px #403F3D solid;
+    border-radius: 20px;
+}
+
+.homeHeadMenuSmall img {
+    margin-bottom: 4px;
+}
+
+.navigationBurgerWindow {
     display: none;
 }
 
@@ -749,7 +760,6 @@ h2 span {
     display: none;
 }
 
-
 .menuOpen {
     display: flex;
 }
@@ -921,6 +931,10 @@ body.block {
     overflow-y: hidden;
 }
 
+body.blockX {
+    overflow-x: hidden;
+}
+
 @media (hover: hover) {
     #homeHeadCenter li:hover:after {
         width: 100%;
@@ -928,7 +942,7 @@ body.block {
         cursor: pointer;
     }
     
-    #homeHeadMenu a:hover:after {
+    .homeHeadMenu a:hover:after {
         width: 100%;
         cursor: pointer;
         transition: .7s;
@@ -1030,6 +1044,44 @@ body.block {
     header {
         align-items: center;
     }
+    
+    .navigationBurgerWindow {
+        position: fixed;
+        z-index: 100;
+        top: 80px;
+        right: -300%;
+        width: 100vw;
+        background-color: #E1D4C9;
+        display: flex;
+        flex-direction: column;
+        gap: 100px;
+        opacity: 0;
+        transition: 1s;
+    }
+    
+    .burgerNavigation {
+        margin: 60px 40px 0px;
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
+        align-items: center;
+        list-style: none;
+        font-family: 'Inter';
+        font-size: 32px;
+        color: #403F3D;
+        line-height: 125%;
+    }
+    
+    .burgerNavigation a {
+        color: #403F3D
+    }
+    
+    .burgerMenuOpen {
+        transition: 1s;
+        position: absolute;
+        right: 0px;
+        opacity: 1;
+    }
 
     #homeEnjoy {
         margin-left: 40px;
@@ -1108,7 +1160,7 @@ body.block {
         display: none;
     }
 
-    nav, #homeHeadMenu {
+    nav, .homeHeadMenu {
         display: none;
     }
 

@@ -17,8 +17,12 @@ const menuCoffee = [...document.querySelectorAll('.coffee')];
 const menuTea = [...document.querySelectorAll('.tea')];
 const menuDessert = [...document.querySelectorAll('.dessert')];
 const body = document.body;
+const burgerIcon = document.querySelector('#burger-icon');
+const navigationBurgerWindow = document.querySelector('.navigationBurgerWindow');
 
 let productIndex = 0;
+
+console.log(burgerIcon)
 
 const menu = [menuCoffee, menuTea, menuDessert];
 const unactiveCoffeeTeaDessertButtons = function() {
@@ -32,6 +36,16 @@ const unactiveMenuSizeButtons = function() {
 const unactiveMenuAdditivesButtons = function() {
     menuModalAdditivesButtons.map((item) => item.classList.remove('menuMenuButtonsActive'));
 }
+
+burgerIcon.addEventListener('click', function() {
+    if(navigationBurgerWindow.classList.contains('burgerMenuOpen')) {
+        navigationBurgerWindow.classList.remove('burgerMenuOpen');
+        body.classList.remove('blockX');
+    } else {
+        navigationBurgerWindow.classList.add('burgerMenuOpen');
+        body.classList.add('blockX');
+    }
+})
 
 coffeeTeaDessertButtons.forEach((button) => {
     button.addEventListener('click', function(e) {
@@ -117,18 +131,22 @@ menuModalAdditivesButtons.forEach((additivesButton) => {
     })
 })
 
-background.addEventListener('click', function() {
-    background.classList.remove('backgroundActive');
-    menuModal.classList.remove('active');
-    let img = menuModalPhoto.querySelector('img');
-    menuModalPhoto.removeChild(img);
-    body.classList.remove('block');
-})
+if(background) {
+    background.addEventListener('click', function() {
+        background.classList.remove('backgroundActive');
+        menuModal.classList.remove('active');
+        let img = menuModalPhoto.querySelector('img');
+        menuModalPhoto.removeChild(img);
+        body.classList.remove('block');
+    })
+}
 
-closeButton.addEventListener('click', function() {
-    background.classList.remove('backgroundActive');
-    menuModal.classList.remove('active');
-    let img = menuModalPhoto.querySelector('img');
-    menuModalPhoto.removeChild(img);
-    body.classList.remove('block');
-})
+if (closeButton) {
+    closeButton.addEventListener('click', function() {
+        background.classList.remove('backgroundActive');
+        menuModal.classList.remove('active');
+        let img = menuModalPhoto.querySelector('img');
+        menuModalPhoto.removeChild(img);
+        body.classList.remove('block');
+    })
+}
