@@ -138,6 +138,17 @@ nav {
     height: 0px;
     border: 1.5px #403F3D solid;
     border-radius: 20px;
+    transition: 1s;
+}
+
+.burger-line-open {
+    transform: rotate(45deg) translate(4px, 3px);
+    transition: 1s;
+}
+
+.burger-line:last-child.burger-line-open {
+    transform: rotate(-45deg) translate(4px, -3px);
+    transition: 1s;
 }
 
 .homeHeadMenuSmall img {
