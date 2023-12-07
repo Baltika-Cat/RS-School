@@ -947,6 +947,11 @@ body.blockX {
         cursor: pointer;
         transition: .7s;
     }
+
+    
+    .navigationBurgerWindow .homeHeadMenu a:hover:after {
+        display: none;
+    }
     
     #homeMenuButton:hover img {
         opacity: 1;
@@ -1051,6 +1056,7 @@ body.blockX {
         top: 80px;
         right: -300%;
         width: 100vw;
+        height: 924px;
         background-color: #E1D4C9;
         display: flex;
         flex-direction: column;
@@ -1070,6 +1076,26 @@ body.blockX {
         font-size: 32px;
         color: #403F3D;
         line-height: 125%;
+    }
+
+    .navigationBurgerWindow .homeHeadMenu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Inter';
+        font-size: 32px;
+        line-height: 125%;
+        gap: 16px;
+    }
+
+    .navigationBurgerWindow .homeHeadMenu .homeHeadMenuSmall {
+        display: flex;
+        align-items: center;
+    }
+
+    .navigationBurgerWindow .homeHeadMenu img {
+        width: 40px;
+        height: 40px;
     }
     
     .burgerNavigation a {
