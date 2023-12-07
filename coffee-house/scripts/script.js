@@ -56,6 +56,7 @@ burgerNavigation.forEach((element) => {
     element.addEventListener('click', () => {
         navigationBurgerWindow.classList.remove('burgerMenuOpen');
         body.classList.remove('blockX');
+        burgerLines.map((item) => item.classList.remove('burger-line-open'));
     })
 })
 
