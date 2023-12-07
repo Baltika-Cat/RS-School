@@ -20,16 +20,30 @@ const body = document.body;
 const burgerIcon = document.querySelector('#burger-icon');
 const navigationBurgerWindow = document.querySelector('.navigationBurgerWindow');
 const burgerNavigation = [...document.querySelectorAll('.burgerNavigation li')];
-const burgerNavigationMenu = document.querySelector('.navigationBurgerMenu .homeHeadMenu');
+const burgerNavigationMenu = document.querySelector('.navigationBurgerWindow .homeHeadMenu');
 const burgerLines = [...document.querySelectorAll('.burger-line')];
+const menuRefreshButton = document.querySelector('.menuRefreshButton');
+const menuMenuBottom = [...document.querySelectorAll('.menuMenuBottom')];
+
+let windowWidthSmaller = false;
 
 let productIndex = 0;
 
-console.log(burgerIcon)
+console.log(window.innerWidth)
 
 const menu = [menuCoffee, menuTea, menuDessert];
 const unactiveCoffeeTeaDessertButtons = function() {
     coffeeTeaDessertButtons.map((item) => item.classList.remove('menuMenuButtonsActive'));
+}
+
+let menuType = 'coffee';
+
+let menuTypeIndex = function() {
+    for (let i = 0; i < coffeeTeaDessertButtons.length; i += 1) {
+        if (coffeeTeaDessertButtons[i].classList.contains('menuMenuButtonsActive')) {
+            return i;
+        }
+    }
 }
 
 const unactiveMenuSizeButtons = function() {
@@ -43,11 +57,9 @@ const unactiveMenuAdditivesButtons = function() {
 burgerIcon.addEventListener('click', function() {
     if(navigationBurgerWindow.classList.contains('burgerMenuOpen')) {
         navigationBurgerWindow.classList.remove('burgerMenuOpen');
-        body.classList.remove('blockX');
         burgerLines.map((item) => item.classList.remove('burger-line-open'));
     } else {
         navigationBurgerWindow.classList.add('burgerMenuOpen');
-        body.classList.add('blockX');
         burgerLines.map((item) => item.classList.add('burger-line-open'));
     }
 })
@@ -55,24 +67,69 @@ burgerIcon.addEventListener('click', function() {
 burgerNavigation.forEach((element) => {
     element.addEventListener('click', () => {
         navigationBurgerWindow.classList.remove('burgerMenuOpen');
-        body.classList.remove('blockX');
         burgerLines.map((item) => item.classList.remove('burger-line-open'));
     })
+})
+
+burgerNavigationMenu.addEventListener('click', () => {
+    navigationBurgerWindow.classList.remove('burgerMenuOpen');
+    burgerLines.map((item) => item.classList.remove('burger-line-open'));
+})
+
+window.addEventListener('load', () => {
+    if (window.innerWidth > 768) {
+        windowWidthSmaller = false;
+        menuCoffee.map((item) => item.classList.add('menuOpen'));
+    } else {
+        windowWidthSmaller = true;
+        menuCoffee[0].classList.add('menuOpen');
+        menuCoffee[1].classList.remove('menuOpen');
+        menuRefreshButton.classList.remove('refreshButtonClose');
+    }
+})
+
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+        windowWidthSmaller = false;
+        menuMenuBottom[menuTypeIndex()].classList.add('menuOpen');
+    } else if (window.innerWidth <= 768) {
+        if (windowWidthSmaller === false) {
+            menuMenuBottom.map((item) => {item.classList.remove('menuOpen')});
+            menuRefreshButton.classList.remove('refreshButtonClose');
+        }
+        windowWidthSmaller = true;
+        
+    }
 })
 
 coffeeTeaDessertButtons.forEach((button) => {
     button.addEventListener('click', function(e) {
         unactiveCoffeeTeaDessertButtons();
         button.classList.add('menuMenuButtonsActive');
-        console.log(button.textContent.trim().toLowerCase())
+        menuType = button.textContent.trim().toLowerCase();
+        if (button.textContent.trim().toLowerCase() === 'tea') {
+            menuRefreshButton.classList.add('refreshButtonClose');
+        } else {
+            menuRefreshButton.classList.remove('refreshButtonClose');
+        }
         for (let i = 0; i < menu.length; i += 1) {
             if (menu[i][0].classList.contains(button.textContent.trim().toLowerCase())) {
-                menu[i].map((item) => item.classList.add('menuOpen'));
+                if (window.innerWidth > 768) {
+                    menu[i].map((item) => item.classList.add('menuOpen'));
+                } else {
+                    menu[i][0].classList.add('menuOpen');
+                }
+                
             } else {
                 menu[i].map((item) => item.classList.remove('menuOpen'));
             }
         }
     })
+})
+
+menuRefreshButton.addEventListener('click', () => {
+    menuMenuBottom[menuTypeIndex()].classList.add('menuOpen');
+    menuRefreshButton.classList.add('refreshButtonClose');
 })
 
 let priceSum = 0;

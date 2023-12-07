@@ -654,6 +654,8 @@ h2 span {
 }
 
 #menuMenu {
+    position: relative;
+    z-index: 90;
     margin-left: 40px;
     margin-right: 40px;
     display: flex;
@@ -771,10 +773,6 @@ h2 span {
     display: none;
 }
 
-.menuOpen {
-    display: flex;
-}
-
 .menuMenuTwoPositions {
     display: flex;
     flex-wrap: wrap;
@@ -782,7 +780,7 @@ h2 span {
     justify-content: center;
 }
 
-#menuRefreshButton {
+.menuRefreshButton {
     display: flex;
     width: 58px;
     height: 58px;
@@ -791,6 +789,10 @@ h2 span {
     border: 1px #665F55 solid;
     border-radius: 100px;
     display: none;
+}
+
+.menuOpen {
+    display: flex;
 }
 
 .menuModalWindow {
@@ -1063,7 +1065,7 @@ body.blockX {
 
     .navigationBurgerWindowDiv {
         position: absolute;
-        top: 80px;
+        top: 100px;
         right: 0px;
         width: 100vw;
         height: calc(100vh - 80px);
@@ -1075,7 +1077,7 @@ body.blockX {
         position: absolute;
         z-index: 100;
         top: 0px;
-        right: -300%;
+        right: -150%;
         width: 100vw;
         height: calc(100vh - 80px);
         background-color: #E1D4C9;
@@ -1106,12 +1108,12 @@ body.blockX {
         font-family: 'Inter';
         font-size: 32px;
         line-height: 125%;
-        gap: 16px;
     }
 
     .navigationBurgerWindow .homeHeadMenu .homeHeadMenuSmall {
         display: flex;
         align-items: center;
+        gap: 16px;
     }
 
     .navigationBurgerWindow .homeHeadMenu img {
@@ -1238,8 +1240,17 @@ body.blockX {
         display: none;
     }
 
-    #menuRefreshButton {
+    
+    .menuOpen {
         display: flex;
+    }
+
+    .menuRefreshButton {
+        display: flex;
+    }
+
+    .refreshButtonClose {
+        display: none;
     }
 
     .menuPhotoPlace {
