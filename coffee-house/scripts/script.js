@@ -86,6 +86,16 @@ if (controls[0]) {
     })
 }
 
+let transitionCurrent = '';
+
+slideWindow.addEventListener('mouseover', () => {
+    let elementTransition = controls[slideCount].querySelector('.controlActive');
+    let style = window.getComputedStyle(elementTransition);
+    transitionCurrent = style.getPropertyValue('transition');
+    controls[slideCount].classList.remove('controlActive');
+    console.log(transitionCurrent)
+})
+
 const menu = [menuCoffee, menuTea, menuDessert];
 const unactiveCoffeeTeaDessertButtons = function() {
     coffeeTeaDessertButtons.map((item) => item.classList.remove('menuMenuButtonsActive'));
