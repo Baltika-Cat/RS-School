@@ -393,28 +393,35 @@ h2 span {
     gap: 12px;
 }
 
-.homeControls hr {
+.homeControls .controlBack {
     border: none;
     height: 4px;
     width: 40px;
     background-color: #C1B6AD;
 }
 
-.homeControls hr:after {
-    content: '';
+@keyframes controlAnimation {
+    from {
+        width: 0px;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+.homeControls .controlForward {
     display: block;
     width: 0px;
     height: 4px;
     background-color: #665F55;
 }
 
-.homeControls hr.controlActive:after {
-    content: '';
-    display: block;
-    width: 40px;
-    height: 4px;
-    background-color: #665F55;
-    transition: 7s linear;
+.controlForward.controlActive {
+    animation-name: controlAnimation;
+    animation-duration: 7s;
+    animation-timing-function: linear;
+    animation-play-state: running;
 }
 
 #homeAbout {

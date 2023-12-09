@@ -28,7 +28,7 @@ const allSlides = document.querySelector('.allSlides');
 const slides = [...document.querySelectorAll('.slide')];
 const slideWindow = document.querySelector('.slideWindow');
 const arrows = [...document.querySelectorAll('.homeArrowCircle')];
-const controls = [...document.querySelectorAll('.homeControls hr')];
+const controls = [...document.querySelectorAll('.controlForward')];
 
 const leftArrow = arrows[0];
 const rightArrow = arrows[1];
@@ -68,7 +68,8 @@ if (rightArrow) {
 }
 
 controls.forEach((control, index, arr) => {
-    control.addEventListener('transitionend', () => {
+    control.addEventListener('animationend', () => {
+        console.log(control.style.animationPlayState)
         control.classList.remove('controlActive');
         let index = arr.indexOf(control) + 1;
         if (index === arr.length) {
@@ -77,6 +78,7 @@ controls.forEach((control, index, arr) => {
         controls[index].classList.add('controlActive');
         slideCount = index;
         rollSlide();
+        console.log(document.querySelector('.controlActive'))
     })
 })
 
@@ -86,14 +88,32 @@ if (controls[0]) {
     })
 }
 
-let transitionCurrent = '';
+console.log(document.querySelector('.controlActive'))
+
+/*control.addEventListener('mouseover', () => {
+    control.style.animationPlayState = 'paused';
+})
+control.addEventListener('mouseout', () => {
+    control.style.animationPlayState = 'running';
+})*/
+
+/*let controlActive = document.querySelector('.controlForward');
+console.log(controlActive)*/
 
 slideWindow.addEventListener('mouseover', () => {
-    let elementTransition = controls[slideCount].querySelector('.controlActive');
-    let style = window.getComputedStyle(elementTransition);
-    transitionCurrent = style.getPropertyValue('transition');
-    controls[slideCount].classList.remove('controlActive');
-    console.log(transitionCurrent)
+    document.querySelector('.controlActive').style.animationPlayState = 'paused';
+})
+
+slideWindow.addEventListener('mousedown', () => {
+    document.querySelector('.controlActive').style.animationPlayState = 'paused';
+})
+
+slideWindow.addEventListener('mouseout', () => {
+    document.querySelector('.controlActive').style.animationPlayState = 'running';
+})
+
+slideWindow.addEventListener('mouseup', () => {
+    document.querySelector('.controlActive').style.animationPlayState = 'running';
 })
 
 const menu = [menuCoffee, menuTea, menuDessert];
