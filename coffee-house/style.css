@@ -388,31 +388,33 @@ h2 span {
     transition: .7s;
 }
 
-#homeControls {
+.homeControls {
     display: flex;
     gap: 12px;
 }
 
-#homeControls hr {
+.homeControls hr {
     border: none;
     height: 4px;
     width: 40px;
     background-color: #C1B6AD;
 }
 
-#homeControls hr:after.controlActive {
+.homeControls hr:after {
     content: '';
     display: block;
     width: 0px;
     height: 4px;
+    background-color: #665F55;
 }
 
-#homeControls hr.controlActive:after:hover {
-
+.homeControls hr.controlActive:after {
+    content: '';
+    display: block;
     width: 40px;
     height: 4px;
     background-color: #665F55;
-    transition: 7s;
+    transition: 7s linear;
 }
 
 #homeAbout {
@@ -1023,11 +1025,6 @@ body.blockX {
 
     .homeArrowCircle:hover path {
         stroke: #E1D4C9;
-        transition: .7s;
-    }
-
-    #homeControls hr:hover {
-        background-color: #665F55;
         transition: .7s;
     }
 

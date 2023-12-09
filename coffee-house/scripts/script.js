@@ -28,6 +28,7 @@ const allSlides = document.querySelector('.allSlides');
 const slides = [...document.querySelectorAll('.slide')];
 const slideWindow = document.querySelector('.slideWindow');
 const arrows = [...document.querySelectorAll('.homeArrowCircle')];
+const controls = [...document.querySelectorAll('.homeControls hr')];
 
 const leftArrow = arrows[0];
 const rightArrow = arrows[1];
@@ -44,21 +45,44 @@ function rollSlide() {
 
 if (leftArrow) {
     leftArrow.addEventListener('click', () => {
+        controls[slideCount].classList.remove('controlActive');
         slideCount -= 1;
         if (slideCount < 0) {
             slideCount = slides.length - 1;
         }
+        controls[slideCount].classList.add('controlActive');
         rollSlide();
     })
 }
 
 if (rightArrow) {
     rightArrow.addEventListener('click', () => {
+        controls[slideCount].classList.remove('controlActive');
         slideCount += 1;
         if (slideCount > slides.length - 1) {
             slideCount = 0;
         }
+        controls[slideCount].classList.add('controlActive');
         rollSlide();
+    })
+}
+
+controls.forEach((control, index, arr) => {
+    control.addEventListener('transitionend', () => {
+        control.classList.remove('controlActive');
+        let index = arr.indexOf(control) + 1;
+        if (index === arr.length) {
+            index = 0;
+        }
+        controls[index].classList.add('controlActive');
+        slideCount = index;
+        rollSlide();
+    })
+})
+
+if (controls[0]) {
+    window.addEventListener('load', () => {
+        controls[0].classList.add('controlActive');
     })
 }
 
