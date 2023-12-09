@@ -24,12 +24,43 @@ const burgerNavigationMenu = document.querySelector('.navigationBurgerWindow .ho
 const burgerLines = [...document.querySelectorAll('.burger-line')];
 const menuRefreshButton = document.querySelector('.menuRefreshButton');
 const menuMenuBottom = [...document.querySelectorAll('.menuMenuBottom')];
+const allSlides = document.querySelector('.allSlides');
+const slides = [...document.querySelectorAll('.slide')];
+const slideWindow = document.querySelector('.slideWindow');
+const arrows = [...document.querySelectorAll('.homeArrowCircle')];
+
+const leftArrow = arrows[0];
+const rightArrow = arrows[1];
 
 let windowWidthSmaller = false;
 
 let productIndex = 0;
 
-console.log(window.innerWidth)
+let slideCount = 0;
+
+function rollSlide() {
+    allSlides.style.transform = `translateX(${(-slideCount * (slideWindow.offsetWidth + 40))}px)`;
+}
+
+if (leftArrow) {
+    leftArrow.addEventListener('click', () => {
+        slideCount -= 1;
+        if (slideCount < 0) {
+            slideCount = slides.length - 1;
+        }
+        rollSlide();
+    })
+}
+
+if (rightArrow) {
+    rightArrow.addEventListener('click', () => {
+        slideCount += 1;
+        if (slideCount > slides.length - 1) {
+            slideCount = 0;
+        }
+        rollSlide();
+    })
+}
 
 const menu = [menuCoffee, menuTea, menuDessert];
 const unactiveCoffeeTeaDessertButtons = function() {
@@ -76,31 +107,35 @@ burgerNavigationMenu.addEventListener('click', () => {
     burgerLines.map((item) => item.classList.remove('burger-line-open'));
 })
 
-window.addEventListener('load', () => {
-    if (window.innerWidth > 768) {
-        windowWidthSmaller = false;
-        menuCoffee.map((item) => item.classList.add('menuOpen'));
-    } else {
-        windowWidthSmaller = true;
-        menuCoffee[0].classList.add('menuOpen');
-        menuCoffee[1].classList.remove('menuOpen');
-        menuRefreshButton.classList.remove('refreshButtonClose');
-    }
-})
-
-window.addEventListener('resize', () => {
-    if (window.innerWidth > 768) {
-        windowWidthSmaller = false;
-        menuMenuBottom[menuTypeIndex()].classList.add('menuOpen');
-    } else if (window.innerWidth <= 768) {
-        if (windowWidthSmaller === false) {
-            menuMenuBottom.map((item) => {item.classList.remove('menuOpen')});
+if (menuCoffee[0]) {
+    window.addEventListener('load', () => {
+        if (window.innerWidth > 768) {
+            windowWidthSmaller = false;
+            menuCoffee.map((item) => item.classList.add('menuOpen'));
+        } else {
+            windowWidthSmaller = true;
+            menuCoffee[0].classList.add('menuOpen');
+            menuCoffee[1].classList.remove('menuOpen');
             menuRefreshButton.classList.remove('refreshButtonClose');
         }
-        windowWidthSmaller = true;
-        
-    }
-})
+    })
+}
+
+if (menuCoffee[0]) {
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            windowWidthSmaller = false;
+            menuMenuBottom[menuTypeIndex()].classList.add('menuOpen');
+        } else if (window.innerWidth <= 768) {
+            if (windowWidthSmaller === false) {
+                menuMenuBottom.map((item) => {item.classList.remove('menuOpen')});
+                menuRefreshButton.classList.remove('refreshButtonClose');
+            }
+            windowWidthSmaller = true;
+            
+        }
+    })
+}
 
 coffeeTeaDessertButtons.forEach((button) => {
     button.addEventListener('click', function(e) {
@@ -127,10 +162,12 @@ coffeeTeaDessertButtons.forEach((button) => {
     })
 })
 
-menuRefreshButton.addEventListener('click', () => {
-    menuMenuBottom[menuTypeIndex()].classList.add('menuOpen');
-    menuRefreshButton.classList.add('refreshButtonClose');
-})
+if (menuRefreshButton) {
+    menuRefreshButton.addEventListener('click', () => {
+        menuMenuBottom[menuTypeIndex()].classList.add('menuOpen');
+        menuRefreshButton.classList.add('refreshButtonClose');
+    })
+}
 
 let priceSum = 0;
 let indexOld = 0;

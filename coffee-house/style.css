@@ -155,6 +155,10 @@ nav {
     margin-bottom: 4px;
 }
 
+.navigationBurgerWindowDiv {
+    display: none;
+}
+
 .navigationBurgerWindow {
     display: none;
 }
@@ -307,6 +311,32 @@ h2 span {
     align-items: center;
 }
 
+.slideWindow {
+    position: relative;
+    max-width: 480px;
+    width: 100%;
+    min-width: 348px;
+    max-height: 100%;
+    overflow-x: hidden;
+}
+
+.allSlides {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    max-width: 1520px;
+    width: calc(300% + 80px);
+    min-width: 1124px;
+    transition: 1s;
+}
+
+.slide {
+    max-width: 480px;
+    width: 100%;
+    min-width: 348px;
+}
+
 #homeBeverages img {
     max-width: 480px;
     width: 100%;
@@ -316,7 +346,7 @@ h2 span {
     min-height: 348px;
 }
 
-#homeBeveragesData {
+.homeBeveragesData {
     display: flex;
     flex-direction: column;
     max-width: 480px;
@@ -328,12 +358,12 @@ h2 span {
     margin-top: 20px;
 }
 
-#homeBeveragesData h3 {
+.homeBeveragesData h3 {
     font-size: 24px;
     line-height: 125%;
 }
 
-#homeBeveragesData p {
+.homeBeveragesData p {
     font-family: 'Inter-light';
     font-size: 16px;
     line-height: 150%;
@@ -368,12 +398,21 @@ h2 span {
     height: 4px;
     width: 40px;
     background-color: #C1B6AD;
-    transition: .7s;
-    cursor: pointer;
 }
 
-#homeControls hr.controlActive {
+#homeControls hr:after.controlActive {
+    content: '';
+    display: block;
+    width: 0px;
+    height: 4px;
+}
+
+#homeControls hr.controlActive:after:hover {
+
+    width: 40px;
+    height: 4px;
     background-color: #665F55;
+    transition: 7s;
 }
 
 #homeAbout {
@@ -1064,6 +1103,7 @@ body.blockX {
     }
 
     .navigationBurgerWindowDiv {
+        display: flex;
         position: absolute;
         top: 100px;
         right: 0px;
