@@ -43,33 +43,43 @@ function rollSlide() {
     allSlides.style.transform = `translateX(${(-slideCount * (slideWindow.offsetWidth + 40))}px)`;
 }
 
+function prevSlide() {
+    controls[slideCount].classList.remove('controlActive');
+    slideCount -= 1;
+    if (slideCount < 0) {
+        slideCount = slides.length - 1;
+    }
+    controls[slideCount].classList.add('controlActive');
+    rollSlide();
+    document.querySelector('.controlActive').style.animationPlayState = 'running';
+}
+
+function nextSlide() {
+    controls[slideCount].classList.remove('controlActive');
+    slideCount += 1;
+    if (slideCount > slides.length - 1) {
+        slideCount = 0;
+    }
+    controls[slideCount].classList.add('controlActive');
+    rollSlide();
+    document.querySelector('.controlActive').style.animationPlayState = 'running';
+    if (document.querySelector('.controlActive')) {
+        console.log(document.querySelector('.controlActive').style.animationPlayState == 'running');
+        console.log(document.querySelector('.controlActive').style.animationPlayState == 'paused')
+    }
+}
+
 if (leftArrow) {
-    leftArrow.addEventListener('click', () => {
-        controls[slideCount].classList.remove('controlActive');
-        slideCount -= 1;
-        if (slideCount < 0) {
-            slideCount = slides.length - 1;
-        }
-        controls[slideCount].classList.add('controlActive');
-        rollSlide();
-    })
+    leftArrow.addEventListener('click', prevSlide);
 }
 
 if (rightArrow) {
-    rightArrow.addEventListener('click', () => {
-        controls[slideCount].classList.remove('controlActive');
-        slideCount += 1;
-        if (slideCount > slides.length - 1) {
-            slideCount = 0;
-        }
-        controls[slideCount].classList.add('controlActive');
-        rollSlide();
-    })
+    rightArrow.addEventListener('click', nextSlide)
 }
 
 controls.forEach((control, index, arr) => {
-    control.addEventListener('animationend', () => {
-        console.log(control.style.animationPlayState)
+    control.addEventListener('animationend', nextSlide)
+        /*() => {
         control.classList.remove('controlActive');
         let index = arr.indexOf(control) + 1;
         if (index === arr.length) {
@@ -78,8 +88,7 @@ controls.forEach((control, index, arr) => {
         controls[index].classList.add('controlActive');
         slideCount = index;
         rollSlide();
-        console.log(document.querySelector('.controlActive'))
-    })
+    })*/
 })
 
 if (controls[0]) {
@@ -88,33 +97,62 @@ if (controls[0]) {
     })
 }
 
-console.log(document.querySelector('.controlActive'))
+if (slideWindow) {
+    slideWindow.addEventListener('mouseover', () => {
+        document.querySelector('.controlActive').style.animationPlayState = 'paused';
+    })
+}
 
-/*control.addEventListener('mouseover', () => {
-    control.style.animationPlayState = 'paused';
-})
-control.addEventListener('mouseout', () => {
-    control.style.animationPlayState = 'running';
-})*/
+let x = 0;
 
-/*let controlActive = document.querySelector('.controlForward');
-console.log(controlActive)*/
+if (slideWindow) {
+    slideWindow.addEventListener('touchstart', (e) => {
+        document.querySelector('.controlActive').style.animationPlayState = 'paused';
+        e.preventDefault();
+        e.stopPropagation();
+        x = e.touches[0].clientX;
+        slideWindow.addEventListener('touchmove', sliderSwipe);  
+    })
+}
 
-slideWindow.addEventListener('mouseover', () => {
-    document.querySelector('.controlActive').style.animationPlayState = 'paused';
-})
+if (slideWindow) {
+    slideWindow.addEventListener('mouseout', () => {
+        document.querySelector('.controlActive').style.animationPlayState = 'running';
+    })
+}
 
-slideWindow.addEventListener('mousedown', () => {
-    document.querySelector('.controlActive').style.animationPlayState = 'paused';
-})
+if (slideWindow) {
+    slideWindow.addEventListener('touchend', (e) => {
+        document.querySelector('.controlActive').style.animationPlayState = 'running';
+        e.preventDefault();
+        e.stopPropagation();
+        controls.forEach((control, index, arr) => {
+            control.addEventListener('animationend', nextSlide)
+        })
+        console.log(e)
+    })
+}
 
-slideWindow.addEventListener('mouseout', () => {
-    document.querySelector('.controlActive').style.animationPlayState = 'running';
-})
+function sliderSwipe(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    let diff = e.touches[0].clientX - x;
+    if (diff > 20) {
+        prevSlide();
+        slideWindow.removeEventListener('touchmove', sliderSwipe);
+        /*controls.forEach((control, index, arr) => {
+            control.addEventListener('animationend', nextSlide)
+        })*/
+    } else if (diff < -20) {
+        nextSlide();
+        slideWindow.removeEventListener('touchmove', sliderSwipe);
+        /*controls.forEach((control, index, arr) => {
+            control.addEventListener('animationend', nextSlide)
+        })*/
+    }
+    //console.log(e.changedTouches[0].clientX)
 
-slideWindow.addEventListener('mouseup', () => {
-    document.querySelector('.controlActive').style.animationPlayState = 'running';
-})
+}
 
 const menu = [menuCoffee, menuTea, menuDessert];
 const unactiveCoffeeTeaDessertButtons = function() {
@@ -245,7 +283,6 @@ menuPositions.forEach((element) => {
                 menuModalPhoto.appendChild(img);
                 let keysValues = Object.entries(products[i].sizes);
                 let keysAdditives = Object.entries(products[i].additives);
-                console.log(keysValues)
                 for (let j = 0; j < keysValues.length; j += 1) {
                     menuModalSizeButtonsTitle[j].textContent = keysValues[j][1].size;
                     menuModalAdditivesButtonsTitle[j].textContent = keysAdditives[j][1].name;
@@ -269,9 +306,6 @@ menuModalSizeButtons.forEach((sizeButton) => {
         sizeButton.classList.add('menuMenuButtonsActive');
         let index = menuModalSizeButtons.indexOf(sizeButton);
         let keysValues = Object.entries(products[productIndex].sizes);
-        console.log(productIndex)
-        console.log(products[productIndex].price)
-        console.log(keysValues[index][1]['add-price']);
         priceSum += parseFloat(keysValues[index][1]['add-price']);
         priceSum -= parseFloat(keysValues[indexOld][1]['add-price']);
         menuModalPrice.textContent = `$${priceSum.toFixed(2)}`;
