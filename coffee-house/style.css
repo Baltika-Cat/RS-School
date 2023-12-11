@@ -102,6 +102,7 @@ nav {
 }
 
 #menuHeadMenuSmall {
+    color: #403F3D;
     display: flex;
     gap: 8px;
     padding-bottom: 2px;
@@ -110,6 +111,11 @@ nav {
 
 .homeHeadMenuSmall p {
     line-height: 24px;
+    color: #403F3D;
+}
+
+.homeHeadMenu a {
+    color: #403F3D;
 }
 
 .homeHeadMenu a:after {
@@ -437,17 +443,25 @@ h2 span {
 
 #homeAboutPhotos {
     display: flex;
+    max-width: 1360px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     margin-top: 40px;
     gap: 40px;
 }
 
 #homeAboutPhotosLeft, #homeAboutPhotosRight {
+    max-width: 660px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 40px;
 }
 
 .photoDiv {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -467,13 +481,11 @@ h2 span {
 }
 
 .photoDiv img {
-    width: 100%;
+    position: absolute;
+    left: calc(50% + 33px);
+    transform: translateX(-50%);
+    width: 660px;
     scale: 1.1;
-    transition: .7s;
-}
-
-.photoDiv:hover img {
-    scale: 1;
     transition: .7s;
 }
 
@@ -571,12 +583,16 @@ h2 span {
 }
 
 #homeFooter {
+    max-width: 1360px;
+    width: 94.5%;
     display: flex;
     flex-wrap: wrap;
-    margin: 100px 40px 40px 40px;
+    justify-content: space-evenly;
+    align-items: space-between;
+    margin: 100px auto 40px auto;
     border-radius: 40px;
-    padding: 100px;
-    gap: 100px;
+    padding: 100px 0px;
+    row-gap: 100px;
     background-color: #665F55;
 }
 
@@ -587,7 +603,8 @@ h2 span {
 }
 
 #homeFooterLeft {
-    width: 50%;
+    margin: 0px 10px 0px 20px;
+    width: 530px;
     display: flex;
     flex-direction: column;
     gap: 40px;
@@ -628,7 +645,8 @@ h2 span {
 }
 
 #homeFooterRight {
-    width: 50%;
+    margin: 0px 20px 0px 10px;
+    width: 530px;
     display: inline-flex;
     flex-direction: column;
     justify-content: center;
@@ -707,6 +725,7 @@ h2 span {
     display: flex;
     flex-direction: column;
     gap: 40px;
+    align-items: center;
 }
 
 .menuMenuButtons {
@@ -751,6 +770,7 @@ h2 span {
 
 .menuMenuTop {
     display: flex;
+    flex-wrap: wrap;
     gap: 40px;
     row-gap: 40px;
     column-gap: 40px;
@@ -816,6 +836,7 @@ h2 span {
 
 .menuMenuBottom {
     display: flex;
+    flex-wrap: wrap;
     gap: 40px;
     justify-content: center;
     display: none;
