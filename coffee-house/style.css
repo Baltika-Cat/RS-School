@@ -78,12 +78,6 @@ nav {
     cursor: pointer;
 }
 
-#homeHeadCenter li:hover:after {
-    width: 100%;
-    transition: .7s;
-    cursor: pointer;
-}
-
 #homeHeadCenter a {
     text-decoration: none;
     color: #403F3D;
@@ -240,16 +234,6 @@ main {
     transition: .7s;
 }
 
-#homeMenuButton:hover img {
-    opacity: 1;
-    transition: .7s;
-}
-
-#homeMenuButton:hover #homeMenuButtonText {
-    transform: translateX(0px);
-    transition: .7s;
-}
-
 h1 {
     color: #E1D4C9;
     font-size: 72px;
@@ -292,6 +276,11 @@ h1 span {
     flex-direction: column;
     align-items: center;
     margin: 100px 40px 0px 40px;
+}
+
+#homeFavoriteCoffeeTitle {
+    margin: 0px 40px;
+    text-align: center;
 }
 
 h2 {
@@ -351,7 +340,10 @@ h2 span {
 #homeBeverages img {
     max-width: 480px;
     width: 100%;
-    height: 480px;
+    min-width: 348px;
+    max-height: 480px;
+    height: 100%;
+    min-height: 348px;
 }
 
 .homeBeveragesData {
@@ -363,10 +355,11 @@ h2 span {
     text-align: center;
     gap: 16px;
     color: #403F3D;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .homeBeveragesData h3 {
+    margin-top: 0px;
     font-size: 24px;
     line-height: 125%;
 }
@@ -378,19 +371,17 @@ h2 span {
 }
 
 .homeArrowCircle {
+    margin-left: 4px;
+    margin-right: 4px;
     display: flex;
+    flex-shrink: 0;
+    flex-grow: 0;
     justify-content: center;
     align-items: center;
-    width: 59px;
-    height: 59px;
+    width: 58px;
+    height: 58px;
     border: 1px #665F55 solid;
     border-radius: 100px;
-    transition: .7s;
-}
-
-.homeArrowCircle:hover {
-    background-color: #665F55;
-    cursor: pointer;
     transition: .7s;
 }
 
@@ -401,7 +392,6 @@ h2 span {
 .homeControls {
     display: flex;
     gap: 12px;
-    margin-top: 40px;
 }
 
 .homeControls .controlBack {
@@ -436,6 +426,9 @@ h2 span {
 }
 
 #homeAbout {
+    max-width: 1360px;
+    width: 94.6%;
+    min-width: 348px;
     display: flex;
     flex-direction: column;
     margin: 100px 40px 0px 40px;
@@ -492,7 +485,8 @@ h2 span {
 #homeMobileApp {
     margin: 100px 40px 0px 40px;
     max-width: 1360px;
-    width: 95%;
+    width: 94.5%;
+    min-width: 348px;
     display: flex;
     justify-content: center;
     align-items: space-between;
@@ -561,25 +555,18 @@ h2 span {
     line-height: 150%;
 }
 
-.homeMobileAppButton:hover {
-    background-color: #665F55;
-    color: #E1D4C9;
-    cursor: pointer;
-    transition: .7s;
-}
-
 .homeMobileAppButton path {
-    transition: .7s;
-}
-
-.homeMobileAppButton:hover path {
-    fill: #E1D4C9;
     transition: .7s;
 }
 
 #homeMobilePhones {
     display: flex;
     max-width: 630px;
+    width: 100%;
+    min-width: 348px;
+    max-height: 630px;
+    height: 100%;
+    min-height: 348px;
 }
 
 #homeFooter {
@@ -628,19 +615,7 @@ h2 span {
     transition: .7s;
 }
 
-.footerSocialNetworks:hover {
-    border: 1px #E1D4C9 solid;
-    background-color: #E1D4C9;
-    transition: .7s;
-    cursor: pointer;
-}
-
 .footerSocialNetworks path {
-    transition: .7s;
-}
-
-.footerSocialNetworks:hover path {
-    stroke: #403F3D;
     transition: .7s;
 }
 
@@ -691,12 +666,6 @@ h2 span {
     display: block;
     margin: 2px auto 0px auto;
     background-color: #E1D4C9;
-    transition: .7s;
-    cursor: pointer;
-}
-
-#homeFooterRightSmallText a:hover:after {
-    width: 100%;
     transition: .7s;
     cursor: pointer;
 }
@@ -799,11 +768,6 @@ h2 span {
 
 .menuMenuPositionPhoto img {
     scale: 1.1;
-    transition: .7s;
-}
-
-.menuMenuPosition:hover img {
-    scale: 1;
     transition: .7s;
 }
 
