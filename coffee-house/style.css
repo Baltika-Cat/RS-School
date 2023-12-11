@@ -23,7 +23,6 @@ a {
 html {
     scroll-behavior: smooth;
     background-color: #E1D4C9;
-    position: relative;
 }
 
 body {
@@ -79,22 +78,27 @@ nav {
     cursor: pointer;
 }
 
+#homeHeadCenter li:hover:after {
+    width: 100%;
+    transition: .7s;
+    cursor: pointer;
+}
+
 #homeHeadCenter a {
     text-decoration: none;
     color: #403F3D;
 }
 
-#homeHeadMenu {
+.homeHeadMenu {
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
 
-#homeHeadMenuSmall {
+.homeHeadMenuSmall {
     display: flex;
     gap: 8px;
     transition: .7s;
-    color: #403F3D;
 }
 
 #menuHeadMenuSmall {
@@ -102,18 +106,13 @@ nav {
     gap: 8px;
     padding-bottom: 2px;
     border-bottom: 2px #403F3D solid;
-    color: #403F3D;
 }
 
-#homeHeadMenuSmall p {
+.homeHeadMenuSmall p {
     line-height: 24px;
 }
 
-#homeHeadMenu a, #homeHeadMenu a:active {
-    color: #403F3D;
-}
-
-#homeHeadMenu a:after {
+.homeHeadMenu a:after {
     content: '';
     width: 0px;
     height: 2px;
@@ -122,10 +121,6 @@ nav {
     background-color: #403F3D;
     transition: .7s;
     cursor: pointer;
-}
-
-#homeHeadMenuSmall img {
-    margin-bottom: 4px;
 }
 
 #burger-icon {
@@ -141,6 +136,36 @@ nav {
     display: none;
 }
 
+.burger-line {
+    width: 16px;
+    height: 0px;
+    border: 1.5px #403F3D solid;
+    border-radius: 20px;
+    transition: 1s;
+}
+
+.burger-line-open {
+    transform: rotate(45deg) translate(4px, 3px);
+    transition: 1s;
+}
+
+.burger-line:last-child.burger-line-open {
+    transform: rotate(-45deg) translate(4px, -3px);
+    transition: 1s;
+}
+
+.homeHeadMenuSmall img {
+    margin-bottom: 4px;
+}
+
+.navigationBurgerWindowDiv {
+    display: none;
+}
+
+.navigationBurgerWindow {
+    display: none;
+}
+
 main {
     display: flex;
     flex-direction: column;
@@ -152,19 +177,47 @@ main {
     display: flex;
     max-width: 1360px;
     width: 94.5%;
-    border-radius: 40px;
+    height: 100%;
     margin: 20px auto 0px auto;
-    background: url(images/enjoy_home_picture.png) lightgray 50% / cover;
-    justify-content: flex-start;
     align-self: stretch;
+    justify-content: flex-start;
+    align-items: flex-start;
+    position: relative;
+    
+}
+
+#enjoyVideoDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    border-radius: 40px;
+    width: 100%;
+    height: 100%;
+    /*top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);*/
+    top: 0px;
+    left: 0px;
+    z-index: -1;
+    overflow: hidden;
+}
+
+#enjoyVideo {
+    height: inherit;
+    width: 1360px;
+    object-fit: cover;
 }
 
 #homeEnjoyText {
+    position: relative;
     margin: 100px;
     display: flex;
     flex-direction: column;
-    width: 530px;
+    max-width: 530px;
+    width: 100%;
     color: #E1D4C9;
+    align-self: flex-start;
 }
 
 #homeMenuButtonText {
@@ -181,12 +234,21 @@ main {
     transition: .7s;
 }
 
+#homeMenuButton:hover img {
+    opacity: 1;
+    transition: .7s;
+}
+
+#homeMenuButton:hover #homeMenuButtonText {
+    transform: translateX(0px);
+    transition: .7s;
+}
+
 h1 {
     color: #E1D4C9;
     font-size: 72px;
     line-height: 76px;
     font-weight: 600;
-    width: 530px;
 }
 
 h1 span {
@@ -226,11 +288,6 @@ h1 span {
     margin: 100px 40px 0px 40px;
 }
 
-#homeFavoriteCoffeeTitle {
-    margin: 0px 40px;
-    text-align: center;
-}
-
 h2 {
     color: #403F3D;
     font-size: 60px;
@@ -245,7 +302,7 @@ h2 span {
 #homeFavoriteCoffeeSlider {
     display: flex;
     max-width: 1360px;
-    width: 94.5%;
+    width: 94%;
     justify-content: space-between;
     align-items: center;
     margin: 40px;
@@ -256,20 +313,42 @@ h2 span {
     flex-direction: column;
     max-width: 1152px;
     width: 80%;
-    min-width: 348px;
     align-items: center;
+}
+
+.slideWindow {
+    position: relative;
+    max-width: 480px;
+    width: 100%;
+    min-width: 348px;
+    max-height: 100%;
+    overflow-x: hidden;
+}
+
+.allSlides {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    max-width: 1520px;
+    width: calc(300% + 80px);
+    min-width: 1124px;
+    transition: 1s;
+}
+
+.slide {
+    max-width: 480px;
+    width: 100%;
+    min-width: 348px;
 }
 
 #homeBeverages img {
     max-width: 480px;
     width: 100%;
-    min-width: 348px;
-    max-height: 480px;
-    height: 100%;
-    min-height: 348px;
+    height: 480px;
 }
 
-#homeBeveragesData {
+.homeBeveragesData {
     display: flex;
     flex-direction: column;
     max-width: 480px;
@@ -281,29 +360,31 @@ h2 span {
     margin-top: 20px;
 }
 
-#homeBeveragesData h3 {
+.homeBeveragesData h3 {
     font-size: 24px;
     line-height: 125%;
 }
 
-#homeBeveragesData p {
+.homeBeveragesData p {
     font-family: 'Inter-light';
     font-size: 16px;
     line-height: 150%;
 }
 
 .homeArrowCircle {
-    margin-left: 4px;
-    margin-right: 4px;
     display: flex;
-    flex-shrink: 0;
-    flex-grow: 0;
     justify-content: center;
     align-items: center;
-    width: 58px;
-    height: 58px;
+    width: 59px;
+    height: 59px;
     border: 1px #665F55 solid;
     border-radius: 100px;
+    transition: .7s;
+}
+
+.homeArrowCircle:hover {
+    background-color: #665F55;
+    cursor: pointer;
     transition: .7s;
 }
 
@@ -311,57 +392,62 @@ h2 span {
     transition: .7s;
 }
 
-#homeControls {
+.homeControls {
     display: flex;
     gap: 12px;
+    margin-top: 40px;
 }
 
-#homeControls hr {
+.homeControls .controlBack {
     border: none;
     height: 4px;
     width: 40px;
     background-color: #C1B6AD;
-    transition: .7s;
-    cursor: pointer;
 }
 
-#homeControls hr.controlActive {
+@keyframes controlAnimation {
+    from {
+        width: 0px;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+.homeControls .controlForward {
+    display: block;
+    width: 0px;
+    height: 4px;
     background-color: #665F55;
 }
 
+.controlForward.controlActive {
+    animation-name: controlAnimation;
+    animation-duration: 7s;
+    animation-timing-function: linear;
+    animation-play-state: running;
+}
+
 #homeAbout {
-    max-width: 1360px;
-    width: 94.6%;
-    min-width: 348px;
     display: flex;
     flex-direction: column;
     margin: 100px 40px 0px 40px;
 }
 
-#homeAboutTitle {
-    width: 100%;
-}
-
 #homeAboutPhotos {
-    max-width: 1360px;
-    width: 100%;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     margin-top: 40px;
     gap: 40px;
 }
 
 #homeAboutPhotosLeft, #homeAboutPhotosRight {
     display: flex;
-    max-width: 660px;
-    width: 100%;
     flex-direction: column;
     gap: 40px;
 }
 
 .photoDiv {
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -381,27 +467,20 @@ h2 span {
 }
 
 .photoDiv img {
-    position: absolute;
-    left: calc(50% + 33px);
-    transform: translateX(-50%);
-    width: 660px;
+    width: 100%;
     scale: 1.1;
     transition: .7s;
 }
 
-.smallPhoto {
-    top: -115px;
-}
-
-.bigPhoto {
-    top: -35px;
+.photoDiv:hover img {
+    scale: 1;
+    transition: .7s;
 }
 
 #homeMobileApp {
     margin: 100px 40px 0px 40px;
     max-width: 1360px;
-    width: 94.5%;
-    min-width: 348px;
+    width: 95%;
     display: flex;
     justify-content: center;
     align-items: space-between;
@@ -411,7 +490,8 @@ h2 span {
 
 #homeMobileAppLeft {
     display: flex;
-    width: 630px;
+    max-width: 630px;
+    width: 46.4%;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
@@ -437,7 +517,7 @@ h2 span {
 .homeMobileAppButton {
     display: flex;
     width: 158px;
-    padding: 11px 20px;
+    padding: 12px 20px;
     border-radius: 100px;
     border: 1px #665F55 solid;
     color: #403F3D;
@@ -469,44 +549,45 @@ h2 span {
     line-height: 150%;
 }
 
+.homeMobileAppButton:hover {
+    background-color: #665F55;
+    color: #E1D4C9;
+    cursor: pointer;
+    transition: .7s;
+}
+
 .homeMobileAppButton path {
+    transition: .7s;
+}
+
+.homeMobileAppButton:hover path {
+    fill: #E1D4C9;
     transition: .7s;
 }
 
 #homeMobilePhones {
     display: flex;
     max-width: 630px;
-    width: 100%;
-    min-width: 348px;
-    max-height: 630px;
-    height: 100%;
-    min-height: 348px;
 }
 
 #homeFooter {
-    max-width: 1360px;
-    width: 94.5%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: space-between;
-    margin: 100px auto 40px auto;
+    margin: 100px 40px 40px 40px;
     border-radius: 40px;
-    padding: 100px 0px;
-    row-gap: 100px;
+    padding: 100px;
+    gap: 100px;
     background-color: #665F55;
 }
 
 #homeFooter h2 {
     max-width: 530px;
     width: 100%;
-    min-width: 316px;
     color: #E1D4C9;
 }
 
 #homeFooterLeft {
-    margin: 0px 10px 0px 20px;
-    width: 530px;
+    width: 50%;
     display: flex;
     flex-direction: column;
     gap: 40px;
@@ -530,13 +611,24 @@ h2 span {
     transition: .7s;
 }
 
+.footerSocialNetworks:hover {
+    border: 1px #E1D4C9 solid;
+    background-color: #E1D4C9;
+    transition: .7s;
+    cursor: pointer;
+}
+
 .footerSocialNetworks path {
     transition: .7s;
 }
 
+.footerSocialNetworks:hover path {
+    stroke: #403F3D;
+    transition: .7s;
+}
+
 #homeFooterRight {
-    margin: 0px 20px 0px 10px;
-    width: 530px;
+    width: 50%;
     display: inline-flex;
     flex-direction: column;
     justify-content: center;
@@ -585,16 +677,19 @@ h2 span {
     cursor: pointer;
 }
 
+#homeFooterRightSmallText a:hover:after {
+    width: 100%;
+    transition: .7s;
+    cursor: pointer;
+}
+
 #menuTitle {
     margin-top: 20px;
     display: flex;
     max-width: 800px;
-    width: 89.5%;
-    min-width: 688px;
+    width: 100%;
     justify-content: center;
     align-items: center;
-    margin-left: 40px;
-    margin-right: 40px;
 }
 
 #menuTitle h1 {
@@ -602,17 +697,16 @@ h2 span {
     font-size: 60px;
     line-height: 125%;
     text-align: center;
-    max-width: 800px;
-    width: 100%;
 }
 
 #menuMenu {
+    position: relative;
+    z-index: 90;
     margin-left: 40px;
     margin-right: 40px;
     display: flex;
     flex-direction: column;
     gap: 40px;
-    align-items: center;
 }
 
 .menuMenuButtons {
@@ -655,12 +749,15 @@ h2 span {
     background-color: #E1D4C9;
 }
 
-#menuMenuTop {
+.menuMenuTop {
     display: flex;
-    flex-wrap: wrap;
     gap: 40px;
+    row-gap: 40px;
+    column-gap: 40px;
     justify-content: center;
+    display: none;
 }
+
 
 .menuMenuPosition {
     display: flex;
@@ -675,13 +772,18 @@ h2 span {
 .menuMenuPositionPhoto {
     display: flex;
     border-radius: 40px;
-    width: 309px;
+    width: 308px;
     height: 310px;
     overflow: hidden;
 }
 
 .menuMenuPositionPhoto img {
     scale: 1.1;
+    transition: .7s;
+}
+
+.menuMenuPosition:hover img {
+    scale: 1;
     transition: .7s;
 }
 
@@ -712,11 +814,11 @@ h2 span {
     gap: 12px;
 }
 
-#menuMenuBottom {
+.menuMenuBottom {
     display: flex;
-    flex-wrap: wrap;
     gap: 40px;
     justify-content: center;
+    display: none;
 }
 
 .menuMenuTwoPositions {
@@ -726,7 +828,7 @@ h2 span {
     justify-content: center;
 }
 
-#menuRefreshButton {
+.menuRefreshButton {
     display: flex;
     width: 58px;
     height: 58px;
@@ -737,6 +839,163 @@ h2 span {
     display: none;
 }
 
+.menuOpen {
+    display: flex;
+}
+
+.menuModalWindow {
+    max-width: 768px;
+    width: 85.42%;
+    display: flex;
+    padding: 16px;
+    gap: 20px;
+    background-color: #E1D4C9;
+    border-radius: 40px;
+    position: fixed;
+    z-index: 101;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #403F3D;
+    display: none; 
+}
+
+.active {
+    display: flex;
+
+}
+
+.background {
+    position: fixed;
+    display: flex;
+    z-index: 100;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(64, 63, 61);
+    opacity: .8;
+    display: none;
+}
+
+.background.backgroundActive {
+    display: flex;
+}
+
+.menuPhotoPlace {
+    display: flex;
+    width: 310px;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.menuPhotoDiv {
+    display: flex;
+    width: 310px;
+    height: 310px;
+    border-radius: 40px;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+
+.menuDescriptionDiv {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.menuModalDescription {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.menuModalDescription h3 {
+    font-size: 24px;
+    line-height: 125%;
+}
+
+.menuDescriptionDiv p {
+    font-family: 'Inter-light';
+    font-size: 16px;
+    line-height: 150%;
+}
+
+.menuMenuModalButtons {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.menuModalWindow .menuMenuButtonsActive {
+    color: #E1D4C9;
+    background-color: #665F55;
+    border: 1px #665F55 solid;
+}
+
+.menuModalWindow .menuMenuButtonsActive .menuMenuButtonsIcon {
+    color: #403F3D;
+    background-color: #E1D4C9;
+}
+
+.menuModalTotalPrice {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.menuModalTotalPrice h3 {
+    font-size: 24px;
+    line-height: 125%;
+}
+
+.menuModalPrice {
+    display: flex;
+    align-items: flex-end;
+}
+
+.menuModalWarning {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    padding: 12px 0px;
+    padding-top: 11px;
+    border-top: 1px #C1B6AD solid;
+}
+
+.menuModalWarning p {
+    font-size: 10px;
+    line-height: 140%;
+    font-family: 'Inter';
+}
+
+.menuModalCloseButton {
+    display: flex;
+    border-radius: 100px;
+    border: 1px #665F55 solid;
+    font-size: 16px;
+    line-height: 150%;
+    text-align: center;
+    justify-content: center;
+    padding: 9px 0px;
+    cursor: pointer;
+    transition: .7s;
+}
+
+body.block {
+    overflow-y: hidden;
+}
+
+body.blockX {
+    overflow-x: hidden;
+}
+
 @media (hover: hover) {
     #homeHeadCenter li:hover:after {
         width: 100%;
@@ -744,10 +1003,15 @@ h2 span {
         cursor: pointer;
     }
     
-    #homeHeadMenu a:hover:after {
+    .homeHeadMenu a:hover:after {
         width: 100%;
         cursor: pointer;
         transition: .7s;
+    }
+
+    
+    .navigationBurgerWindow .homeHeadMenu a:hover:after {
+        display: none;
     }
     
     #homeMenuButton:hover img {
@@ -768,11 +1032,6 @@ h2 span {
 
     .homeArrowCircle:hover path {
         stroke: #E1D4C9;
-        transition: .7s;
-    }
-
-    #homeControls hr:hover {
-        background-color: #665F55;
         transition: .7s;
     }
 
@@ -829,11 +1088,92 @@ h2 span {
         scale: 1;
         transition: .7s;
     }
+
+    .menuModalWindow .menuMenuButton:hover .menuMenuButtonsIcon {
+        color: #403F3D;
+    }
+
+    .menuModalCloseButton:hover {
+        background-color: #665F55;
+        color: #E1D4C9;
+        transition: .7s;
+        cursor: pointer;
+    }
 }
 
 @media screen and (max-width: 768px) {
     header {
         align-items: center;
+    }
+
+    .navigationBurgerWindowDiv {
+        display: flex;
+        position: absolute;
+        top: 100px;
+        right: 0px;
+        width: 100vw;
+        height: calc(100vh - 80px);
+        opacity: 1;
+        overflow: hidden;
+    }
+    
+    .navigationBurgerWindow {
+        position: absolute;
+        z-index: 100;
+        top: 0px;
+        right: -150%;
+        width: 100vw;
+        height: calc(100vh - 80px);
+        background-color: #E1D4C9;
+        display: flex;
+        flex-direction: column;
+        gap: 100px;
+        opacity: 0;
+        transition: 1s;
+    }
+    
+    .burgerNavigation {
+        margin: 60px 40px 0px;
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
+        align-items: center;
+        list-style: none;
+        font-family: 'Inter';
+        font-size: 32px;
+        color: #403F3D;
+        line-height: 125%;
+    }
+
+    .navigationBurgerWindow .homeHeadMenu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Inter';
+        font-size: 32px;
+        line-height: 125%;
+    }
+
+    .navigationBurgerWindow .homeHeadMenu .homeHeadMenuSmall {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .navigationBurgerWindow .homeHeadMenu img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .burgerNavigation a {
+        color: #403F3D
+    }
+    
+    .burgerMenuOpen {
+        transition: 1s;
+        position: absolute;
+        right: 0px;
+        opacity: 1;
     }
 
     #homeEnjoy {
@@ -913,7 +1253,7 @@ h2 span {
         display: none;
     }
 
-    nav, #homeHeadMenu {
+    nav, .homeHeadMenu {
         display: none;
     }
 
@@ -940,12 +1280,33 @@ h2 span {
         min-width: 348px;
     }
 
-    #menuMenuBottom {
+    .menuMenuBottom {
         display: none;
     }
 
-    #menuRefreshButton {
+    
+    .menuOpen {
         display: flex;
+    }
+
+    .menuRefreshButton {
+        display: flex;
+    }
+
+    .refreshButtonClose {
+        display: none;
+    }
+
+    .menuPhotoPlace {
+        max-width: 310px;
+        width: 47.3%;
+    }
+
+    .menuPhotoDiv {
+        max-width: 310px;
+        width: 100%;
+        max-height: 310px;
+        height: 52.2%;
     }
 }
 
@@ -1050,5 +1411,13 @@ h2 span {
 
     .menuMenuButtons {
         gap: 8px;
+    }
+
+    .menuModalWindow {
+        width: calc(90vw - 32px);
+    }
+
+    .menuPhotoPlace {
+        display: none;
     }
 }
