@@ -102,6 +102,7 @@ nav {
 }
 
 #menuHeadMenuSmall {
+    color: #403F3D;
     display: flex;
     gap: 8px;
     padding-bottom: 2px;
@@ -110,6 +111,7 @@ nav {
 
 .homeHeadMenuSmall p {
     line-height: 24px;
+    color: #403F3D;
 }
 
 .homeHeadMenu a {
@@ -723,6 +725,7 @@ h2 span {
     display: flex;
     flex-direction: column;
     gap: 40px;
+    align-items: center;
 }
 
 .menuMenuButtons {
@@ -767,6 +770,7 @@ h2 span {
 
 .menuMenuTop {
     display: flex;
+    flex-wrap: wrap;
     gap: 40px;
     row-gap: 40px;
     column-gap: 40px;
@@ -832,6 +836,7 @@ h2 span {
 
 .menuMenuBottom {
     display: flex;
+    flex-wrap: wrap;
     gap: 40px;
     justify-content: center;
     display: none;
