@@ -89,30 +89,36 @@ nav {
     color: #403F3D;
 }
 
-#homeHeadMenu {
+.homeHeadMenu {
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
 
-#homeHeadMenuSmall {
+.homeHeadMenuSmall {
     display: flex;
     gap: 8px;
     transition: .7s;
 }
 
 #menuHeadMenuSmall {
+    color: #403F3D;
     display: flex;
     gap: 8px;
     padding-bottom: 2px;
     border-bottom: 2px #403F3D solid;
 }
 
-#homeHeadMenuSmall p {
+.homeHeadMenuSmall p {
     line-height: 24px;
+    color: #403F3D;
 }
 
-#homeHeadMenu a:after {
+.homeHeadMenu a {
+    color: #403F3D;
+}
+
+.homeHeadMenu a:after {
     content: '';
     width: 0px;
     height: 2px;
@@ -123,14 +129,47 @@ nav {
     cursor: pointer;
 }
 
-#homeHeadMenu a:hover:after {
-    width: 100%;
-    cursor: pointer;
-    transition: .7s;
+#burger-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    width: 42px;
+    height: 42px;
+    border: 1px #665F55 solid;
+    border-radius: 100px;
+    display: none;
 }
 
-#homeHeadMenuSmall img {
+.burger-line {
+    width: 16px;
+    height: 0px;
+    border: 1.5px #403F3D solid;
+    border-radius: 20px;
+    transition: 1s;
+}
+
+.burger-line-open {
+    transform: rotate(45deg) translate(4px, 3px);
+    transition: 1s;
+}
+
+.burger-line:last-child.burger-line-open {
+    transform: rotate(-45deg) translate(4px, -3px);
+    transition: 1s;
+}
+
+.homeHeadMenuSmall img {
     margin-bottom: 4px;
+}
+
+.navigationBurgerWindowDiv {
+    display: none;
+}
+
+.navigationBurgerWindow {
+    display: none;
 }
 
 main {
@@ -143,21 +182,48 @@ main {
 #homeEnjoy {
     display: flex;
     max-width: 1360px;
-    width: 94%;
-    border-radius: 40px;
+    width: 94.5%;
+    height: 100%;
     margin: 20px auto 0px auto;
-    background: url(images/enjoy_home_picture.png) lightgray 50% / cover;
-    justify-content: flex-start;
     align-self: stretch;
+    justify-content: flex-start;
+    align-items: flex-start;
+    position: relative;
+    
+}
+
+#enjoyVideoDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    border-radius: 40px;
+    width: 100%;
+    height: 100%;
+    /*top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);*/
+    top: 0px;
+    left: 0px;
+    z-index: -1;
+    overflow: hidden;
+}
+
+#enjoyVideo {
+    height: inherit;
+    width: 1360px;
+    object-fit: cover;
 }
 
 #homeEnjoyText {
+    position: relative;
     margin: 100px;
     display: flex;
     flex-direction: column;
     max-width: 530px;
     width: 100%;
     color: #E1D4C9;
+    align-self: flex-start;
 }
 
 #homeMenuButtonText {
@@ -256,13 +322,39 @@ h2 span {
     align-items: center;
 }
 
+.slideWindow {
+    position: relative;
+    max-width: 480px;
+    width: 100%;
+    min-width: 348px;
+    max-height: 100%;
+    overflow-x: hidden;
+}
+
+.allSlides {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    max-width: 1520px;
+    width: calc(300% + 80px);
+    min-width: 1124px;
+    transition: 1s;
+}
+
+.slide {
+    max-width: 480px;
+    width: 100%;
+    min-width: 348px;
+}
+
 #homeBeverages img {
     max-width: 480px;
     width: 100%;
     height: 480px;
 }
 
-#homeBeveragesData {
+.homeBeveragesData {
     display: flex;
     flex-direction: column;
     max-width: 480px;
@@ -274,12 +366,12 @@ h2 span {
     margin-top: 20px;
 }
 
-#homeBeveragesData h3 {
+.homeBeveragesData h3 {
     font-size: 24px;
     line-height: 125%;
 }
 
-#homeBeveragesData p {
+.homeBeveragesData p {
     font-family: 'Inter-light';
     font-size: 16px;
     line-height: 150%;
@@ -306,33 +398,41 @@ h2 span {
     transition: .7s;
 }
 
-.homeArrowCircle:hover path {
-    stroke: #E1D4C9;
-    transition: .7s;
-}
-
-#homeControls {
+.homeControls {
     display: flex;
     gap: 12px;
     margin-top: 40px;
 }
 
-#homeControls hr {
+.homeControls .controlBack {
     border: none;
     height: 4px;
     width: 40px;
     background-color: #C1B6AD;
-    transition: .7s;
-    cursor: pointer;
 }
 
-#homeControls hr:hover {
-    background-color: #665F55;
-    transition: .7s;
+@keyframes controlAnimation {
+    from {
+        width: 0px;
+    }
+
+    to {
+        width: 100%;
+    }
 }
 
-#homeControls hr.controlActive {
+.homeControls .controlForward {
+    display: block;
+    width: 0px;
+    height: 4px;
     background-color: #665F55;
+}
+
+.controlForward.controlActive {
+    animation-name: controlAnimation;
+    animation-duration: 7s;
+    animation-timing-function: linear;
+    animation-play-state: running;
 }
 
 #homeAbout {
@@ -343,17 +443,25 @@ h2 span {
 
 #homeAboutPhotos {
     display: flex;
+    max-width: 1360px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     margin-top: 40px;
     gap: 40px;
 }
 
 #homeAboutPhotosLeft, #homeAboutPhotosRight {
+    max-width: 660px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 40px;
 }
 
 .photoDiv {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -373,13 +481,11 @@ h2 span {
 }
 
 .photoDiv img {
-    width: 100%;
+    position: absolute;
+    left: calc(50% + 33px);
+    transform: translateX(-50%);
+    width: 660px;
     scale: 1.1;
-    transition: .7s;
-}
-
-.photoDiv:hover img {
-    scale: 1;
     transition: .7s;
 }
 
@@ -477,12 +583,16 @@ h2 span {
 }
 
 #homeFooter {
+    max-width: 1360px;
+    width: 94.5%;
     display: flex;
     flex-wrap: wrap;
-    margin: 100px 40px 40px 40px;
+    justify-content: space-evenly;
+    align-items: space-between;
+    margin: 100px auto 40px auto;
     border-radius: 40px;
-    padding: 100px;
-    gap: 100px;
+    padding: 100px 0px;
+    row-gap: 100px;
     background-color: #665F55;
 }
 
@@ -493,7 +603,8 @@ h2 span {
 }
 
 #homeFooterLeft {
-    width: 50%;
+    margin: 0px 10px 0px 20px;
+    width: 530px;
     display: flex;
     flex-direction: column;
     gap: 40px;
@@ -534,7 +645,8 @@ h2 span {
 }
 
 #homeFooterRight {
-    width: 50%;
+    margin: 0px 20px 0px 10px;
+    width: 530px;
     display: inline-flex;
     flex-direction: column;
     justify-content: center;
@@ -606,11 +718,14 @@ h2 span {
 }
 
 #menuMenu {
+    position: relative;
+    z-index: 90;
     margin-left: 40px;
     margin-right: 40px;
     display: flex;
     flex-direction: column;
     gap: 40px;
+    align-items: center;
 }
 
 .menuMenuButtons {
@@ -653,23 +768,16 @@ h2 span {
     background-color: #E1D4C9;
 }
 
-.menuMenuButton:hover {
-    background-color: #665F55;
-    border-color: #665F55;
-    color: #E1D4C9;
-    transition: .7s;
-    cursor: pointer;
-}
-
-.menuMenuButton:hover .menuMenuButtonsIcon {
-    background-color: #E1D4C9;
-    transition: .7s;
-}
-
-#menuMenuTop {
+.menuMenuTop {
     display: flex;
+    flex-wrap: wrap;
     gap: 40px;
+    row-gap: 40px;
+    column-gap: 40px;
+    justify-content: center;
+    display: none;
 }
+
 
 .menuMenuPosition {
     display: flex;
@@ -684,7 +792,7 @@ h2 span {
 .menuMenuPositionPhoto {
     display: flex;
     border-radius: 40px;
-    width: 309px;
+    width: 308px;
     height: 310px;
     overflow: hidden;
 }
@@ -726,7 +834,611 @@ h2 span {
     gap: 12px;
 }
 
-#menuMenuBottom {
+.menuMenuBottom {
     display: flex;
+    flex-wrap: wrap;
     gap: 40px;
+    justify-content: center;
+    display: none;
+}
+
+.menuMenuTwoPositions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+}
+
+.menuRefreshButton {
+    display: flex;
+    width: 58px;
+    height: 58px;
+    justify-content: center;
+    align-items: center;
+    border: 1px #665F55 solid;
+    border-radius: 100px;
+    display: none;
+}
+
+.menuOpen {
+    display: flex;
+}
+
+.menuModalWindow {
+    max-width: 768px;
+    width: 85.42%;
+    display: flex;
+    padding: 16px;
+    gap: 20px;
+    background-color: #E1D4C9;
+    border-radius: 40px;
+    position: fixed;
+    z-index: 101;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #403F3D;
+    display: none; 
+}
+
+.active {
+    display: flex;
+
+}
+
+.background {
+    position: fixed;
+    display: flex;
+    z-index: 100;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(64, 63, 61);
+    opacity: .8;
+    display: none;
+}
+
+.background.backgroundActive {
+    display: flex;
+}
+
+.menuPhotoPlace {
+    display: flex;
+    width: 310px;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.menuPhotoDiv {
+    display: flex;
+    width: 310px;
+    height: 310px;
+    border-radius: 40px;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+
+.menuDescriptionDiv {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.menuModalDescription {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.menuModalDescription h3 {
+    font-size: 24px;
+    line-height: 125%;
+}
+
+.menuDescriptionDiv p {
+    font-family: 'Inter-light';
+    font-size: 16px;
+    line-height: 150%;
+}
+
+.menuMenuModalButtons {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.menuModalWindow .menuMenuButtonsActive {
+    color: #E1D4C9;
+    background-color: #665F55;
+    border: 1px #665F55 solid;
+}
+
+.menuModalWindow .menuMenuButtonsActive .menuMenuButtonsIcon {
+    color: #403F3D;
+    background-color: #E1D4C9;
+}
+
+.menuModalTotalPrice {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.menuModalTotalPrice h3 {
+    font-size: 24px;
+    line-height: 125%;
+}
+
+.menuModalPrice {
+    display: flex;
+    align-items: flex-end;
+}
+
+.menuModalWarning {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    padding: 12px 0px;
+    padding-top: 11px;
+    border-top: 1px #C1B6AD solid;
+}
+
+.menuModalWarning p {
+    font-size: 10px;
+    line-height: 140%;
+    font-family: 'Inter';
+}
+
+.menuModalCloseButton {
+    display: flex;
+    border-radius: 100px;
+    border: 1px #665F55 solid;
+    font-size: 16px;
+    line-height: 150%;
+    text-align: center;
+    justify-content: center;
+    padding: 9px 0px;
+    cursor: pointer;
+    transition: .7s;
+}
+
+body.block {
+    overflow-y: hidden;
+}
+
+body.blockX {
+    overflow-x: hidden;
+}
+
+@media (hover: hover) {
+    #homeHeadCenter li:hover:after {
+        width: 100%;
+        transition: .7s;
+        cursor: pointer;
+    }
+    
+    .homeHeadMenu a:hover:after {
+        width: 100%;
+        cursor: pointer;
+        transition: .7s;
+    }
+
+    
+    .navigationBurgerWindow .homeHeadMenu a:hover:after {
+        display: none;
+    }
+    
+    #homeMenuButton:hover img {
+        opacity: 1;
+        transition: .7s;
+    }
+
+    #homeMenuButton:hover #homeMenuButtonText {
+        transform: translateX(0px);
+        transition: .7s;
+    }
+        
+    .homeArrowCircle:hover {
+        background-color: #665F55;
+        cursor: pointer;
+        transition: .7s;
+    }
+
+    .homeArrowCircle:hover path {
+        stroke: #E1D4C9;
+        transition: .7s;
+    }
+
+    .photoDiv:hover img {
+        scale: 1;
+        transform: translateX(calc((-50%) - 33px));
+        transition: .7s;
+    }
+
+    .homeMobileAppButton:hover {
+        background-color: #665F55;
+        color: #E1D4C9;
+        cursor: pointer;
+        transition: .7s;
+    }
+
+    .homeMobileAppButton:hover path {
+        fill: #E1D4C9;
+        transition: .7s;
+    }
+
+    .footerSocialNetworks:hover {
+        border: 1px #E1D4C9 solid;
+        background-color: #E1D4C9;
+        transition: .7s;
+        cursor: pointer;
+    }
+
+    .footerSocialNetworks:hover path {
+        stroke: #403F3D;
+        transition: .7s;
+    }
+
+    #homeFooterRightSmallText a:hover:after {
+        width: 100%;
+        transition: .7s;
+        cursor: pointer;
+    }
+
+    .menuMenuButton:hover {
+        background-color: #665F55;
+        border-color: #665F55;
+        color: #E1D4C9;
+        transition: .7s;
+        cursor: pointer;
+    }
+
+    .menuMenuButton:hover .menuMenuButtonsIcon {
+        background-color: #E1D4C9;
+        transition: .7s;
+    }
+
+    .menuMenuPosition:hover img {
+        scale: 1;
+        transition: .7s;
+    }
+
+    .menuModalWindow .menuMenuButton:hover .menuMenuButtonsIcon {
+        color: #403F3D;
+    }
+
+    .menuModalCloseButton:hover {
+        background-color: #665F55;
+        color: #E1D4C9;
+        transition: .7s;
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    header {
+        align-items: center;
+    }
+
+    .navigationBurgerWindowDiv {
+        display: flex;
+        position: absolute;
+        top: 100px;
+        right: 0px;
+        width: 100vw;
+        height: calc(100vh - 80px);
+        opacity: 1;
+        overflow: hidden;
+    }
+    
+    .navigationBurgerWindow {
+        position: absolute;
+        z-index: 100;
+        top: 0px;
+        right: -150%;
+        width: 100vw;
+        height: calc(100vh - 80px);
+        background-color: #E1D4C9;
+        display: flex;
+        flex-direction: column;
+        gap: 100px;
+        opacity: 0;
+        transition: 1s;
+    }
+    
+    .burgerNavigation {
+        margin: 60px 40px 0px;
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
+        align-items: center;
+        list-style: none;
+        font-family: 'Inter';
+        font-size: 32px;
+        color: #403F3D;
+        line-height: 125%;
+    }
+
+    .navigationBurgerWindow .homeHeadMenu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Inter';
+        font-size: 32px;
+        line-height: 125%;
+    }
+
+    .navigationBurgerWindow .homeHeadMenu .homeHeadMenuSmall {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .navigationBurgerWindow .homeHeadMenu img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .burgerNavigation a {
+        color: #403F3D
+    }
+    
+    .burgerMenuOpen {
+        transition: 1s;
+        position: absolute;
+        right: 0px;
+        opacity: 1;
+    }
+
+    #homeEnjoy {
+        margin-left: 40px;
+        margin-right: 40px;
+        max-width: 688px;
+        width: 89.6%;
+        min-width: 348px;
+    }
+
+    #homeEnjoyText {
+        margin: 100px 0px;
+        margin-left: calc(2.4px + 7.5vw);
+        margin-right: calc(2.4px + 7.5vw);
+        max-width: 530px;
+        width: 77.1%;
+    }
+
+    #homeEnjoyText h1 {
+        max-width: 530px;
+        width: 100%;
+        font-size: calc(13.632px + 7.6vw);
+    }
+
+    #homeMenuButtonText {
+        transform: translateX(0px);
+    }
+
+    #homeMenuButtonText img {
+        opacity: 1;
+    }
+
+    #homeFavoriteCoffeeSlider {
+        max-width: 688px;
+    }
+
+    #homeBeverages {
+        max-width: 480px;
+    }
+
+    .homeArrowCircle {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    #homeAbout {
+        max-width: 688px;
+        width: 89.6%;
+    }
+
+    #homeAboutPhotosLeft, #homeAboutPhotosRight {
+        max-width: 688px;
+    }
+
+    .photoDiv {
+        max-width: 688px;
+        width: 100%;
+    }
+
+    .smallPhotoDiv {
+        display: none;
+    }
+
+    #homeMobileApp {
+        max-width: 688px;
+        width: 89.6%;
+        justify-content: center;
+    }
+
+    #homeMobileAppLeft {
+        margin: 0px;
+        max-width: 688px;
+        width: 100%;
+    }
+
+    #homeMobileAppLeft br {
+        display: none;
+    }
+
+    nav, .homeHeadMenu {
+        display: none;
+    }
+
+    #burger-icon {
+        display: flex;
+    }
+
+    #homeFooter {
+        max-width: 688px;
+        justify-content: space-between;
+    }
+
+    #homeFooterLeft {
+        margin-left: calc(21.6px + 5vw);
+    }
+
+    #homeFooterRight {
+        margin-left: calc(21.6px + 5vw);
+    }
+
+    #menuTitle {
+        max-width: 688px;
+        width: 89.5%;
+        min-width: 348px;
+    }
+
+    .menuMenuBottom {
+        display: none;
+    }
+
+    
+    .menuOpen {
+        display: flex;
+    }
+
+    .menuRefreshButton {
+        display: flex;
+    }
+
+    .refreshButtonClose {
+        display: none;
+    }
+
+    .menuPhotoPlace {
+        max-width: 310px;
+        width: 47.3%;
+    }
+
+    .menuPhotoDiv {
+        max-width: 310px;
+        width: 100%;
+        max-height: 310px;
+        height: 52.2%;
+    }
+}
+
+@media screen and (max-width: 530px) {
+    header {
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+
+    #homeEnjoy {
+        margin: 20px 16px 0px;
+    }
+
+    #homeEnjoyText {
+        margin-top: 60px;
+        margin-left: calc(0.8px + 4vw);
+        margin-right: calc(0.8px + 4vw);
+        margin-bottom: 60px;
+        width: 316px;
+    }
+
+    #homeEnjoyText h1 {
+        font-size: 42px;
+        line-height: 115%;
+    }
+
+    #homeFavoriteCoffee {
+        margin-left: 16px;
+        margin-right: 16px;
+        width: 91.5%;
+        min-width: 348px;
+    }
+
+    #homeFavoriteCoffeeTitle {
+        font-size: 32px;
+        width: 348px;
+    }
+
+    #homeMobileAppButtons {
+        flex-wrap: wrap;
+    }
+
+    .homeArrowCircle {
+        display: none;
+    }
+
+    #homeFavoriteCoffeeSlider {
+        justify-content: center;
+    }
+
+    #homeAbout {
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+
+    #homeAbout h2 {
+        font-size: 32px;
+        width: 348px;
+    }
+
+    #homeMobileApp {
+        gap: 40px;
+    }
+
+    #homeMobileAppTitle {
+        font-size: 32px;
+        width: 348px;
+    }
+
+    #homeFooter h2 {
+        font-size: 32px;
+    }
+
+    #homeFooter br {
+        display: none;
+    }
+
+    #homeFooter {
+        width: 91.5%;
+        min-width: 348px;
+        padding-top: 60px;
+        padding-bottom: 60px;
+        gap: 40px;
+    }
+
+    #homeFooterLeft {
+        margin-left: 16px;
+    }
+
+    #homeFooterRight {
+        margin-left: 16px;
+    }
+
+    #menuTitle {
+        min-width: 348px;
+        width: 91.5%;
+    }
+
+    #menuTitle h1 {
+        font-size: 32px;
+    }
+
+    .menuMenuButtons {
+        gap: 8px;
+    }
+
+    .menuModalWindow {
+        width: calc(90vw - 32px);
+    }
+
+    .menuPhotoPlace {
+        display: none;
+    }
 }
