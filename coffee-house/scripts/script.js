@@ -218,7 +218,7 @@ if (menuCoffee[0]) {
         if (window.innerWidth > 768) {
             windowWidthSmaller = false;
             menuMenuBottom[menuTypeIndex()].classList.add('menuOpen');
-        } else if (window.innerWidth <= 768) {
+        } else if (window.innerWidth <= 768 && menuType !== 'tea') {
             if (windowWidthSmaller === false) {
                 menuMenuBottom.map((item) => {item.classList.remove('menuOpen')});
                 menuRefreshButton.classList.remove('refreshButtonClose');
