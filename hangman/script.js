@@ -1,8 +1,14 @@
 const body = document.querySelector('body');
+const alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+
+const main = document.createElement('main');
+main.classList.add('main');
+body.appendChild(main);
 
 const gallowsWrapper = document.createElement('div');
-body.appendChild(gallowsWrapper);
+main.appendChild(gallowsWrapper);
 gallowsWrapper.classList.add('gallows-wrapper');
+
 const gallows = document.createElement('img');
 gallows.src = 'images/gallows.svg';
 gallowsWrapper.appendChild(gallows);
@@ -43,3 +49,35 @@ hangRightLeg.src = 'images/right-leg.svg';
 hangRightLeg.classList.add('hang-right-leg');
 hangRightLeg.classList.add('invisible');
 gallowsWrapper.appendChild(hangRightLeg);
+
+const riddleWrapper = document.createElement('div');
+riddleWrapper.classList.add('riddle-wrapper');
+main.appendChild(riddleWrapper);
+
+const riddles = [
+  {
+    ordinal: 1,
+    question: 'Волосатая головка за щекой играет ловко',
+    answer: 'щётка',
+  },
+  {
+    ordinal: 2,
+    question: 'мя',
+    answer: 'мя'
+  },
+  {
+    
+  }
+]
+
+
+const keyboard = document.createElement('div');
+keyboard.classList.add('keyboard');
+riddleWrapper.appendChild(keyboard);
+
+for (let i = 0; i < alphabet.length; i += 1) {
+  let key = document.createElement('div');
+  key.classList.add('key');
+  keyboard.appendChild(key);
+  key.textContent = alphabet[i].toUpperCase();
+}
