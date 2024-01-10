@@ -1,4 +1,4 @@
-.gallowsWrapper {
+.gallows-wrapper {
     display: flex;
     width: 353px;
     height: 581px;
@@ -11,16 +11,35 @@
     z-index: 1;
 }
 
-.hangHead {
+.hang-head,
+.hang-body,
+.hang-left-hand,
+.hang-right-hand,
+.hang-left-leg,
+.hang-right-leg {
     position: absolute;
     right: 0;
     top: 130px;
     z-index: 13;
 }
-
-.hangBody {
-    position: absolute;
+.hang-body,
+.hang-left-hand,
+.hang-right-hand,
+.hang-left-leg {
     right: 50.5px;
     top: 231px;
-    z-index: 13;
+}
+
+.hang-right-hand,
+.hang-right-leg {
+    right: -12.5px;
+}
+
+.hang-left-leg,
+.hang-right-leg {
+    top: 362px;
+}
+
+.invisible {
+    display: none;
 }
