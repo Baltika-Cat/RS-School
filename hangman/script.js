@@ -130,6 +130,13 @@ riddles.forEach((riddle) => {
   }
 })
 
+let scoreNum = 0;
+
+const score = document.createElement('p');
+score.classList.add('score');
+score.textContent = `Попытки: ${scoreNum}/6`;
+riddleWrapper.appendChild(score);
+
 const keyboard = document.createElement('div');
 keyboard.classList.add('keyboard');
 riddleWrapper.appendChild(keyboard);
