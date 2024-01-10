@@ -1,6 +1,8 @@
 const body = document.querySelector('body');
 const alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
 
+body.classList.add('body');
+
 const main = document.createElement('main');
 main.classList.add('main');
 body.appendChild(main);
@@ -66,10 +68,67 @@ const riddles = [
     answer: 'мя'
   },
   {
-    
+    ordinal: 3,
+    question: '3',
+    answer: '3'
+  },
+  {
+    ordinal: 4,
+    question: '4',
+    answer: '4'
+  },
+  {
+    ordinal: 5,
+    question: '5',
+    answer: '5'
+  },
+  {
+    ordinal: 6,
+    question: '6',
+    answer: '6'
+  },
+  {
+    ordinal: 7,
+    question: '7',
+    answer: '7'
+  },
+  {
+    ordinal: 8,
+    question: '8',
+    answer: '8'
+  },
+  {
+    ordinal: 9,
+    question: '9',
+    answer: '9'
+  },
+  {
+    ordinal: 10,
+    question: '10',
+    answer: '10'
   }
 ]
 
+const questionAnswer = document.createElement('div');
+questionAnswer.classList.add('question-answer');
+riddleWrapper.appendChild(questionAnswer);
+
+const question = document.createElement('p');
+question.classList.add('question');
+questionAnswer.appendChild(question);
+
+const answer = document.createElement('p');
+answer.classList.add('answer');
+questionAnswer.appendChild(answer);
+
+let num = Math.ceil(Math.random() * 10);
+
+riddles.forEach((riddle) => {
+  if (riddle.ordinal === num) {
+    question.textContent = riddle.question;
+    answer.textContent = riddle.answer;
+  }
+})
 
 const keyboard = document.createElement('div');
 keyboard.classList.add('keyboard');
