@@ -7,10 +7,6 @@ const main = document.createElement('main');
 main.classList.add('main');
 body.append(main);
 
-const mainBackground = document.createElement('img');
-mainBackground.classList.add('main-background');
-main.append(mainBackground);
-
 const gallowsWrapper = document.createElement('div');
 main.append(gallowsWrapper);
 gallowsWrapper.classList.add('gallows-wrapper');
@@ -18,7 +14,7 @@ gallowsWrapper.classList.add('gallows-wrapper');
 const imagesVisible = [];
 
 const gallows = document.createElement('img');
-gallows.src = 'images/tree.png';
+gallows.src = 'images/gallows.svg';
 gallowsWrapper.append(gallows);
 gallows.classList.add('gallows');
 imagesVisible.push(gallows);

@@ -1,10 +1,16 @@
+@font-face {
+  font-family: 'Bony';
+  src: url(fonts/BONY\ Regular.ttf);
+}
+
 .body {
   display: flex;
   justify-content: center;
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0px;
   padding: 0px;
+  background: url(images/forest-background.jpg) no-repeat;
 }
 
 .main {
@@ -14,21 +20,25 @@
   align-items: center;
   /* max-width: 1440px; */
   width: 100%;
-  background: url(images/forest-background.jpg) no-repeat center / cover;
   gap: 30px;
 }
 
 .gallows-wrapper {
   display: flex;
-  width: 353px;
-  height: 581px;
+  max-width: 353px;
+  max-height: 581px;
+  width: 50%;
+  height: 50%;
   position: relative;
   z-index: 0;
+  margin: 0px 10px;
 }
 
 .gallows {
   position: absolute;
   z-index: 1;
+  width: 100%;
+  height: 100%;
 }
 
 .hang-head,
@@ -64,27 +74,29 @@
   align-items: center;
   min-width: 350px;
   width: 70%;
-  min-height: 50vh;
-  height: 100vh;
+  height: 70%;
+  margin: 0px 10px;
 }
 .question-answer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 48px;
+  font-family: 'Bony';
+  font-size: calc(2vw + 18px);
 }
 .question,
 .answer {
+  color: #EEE;
   text-align: center;
   margin: 0px;
   line-height: 150%;
 }
 .score {
-  font-size: 48px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: calc(2vw + 18px);
+  font-family: 'Bony';
   color: #19ff19;
+  line-height: 125%;
 }
 .keyboard {
   display: flex;
@@ -96,13 +108,14 @@
 .key {
   display: flex;
   justify-content: center;
-  width: 50px;
-  height: 50px;
+  width: calc(2vw + 21px);
+  height: calc(2vw + 21px);
   align-items: center;
-  background-color: #111;
+  background-color: black;
   color: white;
   border-radius: 8px;
-  font-size: 32px;
+  font-family: 'Bony';
+  font-size: calc(2vw + 6px);
   cursor: pointer;
   transition: .5s;
 }
@@ -130,9 +143,10 @@
 }
 .lose-message, 
 .win-message {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Bony';
   font-size: 72px;
   color: white;
+  text-align: center;
 }
 .invisible {
   display: none;
