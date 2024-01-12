@@ -166,8 +166,16 @@ for (let i = 0; i < alphabet.length; i += 1) {
   key.textContent = alphabet[i].toUpperCase();
 }
 
-const winMessage = 'Вы победили!';
-const loseMessage = `Увы, не повезло. Правильный ответ: ${rightAnswer}`;
+const winMessage = document.createElement('p');
+winMessage.classList.add('win-message');
+winMessage.classList.add('invisible');
+winMessage.textContent = 'Вы победили!';
+background.append(winMessage);
+const loseMessage = document.createElement('p');
+loseMessage.classList.add('lose-message');
+loseMessage.classList.add('invisible');
+loseMessage.textContent = `Увы, не повезло. Правильный ответ: ${rightAnswer}`;
+background.append(loseMessage);
 
 const keys = document.querySelectorAll('.key');
 const usedLetters = [];
@@ -183,6 +191,10 @@ const chooseLetter = function(sym) {
           riddleAnswer = riddleAnswer.replace(letter, letter.toUpperCase());
         }
         answer.textContent = answerArray.join(' ');
+        if (!answer.textContent.includes('__')) {
+          background.classList.remove('invisible');
+          winMessage.classList.remove('invisible');
+        }
       }
     } else {
       scoreNum += 1;
@@ -190,6 +202,7 @@ const chooseLetter = function(sym) {
       score.textContent = `Попытки: ${scoreNum}/6`;
       if (scoreNum >= 6) {
         background.classList.remove('invisible');
+        loseMessage.classList.remove('invisible');
       }
     }
     sym.classList.add('key-inactive');
