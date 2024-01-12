@@ -11,9 +11,10 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  max-width: 1440px;
+  align-items: center;
+  /* max-width: 1440px; */
   width: 100%;
-  background-color: #E9F1F3;
+  background: url(images/forest-background.jpg) no-repeat center / cover;
   gap: 30px;
 }
 
@@ -59,6 +60,8 @@
 .riddle-wrapper {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   min-width: 350px;
   width: 70%;
   min-height: 50vh;
