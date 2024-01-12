@@ -10,7 +10,7 @@
   min-height: 100vh;
   margin: 0px;
   padding: 0px;
-  background: url(images/forest-background.jpg) no-repeat;
+  background: url(images/forest-background.jpg) no-repeat center / cover;
 }
 
 .main {
@@ -150,4 +150,15 @@
 }
 .invisible {
   display: none;
+}
+
+@media (max-width: 1410px) {
+  .body {
+    background: url(images/forest-background-cut.jpg) no-repeat;
+  }
+}
+@media (max-width: 630px) {
+  .question-answer {
+    font-size: 24px;
+  }
 }
