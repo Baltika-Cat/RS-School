@@ -135,20 +135,20 @@ const answer = document.createElement('p');
 answer.classList.add('answer');
 questionAnswer.append(answer);
 
-let num = Math.ceil(Math.random() * 10);
 let riddleAnswer = '';
 let rightAnswer = '';
 
-riddles.forEach((riddle) => {
-  if (riddle.ordinal === num) {
-    question.textContent = riddle.question;
-    answer.textContent = `${'__ '.repeat(riddle.answer.length - 1)}__`;
-    riddleAnswer = riddle.answer.toLowerCase();
-    rightAnswer = riddle.answer;
-  }
-})
-
 let scoreNum = 0;
+
+const winMessage = document.createElement('p');
+winMessage.classList.add('win-message');
+winMessage.classList.add('invisible');
+winMessage.textContent = 'Вы победили!';
+background.append(winMessage);
+const loseMessage = document.createElement('p');
+loseMessage.classList.add('lose-message');
+loseMessage.classList.add('invisible');
+background.append(loseMessage);
 
 const score = document.createElement('p');
 score.classList.add('score');
@@ -159,30 +159,13 @@ const keyboard = document.createElement('div');
 keyboard.classList.add('keyboard');
 riddleWrapper.append(keyboard);
 
-for (let i = 0; i < alphabet.length; i += 1) {
-  let key = document.createElement('div');
-  key.classList.add('key');
-  keyboard.append(key);
-  key.textContent = alphabet[i].toUpperCase();
-}
-
-const winMessage = document.createElement('p');
-winMessage.classList.add('win-message');
-winMessage.classList.add('invisible');
-winMessage.textContent = 'Вы победили!';
-background.append(winMessage);
-const loseMessage = document.createElement('p');
-loseMessage.classList.add('lose-message');
-loseMessage.classList.add('invisible');
-loseMessage.textContent = `Увы, не повезло. Правильный ответ: ${rightAnswer}`;
-background.append(loseMessage);
-
-const keys = document.querySelectorAll('.key');
-const usedLetters = [];
+let usedKeys = [];
+let usedLetters = [];
 
 const chooseLetter = function(sym) {
   let letter = sym.textContent.toLowerCase();
   if (!usedLetters.includes(letter)) {
+    usedKeys.push(sym);
     if (riddleAnswer.includes(letter)) {
       let answerArray = answer.textContent.split(' ');
       for (let i = 0; i < riddleAnswer.length; i += 1) {
@@ -191,13 +174,14 @@ const chooseLetter = function(sym) {
           riddleAnswer = riddleAnswer.replace(letter, letter.toUpperCase());
         }
         answer.textContent = answerArray.join(' ');
-        if (!answer.textContent.includes('__')) {
+        if (!answer.textContent.includes('_')) {
           background.classList.remove('invisible');
           winMessage.classList.remove('invisible');
         }
       }
     } else {
       scoreNum += 1;
+      console.log(scoreNum)
       imagesVisible[scoreNum].classList.remove('invisible');
       score.textContent = `Попытки: ${scoreNum}/6`;
       if (scoreNum >= 6) {
@@ -207,22 +191,76 @@ const chooseLetter = function(sym) {
     }
     sym.classList.add('key-inactive');
     usedLetters.push(letter);
-    console.log(usedLetters);
   }
 }
 
-keys.forEach((key) => {
-  key.addEventListener('click', () => {
-    chooseLetter(key);
-  })
-})
+for (let i = 0; i < alphabet.length; i += 1) {
+  let key = document.createElement('div');
+  key.classList.add('key');
+  keyboard.append(key);
+  key.textContent = alphabet[i].toUpperCase();
+}
 
-window.addEventListener('keyup', (event) => {
-  if (alphabet.includes(event.key.toLowerCase()) && !usedLetters.includes(event.key)) {
-    keys.forEach(key => {
-      if (key.textContent.toLowerCase() === event.key.toLowerCase()) {
-        chooseLetter(key);
-      }
-    })
+let usedRiddles = [];
+let num = -1;
+usedRiddles.push(num);
+
+const startGame = function() {
+  scoreNum = 0;
+  score.textContent = `Попытки: ${scoreNum}/6`;
+  usedLetters = [];
+  while (usedRiddles.includes(num)) {
+    num = Math.ceil(Math.random() * 10);
   }
-})
+
+  usedRiddles.push(num);
+  if (usedRiddles.length === riddles.length) {
+    usedRiddles = [-1];
+  }
+
+  riddles.forEach((riddle) => {
+    if (riddle.ordinal === num) {
+      question.textContent = riddle.question;
+      answer.textContent = `${'_ '.repeat(riddle.answer.length - 1)}_`;
+      riddleAnswer = riddle.answer.toLowerCase();
+      rightAnswer = riddle.answer;
+    }
+  })
+
+  const keys = document.querySelectorAll('.key');
+
+  keys.forEach((key) => {
+    key.addEventListener('click', () => {
+      chooseLetter(key);
+    })
+  })
+
+  window.addEventListener('keyup', (event) => {
+    if (alphabet.includes(event.key.toLowerCase()) && !usedLetters.includes(event.key) && background.classList.contains('invisible')) {
+      keys.forEach(key => {
+        if (key.textContent.toLowerCase() === event.key.toLowerCase()) {
+          chooseLetter(key);
+        }
+      })
+    }
+  })
+
+  loseMessage.textContent = `Увы, не повезло. Правильный ответ: ${rightAnswer}`;
+
+  window.addEventListener('keyup', (e) => {
+    if (e.key.toLowerCase() === 'д' && !background.classList.contains('invisible')) {
+      console.log(true);
+      background.classList.add('invisible');
+      winMessage.classList.add('invisible');
+      loseMessage.classList.add('invisible');
+      for(let i = 1; i < imagesVisible.length; i += 1) {
+        imagesVisible[i].classList.add('invisible');
+      }
+      usedKeys.map(item => item.classList.remove('key-inactive'));
+      usedKeys = [];
+      usedLetters = [];
+      startGame();
+    } 
+  })
+}
+startGame();
