@@ -117,13 +117,13 @@ const riddles = [
   },
   {
     ordinal: 8,
-    question: '8',
-    answer: '8'
+    question: 'Его закапывают, когда оно живое и выкапывают, когда мёртвое',
+    answer: 'растение'
   },
   {
     ordinal: 9,
-    question: '9',
-    answer: '9'
+    question: 'Она может быть быстрой, может быть медленной, но не передвигается',
+    answer: 'музыка'
   },
   {
     ordinal: 10,
@@ -259,20 +259,18 @@ const startGame = function() {
   loseMessage.textContent = `Увы, не повезло. Правильный ответ: ${rightAnswer}`;
   winMessage.textContent = `Вы победили! Правильный ответ: ${rightAnswer}`;
 
-  window.addEventListener('keyup', (e) => {
-    if (e.key.toLowerCase() === 'д' && !background.classList.contains('invisible')) {
-      console.log(true);
-      background.classList.add('invisible');
-      winMessage.classList.add('invisible');
-      loseMessage.classList.add('invisible');
-      for(let i = 1; i < imagesVisible.length; i += 1) {
-        imagesVisible[i].classList.add('invisible');
-      }
-      usedKeys.map(item => item.classList.remove('key-inactive'));
-      usedKeys = [];
-      usedLetters = [];
-      startGame();
-    } 
+  newGameButton.addEventListener('click', () => {
+    background.classList.add('invisible');
+    winMessage.classList.add('invisible');
+    loseMessage.classList.add('invisible');
+    endWindow.classList.add('invisible');
+    for(let i = 1; i < imagesVisible.length; i += 1) {
+      imagesVisible[i].classList.add('invisible');
+    }
+    usedKeys.map(item => item.classList.remove('key-inactive'));
+    usedKeys = [];
+    usedLetters = [];
+    startGame();
   })
 }
 startGame();
