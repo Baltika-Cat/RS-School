@@ -70,6 +70,14 @@ background.classList.add('background');
 background.classList.add('invisible');
 body.append(background);
 
+const endWindow = document.createElement('div');
+endWindow.classList.add('end-window');
+background.append(endWindow);
+
+const newGameButton = document.createElement('div');
+newGameButton.classList.add('new-game-btn');
+newGameButton.textContent = 'Сыграем ещё?';
+endWindow.append(newGameButton);
 const riddles = [
   {
     ordinal: 1,
@@ -143,12 +151,11 @@ let scoreNum = 0;
 const winMessage = document.createElement('p');
 winMessage.classList.add('win-message');
 winMessage.classList.add('invisible');
-winMessage.textContent = 'Вы победили!';
-background.append(winMessage);
+endWindow.append(winMessage);
 const loseMessage = document.createElement('p');
 loseMessage.classList.add('lose-message');
 loseMessage.classList.add('invisible');
-background.append(loseMessage);
+endWindow.append(loseMessage);
 
 const score = document.createElement('p');
 score.classList.add('score');
@@ -246,6 +253,7 @@ const startGame = function() {
   })
 
   loseMessage.textContent = `Увы, не повезло. Правильный ответ: ${rightAnswer}`;
+  winMessage.textContent = `Вы победили! Правильный ответ: ${rightAnswer}`;
 
   window.addEventListener('keyup', (e) => {
     if (e.key.toLowerCase() === 'д' && !background.classList.contains('invisible')) {
