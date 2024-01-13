@@ -72,12 +72,13 @@ body.append(background);
 
 const endWindow = document.createElement('div');
 endWindow.classList.add('end-window');
-background.append(endWindow);
+endWindow.classList.add('invisible');
+body.append(endWindow);
 
 const newGameButton = document.createElement('div');
 newGameButton.classList.add('new-game-btn');
 newGameButton.textContent = 'Сыграем ещё?';
-endWindow.append(newGameButton);
+
 const riddles = [
   {
     ordinal: 1,
@@ -156,6 +157,7 @@ const loseMessage = document.createElement('p');
 loseMessage.classList.add('lose-message');
 loseMessage.classList.add('invisible');
 endWindow.append(loseMessage);
+endWindow.append(newGameButton);
 
 const score = document.createElement('p');
 score.classList.add('score');
@@ -183,6 +185,7 @@ const chooseLetter = function(sym) {
         answer.textContent = answerArray.join(' ');
         if (!answer.textContent.includes('_')) {
           background.classList.remove('invisible');
+          endWindow.classList.remove('invisible');
           winMessage.classList.remove('invisible');
         }
       }
@@ -193,6 +196,7 @@ const chooseLetter = function(sym) {
       score.textContent = `Попытки: ${scoreNum}/6`;
       if (scoreNum >= 6) {
         background.classList.remove('invisible');
+        endWindow.classList.remove('invisible');
         loseMessage.classList.remove('invisible');
       }
     }
