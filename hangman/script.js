@@ -239,6 +239,7 @@ function startGame() {
       answer.textContent = `${'_ '.repeat(riddle.answer.length - 1)}_`;
       riddleAnswer = riddle.answer.toLowerCase();
       rightAnswer = riddle.answer;
+      console.log(riddleAnswer);
     }
   })
 
