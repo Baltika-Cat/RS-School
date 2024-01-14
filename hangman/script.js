@@ -82,8 +82,8 @@ newGameButton.textContent = 'Сыграем ещё?';
 const riddles = [
   {
     ordinal: 1,
-    question: 'Волосатая головка за щекой играет ловко',
-    answer: 'щётка',
+    question: 'Растёт от алкоголя, но умирает от воды',
+    answer: 'огонь',
   },
   {
     ordinal: 2,
@@ -117,7 +117,7 @@ const riddles = [
   },
   {
     ordinal: 8,
-    question: 'Его закапывают, когда оно живое и выкапывают, когда мёртвое',
+    question: 'Его закапывают, когда оно живое, и выкапывают, когда мёртвое',
     answer: 'растение'
   },
   {
@@ -127,8 +127,8 @@ const riddles = [
   },
   {
     ordinal: 10,
-    question: '10',
-    answer: '10'
+    question: 'Эта птица носит название каши',
+    answer: 'овсянка'
   }
 ]
 
