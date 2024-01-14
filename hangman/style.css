@@ -91,9 +91,11 @@
   align-items: center;
   font-family: 'Bony';
   font-size: calc(2vw + 18px);
+  text-shadow: 1px 1px 10px black, 0 0 1em red, 0 0 0.2em red;
 }
 .question,
 .answer {
+  max-width: 750px;
   color: #EEE;
   text-align: center;
   margin: 0px;
@@ -102,7 +104,7 @@
 .score {
   font-size: calc(2vw + 18px);
   font-family: 'Bony';
-  color: #19ff19;
+  color: red;
   line-height: 125%;
 }
 .keyboard {
@@ -125,6 +127,7 @@
   font-size: calc(2vw + 6px);
   cursor: pointer;
   transition: .5s;
+  text-shadow: 1px 1px 10px black, 0 0 1em red, 0 0 0.2em red;
 }
 .key:hover {
   transform: scale(1.15);
@@ -150,6 +153,7 @@
 }
 .end-window {
   position: absolute;
+  max-width: 1240px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -166,6 +170,7 @@
 }
 .lose-message, 
 .win-message {
+  max-width: 1200px;
   width: 80vw;
   font-family: 'Bony';
   font-size: 72px;
@@ -199,6 +204,13 @@
     background: url(images/forest-background-cut.jpg) no-repeat;
   }
 } */
+@media (min-width: 1440px) {
+  .question,
+  .answer,
+  .key {
+    font-size: 52px;
+  }
+}
 @media (max-width: 630px) {
   .question-answer {
     font-size: 24px;
