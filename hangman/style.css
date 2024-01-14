@@ -1,0 +1,225 @@
+@font-face {
+  font-family: 'Bony';
+  src: url(fonts/BONY\ Regular.ttf);
+}
+
+.body {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  min-height: 100vh;
+  margin: 0px;
+  padding: 0px;
+  background: url(images/forest-background.jpg) no-repeat center / cover;
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  /* max-width: 1440px; */
+  width: 100%;
+  gap: 10px;
+}
+
+.gallows-wrapper {
+  display: flex;
+  max-width: 353px;
+  width: calc((33.5vw + 100px) * 0.6075);
+  max-height: 581px;
+  height: calc(33.5vw + 100px);
+  position: relative;
+  z-index: 0;
+  margin: 0px 5px;
+}
+
+.gallows {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.hang-head,
+.hang-body,
+.hang-left-hand,
+.hang-right-hand,
+.hang-left-leg,
+.hang-right-leg {
+  height: 17.38%;
+  position: absolute;
+  right: 0;
+  top: 22.4%;
+  z-index: 13;
+}
+.hang-body,
+.hang-left-hand,
+.hang-right-hand,
+.hang-left-leg {
+  height: 22.54%;
+  right: 14.306%;
+  top: 39.759%;
+}
+.hang-right-hand,
+.hang-right-leg {
+  height: 13.94%;
+  right: -3.541%;
+}
+.hang-left-hand {
+  height: 13.94%;
+}
+.hang-left-leg,
+.hang-right-leg {
+  height: 13.94%;
+  top: 62.306%;
+}
+.riddle-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 355px;
+  width: 50%;
+  height: 55%;
+  margin: 0px 5px;
+}
+.question-answer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Bony';
+  font-size: calc(2vw + 18px);
+  text-shadow: 1px 1px 10px black, 0 0 1em red, 0 0 0.2em red;
+}
+.question,
+.answer {
+  max-width: 750px;
+  color: #EEE;
+  text-align: center;
+  margin: 0px;
+  line-height: 150%;
+}
+.score {
+  font-size: calc(2vw + 18px);
+  font-family: 'Bony';
+  color: red;
+  line-height: 125%;
+}
+.keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 700px;
+  gap: 8px;
+}
+.key {
+  display: flex;
+  justify-content: center;
+  width: calc(2vw + 21px);
+  height: calc(2vw + 21px);
+  align-items: center;
+  background-color: black;
+  color: white;
+  border-radius: 8px;
+  font-family: 'Bony';
+  font-size: calc(2vw + 6px);
+  cursor: pointer;
+  transition: .5s;
+  text-shadow: 1px 1px 10px black, 0 0 1em red, 0 0 0.2em red;
+}
+.key:hover {
+  transform: scale(1.15);
+  transition: .5s;
+}
+.key-inactive {
+  cursor: default;
+  background-color: #444;
+}
+.key-inactive:hover {
+  transform: scale(1);
+}
+.background {
+  display: flex;
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  min-height: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  opacity: .8;
+}
+.end-window {
+  position: absolute;
+  max-width: 1240px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 150;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #222;
+  gap: 30px;
+  border: 2px white solid;
+  border-radius: 10px;
+  padding: 20px;
+}
+.lose-message, 
+.win-message {
+  max-width: 1200px;
+  width: 80vw;
+  font-family: 'Bony';
+  font-size: 72px;
+  color: white;
+  text-align: center;
+  margin: 0px 10px;
+}
+.new-game-btn {
+  width: 70%;
+  color: #CCC;
+  font-size: 48px;
+  background-color: black;
+  font-family: 'Bony';
+  border: 3px white solid;
+  border-radius: 10px;
+  text-align: center;
+  transition: .7s;
+  padding: 7px;
+}
+.new-game-btn:hover {
+  transform: scale(1.07);
+  cursor: pointer;
+  transition: .7s;
+}
+.invisible {
+  display: none;
+}
+
+/* @media (max-width: 863px) {
+  .body {
+    background: url(images/forest-background-cut.jpg) no-repeat;
+  }
+} */
+@media (min-width: 1440px) {
+  .question,
+  .answer,
+  .key {
+    font-size: 52px;
+  }
+}
+@media (max-width: 630px) {
+  .question-answer {
+    font-size: 24px;
+  }
+  .lose-message,
+  .win-message {
+    font-size: 48px;
+  }
+  .new-game-btn {
+    font-size: 32px;
+  }
+}
