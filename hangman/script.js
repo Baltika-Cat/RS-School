@@ -221,16 +221,13 @@ usedRiddles.push(num);
 startGame();
 
 function startGame() {
-  console.log('new game')
   scoreNum = 0;
   score.textContent = `Попытки: ${scoreNum}/6`;
   usedLetters = [];
   while (usedRiddles.includes(num) || num === 0) {
     num = Math.ceil(Math.random() * 10);
-    console.log(num)
   }
   usedRiddles.push(num);
-  console.log(usedRiddles)
 
   if (usedRiddles.length === riddles.length) {
     usedRiddles = [-1];
