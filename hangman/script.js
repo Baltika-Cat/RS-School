@@ -77,6 +77,7 @@ body.append(endWindow);
 
 const newGameButton = document.createElement('div');
 newGameButton.classList.add('new-game-btn');
+newGameButton.classList.add('invisible');
 newGameButton.textContent = 'Сыграем ещё?';
 
 const riddles = [
@@ -187,17 +188,18 @@ const chooseLetter = function(sym) {
           background.classList.remove('invisible');
           endWindow.classList.remove('invisible');
           winMessage.classList.remove('invisible');
+          newGameButton.classList.remove('invisible');
         }
       }
     } else {
       scoreNum += 1;
-      console.log(scoreNum)
       imagesVisible[scoreNum].classList.remove('invisible');
       score.textContent = `Попытки: ${scoreNum}/6`;
       if (scoreNum >= 6) {
         background.classList.remove('invisible');
         endWindow.classList.remove('invisible');
         loseMessage.classList.remove('invisible');
+        newGameButton.classList.remove('invisible');
       }
     }
     sym.classList.add('key-inactive');
@@ -216,15 +218,20 @@ let usedRiddles = [];
 let num = -1;
 usedRiddles.push(num);
 
-const startGame = function() {
+startGame();
+
+function startGame() {
+  console.log('new game')
   scoreNum = 0;
   score.textContent = `Попытки: ${scoreNum}/6`;
   usedLetters = [];
-  while (usedRiddles.includes(num)) {
+  while (usedRiddles.includes(num) || num === 0) {
     num = Math.ceil(Math.random() * 10);
+    console.log(num)
   }
-
   usedRiddles.push(num);
+  console.log(usedRiddles)
+
   if (usedRiddles.length === riddles.length) {
     usedRiddles = [-1];
   }
@@ -258,19 +265,19 @@ const startGame = function() {
 
   loseMessage.textContent = `Увы, не повезло. Правильный ответ: ${rightAnswer}`;
   winMessage.textContent = `Вы победили! Правильный ответ: ${rightAnswer}`;
-
-  newGameButton.addEventListener('click', () => {
-    background.classList.add('invisible');
-    winMessage.classList.add('invisible');
-    loseMessage.classList.add('invisible');
-    endWindow.classList.add('invisible');
-    for(let i = 1; i < imagesVisible.length; i += 1) {
-      imagesVisible[i].classList.add('invisible');
-    }
-    usedKeys.map(item => item.classList.remove('key-inactive'));
-    usedKeys = [];
-    usedLetters = [];
-    startGame();
-  })
 }
-startGame();
+
+newGameButton.addEventListener('click', () => {
+  background.classList.add('invisible');
+  winMessage.classList.add('invisible');
+  loseMessage.classList.add('invisible');
+  endWindow.classList.add('invisible');
+  for(let i = 1; i < imagesVisible.length; i += 1) {
+    imagesVisible[i].classList.add('invisible');
+  }
+  usedKeys.map(item => item.classList.remove('key-inactive'));
+  usedKeys = [];
+  usedLetters = [];
+  newGameButton.classList.add('invisible');
+  startGame();
+})
