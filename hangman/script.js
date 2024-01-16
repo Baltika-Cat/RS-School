@@ -214,6 +214,7 @@ for (let i = 0; i < alphabet.length; i += 1) {
   key.textContent = alphabet[i].toUpperCase();
 }
 
+let currentRiddle = -1;
 let usedRiddles = [];
 let num = -1;
 usedRiddles.push(num);
@@ -224,9 +225,10 @@ function startGame() {
   scoreNum = 0;
   score.textContent = `Попытки: ${scoreNum}/6`;
   usedLetters = [];
-  while (usedRiddles.includes(num) || num === 0) {
+  while (usedRiddles.includes(num) || num === 0 || num === currentRiddle) {
     num = Math.ceil(Math.random() * 10);
   }
+  currentRiddle = num;
   usedRiddles.push(num);
 
   if (usedRiddles.length === riddles.length) {
