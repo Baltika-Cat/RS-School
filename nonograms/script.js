@@ -4,35 +4,41 @@ const main = document.createElement('div');
 main.classList.add('main');
 body.append(main);
 
-let cell = document.createElement('div');
-cell.classList.add('cell');
-let cellSize = cell.offsetWidth;
-console.log(cellSize)
+let cellSize = 0;
+let blockSize = 0;
 let block;
 
 const grid = document.createElement('div');
 grid.classList.add('grid');
+const gridSize = window.innerHeight * 0.8;
+grid.style.width = `${gridSize}px`;
+grid.style.height = `${gridSize}px`;
+console.log(grid.style.width)
 main.append(grid);
 
-const createBlock = function () {
+const createBlock = function (length) {
   block = document.createElement('div');
   block.classList.add('block');
+  blockSize = (gridSize / length) - (10 * length);
+  block.style.width = `${blockSize}px`;
+  console.log(blockSize)
+  //console.log(block.style.width)
+  block.style.height = `${blockSize}px`;
   for (let i = 1; i <= 25; i += 1) {
-    cell = document.createElement('div');
+    let cell = document.createElement('div');
     cell.classList.add('cell');
+    cellSize = blockSize / 5 - 2;
+    cell.style.width = `${cellSize}px`;
+    cell.style.height = `${cellSize}px`;
     block.append(cell);
   }
-  block.style.width = `${(cell.clientWidth + 2) * 5}px`;
-  block.style.height = `${(cell.clientHeight + 2) * 5}px`;
 }
 
 const createGrid = function (length) {
   for (let i = 1; i <= (length / 5) ** 2; i += 1) {
-    createBlock();
+    createBlock(length / 5);
     grid.append(block);
   }
-  grid.style.width = `${(block.style.width + 10) * (length / 5)}px`;
-  grid.style.height = `${(block.style.height + 10) * (length / 5)}px`;
   console.log(grid.style.width)
 }
 

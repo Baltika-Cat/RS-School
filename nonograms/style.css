@@ -1,6 +1,15 @@
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
 .grid {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 0px;
 }
 
 .block {
@@ -10,8 +19,6 @@
 }
 
 .cell {
-  width: 10px;
-  height: 10px;
   background-color: white;
   border: 1px grey solid;
 }
