@@ -1,3 +1,7 @@
+window.addEventListener('contextmenu', (e) => {
+  e.preventDefault();
+}, false);
+
 const body = document.body;
 
 const main = document.createElement('div');
@@ -47,13 +51,16 @@ createGrid (15);
 const cellArray = document.querySelectorAll('.cell');
 console.log(cellArray)
 cellArray.forEach ((cell) => {
-  cell.addEventListener ('click', (e) => {
+  cell.addEventListener ('mouseup', (e) => {
     if (e.button === 0) {
       cell.classList.remove('cell-cross');
       cell.classList.toggle('cell-full');
-    } else if (e.button === 1) {
+    }
+    if (e.button === 2) {
       cell.classList.remove('cell-full');
       cell.classList.toggle('cell-cross');
+      console.log(true)
     }
   })
 })
+

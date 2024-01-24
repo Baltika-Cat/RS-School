@@ -35,3 +35,29 @@
 .cell-full {
   background-color: black;
 }
+
+.cell-cross {
+  position: relative;
+}
+
+.cell-cross:before {
+  position: absolute;
+  top: 50%;
+  display: block;
+  content: '';
+  background-color: black;
+  height: 2px;
+  width: 100%;
+  transform: rotate(45deg);
+}
+
+.cell-cross:after {
+  position: absolute;
+  top: 50%;
+  display: block;
+  content: '';
+  background-color: black;
+  height: 2px;
+  width: 100%;
+  transform: rotate(-45deg);
+}
