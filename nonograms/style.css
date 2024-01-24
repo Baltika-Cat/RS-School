@@ -12,6 +12,10 @@
 }
 
 .grid {
+  width: 60vw;
+  height: 60vw;
+  max-width: 810px;
+  max-height: 810px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -26,10 +30,52 @@
   border: 5px black solid;
 }
 
+.big-block {
+  width: calc(60vw - 10px);
+  height: calc(60vw - 10px);
+  max-width: 800px;
+  max-height: 800px;
+}
+
+.medium-block {
+  width: calc(30vw - 10px);
+  height: calc(30vw - 10px);
+  max-width: 395px;
+  max-height: 395px;
+}
+
+.small-block {
+  width: calc(20vw - 10px);
+  height: calc(20vw - 10px);
+  max-width: 260px;
+  max-height: 260px;
+}
+
 .cell {
   background-color: white;
   border: 1px grey solid;
   cursor: pointer;
+}
+
+.big-cell {
+  width: calc((60vw - 10px) / 5 - 2px);
+  height: calc((60vw - 10px) / 5 - 2px);
+  max-width: 158px;
+  max-height: 158px;
+}
+
+.medium-cell {
+  width: calc((30vw - 10px) / 5 - 2px);
+  height: calc((30vw - 10px) / 5 - 2px);
+  max-width: 77px;
+  max-height: 77px;
+}
+
+.small-cell {
+  width: calc((20vw - 10px) / 5 - 2px);
+  height: calc((20vw - 10px) / 5 - 2px);
+  max-width: 50px;
+  max-height: 50px;
 }
 
 .cell-full {

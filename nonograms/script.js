@@ -8,32 +8,44 @@ const main = document.createElement('div');
 main.classList.add('main');
 body.append(main);
 
-let cellSize = 0;
-let blockSize = 0;
 let block;
+let cell;
+let lengthForBlock = 0;
 
 const grid = document.createElement('div');
 grid.classList.add('grid');
-const gridSize = window.innerHeight * 0.8;
-grid.style.width = `${gridSize}px`;
-grid.style.height = `${gridSize}px`;
-console.log(grid.style.width)
 main.append(grid);
 
 const createBlock = function (length) {
+  lengthForBlock = length;
+  console.log(grid.style.width)
   block = document.createElement('div');
   block.classList.add('block');
-  blockSize = (gridSize / length) - (10 * length);
-  block.style.width = `${blockSize}px`;
-  console.log(blockSize)
-  //console.log(block.style.width)
-  block.style.height = `${blockSize}px`;
+  switch (length) {
+    case 1:
+      block.classList.add('big-block');
+      break;
+    case 2:
+      block.classList.add('medium-block');
+      break;
+    case 3:
+      block.classList.add('small-block');
+      break;
+  }
   for (let i = 1; i <= 25; i += 1) {
-    let cell = document.createElement('div');
+    cell = document.createElement('div');
     cell.classList.add('cell');
-    cellSize = blockSize / 5 - 2;
-    cell.style.width = `${cellSize}px`;
-    cell.style.height = `${cellSize}px`;
+    switch (length) {
+      case 1:
+      cell.classList.add('big-cell');
+      break;
+    case 2:
+      cell.classList.add('medium-cell');
+      break;
+    case 3:
+      cell.classList.add('small-cell');
+      break;
+    }
     block.append(cell);
   }
 }
@@ -43,13 +55,11 @@ const createGrid = function (length) {
     createBlock(length / 5);
     grid.append(block);
   }
-  console.log(grid.style.width)
 }
 
-createGrid (15);
+createGrid (5);
 
 const cellArray = document.querySelectorAll('.cell');
-console.log(cellArray)
 cellArray.forEach ((cell) => {
   cell.addEventListener ('mouseup', (e) => {
     if (e.button === 0) {
@@ -59,8 +69,6 @@ cellArray.forEach ((cell) => {
     if (e.button === 2) {
       cell.classList.remove('cell-full');
       cell.classList.toggle('cell-cross');
-      console.log(true)
     }
   })
 })
-
