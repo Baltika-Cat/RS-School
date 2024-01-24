@@ -43,3 +43,17 @@ const createGrid = function (length) {
 }
 
 createGrid (15);
+
+const cellArray = document.querySelectorAll('.cell');
+console.log(cellArray)
+cellArray.forEach ((cell) => {
+  cell.addEventListener ('click', (e) => {
+    if (e.button === 0) {
+      cell.classList.remove('cell-cross');
+      cell.classList.toggle('cell-full');
+    } else if (e.button === 1) {
+      cell.classList.remove('cell-full');
+      cell.classList.toggle('cell-cross');
+    }
+  })
+})
