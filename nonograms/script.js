@@ -27,7 +27,9 @@ let countArray = -1;
 
 let crossword = {};
 
-window.addEventListener('click', () => {
-  crossword = createCrossword(3, blockArray, cellArray, countArray);
-  console.log(crossword)
+window.addEventListener('mouseup', (e) => {
+  if (e.button === 1) {
+    crossword = createCrossword(3, blockArray, cellArray, countArray);
+    console.log(crossword)
+  }
 })
