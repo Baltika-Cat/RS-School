@@ -1,6 +1,7 @@
 export const cellClick = function (array) {
   array.forEach ((cell) => {
     cell.addEventListener ('mouseup', (e) => {
+      console.log(array.indexOf(cell))
       if (e.button === 0) {
         cell.classList.remove('cell-cross');
         cell.classList.toggle('cell-full');
