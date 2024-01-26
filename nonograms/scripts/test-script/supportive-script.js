@@ -1,5 +1,4 @@
-let countArray = -1;
-
+const createMatrix = 
 for (let i = 1; i <= blockArray.length ** 0.5; i += 1) {
   for (let n = 1; n <= blockArray.length ** 0.5; n += 1) {
     countArray += 1; 
@@ -15,7 +14,9 @@ for (let i = 1; i <= blockArray.length ** 0.5; i += 1) {
 }
 
 for (let i = 0; i < horizontalArray.length; i += 1) {
-  let count = 0;
+  for (let j = 0; j < horizontalArray.length; j += 1) {
+
+  }
 }
 
 console.log(horizontalArray)
