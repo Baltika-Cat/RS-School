@@ -1,4 +1,4 @@
-export const crossword = [
+export const crosswords = [
   {
     name: 'rabbit',
     type: 'animals',
