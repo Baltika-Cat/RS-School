@@ -34,7 +34,7 @@ const grid = document.createElement('div');
 grid.classList.add('grid');
 gridLeftHint.append(grid);
 
-let length = 3;
+let length = 2;
 
 createGrid (length, grid);
 
@@ -43,7 +43,7 @@ const cellArray = [...document.querySelectorAll('.cell')];
 let crossword = {};
 
 crosswords.forEach ((item) => {
-  if (item.name === 'heron') {
+  if (item.name === 'goat') {
     crossword = item;
     return;
   }
@@ -61,7 +61,7 @@ let supportiveObject = {};
 
 window.addEventListener('mouseup', (e) => {
   if (e.button === 1) {
-    supportiveObject = createCrossword(3, blockArray, cellArray, countArray);
+    supportiveObject = createCrossword(length, blockArray, cellArray, countArray);
     console.log(supportiveObject);
   }
 })
