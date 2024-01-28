@@ -2,6 +2,7 @@ import { cellClick } from './scripts/cell-click.js';
 import { createGrid } from './scripts/create-grid.js';
 import { createCrossword } from './scripts/test-script/supportive-script.js';
 import { crosswords } from './scripts/crosswords.js';
+import { createHint } from './scripts/create-hint.js';
 
 window.addEventListener('contextmenu', (e) => {
   e.preventDefault();
@@ -13,11 +14,30 @@ const main = document.createElement('div');
 main.classList.add('main');
 body.append(main);
 
+const gridWrap = document.createElement('div');
+gridWrap.classList.add('grid-wrap');
+main.append(gridWrap);
+
+const topHint = document.createElement('div');
+topHint.classList.add('top-hint');
+gridWrap.append(topHint);
+
+const gridLeftHint = document.createElement('div');
+gridLeftHint.classList.add('grid-left-hint');
+gridWrap.append(gridLeftHint);
+
+const leftHint = document.createElement('div');
+leftHint.classList.add('left-hint');
+gridLeftHint.append(leftHint);
+
 const grid = document.createElement('div');
 grid.classList.add('grid');
-main.append(grid);
+gridLeftHint.append(grid);
 
-createGrid (3, grid);
+let length = 3;
+
+createGrid (length, grid);
+createHint (length, topHint, leftHint);
 
 const cellArray = [...document.querySelectorAll('.cell')];
 

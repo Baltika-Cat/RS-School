@@ -11,11 +11,83 @@
   height: 100vh;
 }
 
+.grid-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.top-hint {
+  display: flex;
+  background-color: black;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid-left-hint {
+  display: flex;
+}
+
+.left-hint {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}
+
+.block-hint {
+  display: flex;
+  border: 2px black solid;
+}
+
+.block-hint-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  width: calc((60vw - 4px) / 5 * 3);
+  height: calc(60vw - 4px);
+  max-width: 303px;
+  max-height: 505px;
+}
+
+.left-hint .block-hint {
+  display: flex;
+  flex-direction: column;
+}
+
+.block-hint-top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: calc(60vw - 4px);
+  height: calc((60vw - 4px) / 5 * 3);
+  max-width: 505px;
+  max-height: 303px;
+}
+
+.angle {
+  width: calc((60vw - 4px) / 5 * 3);
+  max-width: 303px;
+}
+
+.line-horizontal {
+  display: flex;
+  flex-direction: row;
+}
+
+.cell-hint {
+  display: flex;
+  border: 1px white solid;
+}
+
 .grid {
   width: 60vw;
   height: 60vw;
-  max-width: 810px;
-  max-height: 810px;
+  max-width: 510px;
+  max-height: 510px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -27,28 +99,28 @@
 .block {
   display: flex;
   flex-wrap: wrap;
-  border: 5px black solid;
+  border: 2px black solid;
 }
 
 .big-block {
-  width: calc(60vw - 10px);
-  height: calc(60vw - 10px);
-  max-width: 800px;
-  max-height: 800px;
+  width: calc(60vw - 4px);
+  height: calc(60vw - 4px);
+  max-width: 506px;
+  max-height: 506px;
 }
 
 .medium-block {
-  width: calc(30vw - 10px);
-  height: calc(30vw - 10px);
-  max-width: 395px;
-  max-height: 395px;
+  width: calc(30vw - 4px);
+  height: calc(30vw - 4px);
+  max-width: 251px;
+  max-height: 251px;
 }
 
 .small-block {
-  width: calc(20vw - 10px);
-  height: calc(20vw - 10px);
-  max-width: 260px;
-  max-height: 260px;
+  width: calc(20vw - 4px);
+  height: calc(20vw - 4px);
+  max-width: 166px;
+  max-height: 166px;
 }
 
 .cell {
@@ -58,24 +130,24 @@
 }
 
 .big-cell {
-  width: calc((60vw - 10px) / 5 - 2px);
-  height: calc((60vw - 10px) / 5 - 2px);
-  max-width: 158px;
-  max-height: 158px;
+  width: calc((60vw - 4px) / 5 - 2px);
+  height: calc((60vw - 4px) / 5 - 2px);
+  max-width: 99.2px;
+  max-height: 99.2px;
 }
 
 .medium-cell {
-  width: calc((30vw - 10px) / 5 - 2px);
-  height: calc((30vw - 10px) / 5 - 2px);
-  max-width: 77px;
-  max-height: 77px;
+  width: calc((30vw - 4px) / 5 - 2px);
+  height: calc((30vw - 4px) / 5 - 2px);
+  max-width: 48.2px;
+  max-height: 48.2px;
 }
 
 .small-cell {
-  width: calc((20vw - 10px) / 5 - 2px);
-  height: calc((20vw - 10px) / 5 - 2px);
-  max-width: 50px;
-  max-height: 50px;
+  width: calc((20vw - 4px) / 5 - 2px);
+  height: calc((20vw - 4px) / 5 - 2px);
+  max-width: 31.2px;
+  max-height: 31.2px;
 }
 
 .cell-full {
