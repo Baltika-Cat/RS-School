@@ -1,6 +1,6 @@
 export const crosswords = [
     {
-        name: 'heron',
+        name: 'Heron',
         type: 'animals',
         size: 3,
         ordinal: 1,
@@ -748,7 +748,7 @@ export const crosswords = [
         countCheck: 102
     },
     {
-        name: 'cat',
+        name: 'Cat',
         type: 'animal',
         size: 3,
         ordinal: 2,
@@ -1496,7 +1496,7 @@ export const crosswords = [
         countCheck: 98
     },
     {
-        name: 'palm',
+        name: 'Palm',
         type: 'plant',
         size: 3,
         ordinal: 3,
@@ -2244,7 +2244,7 @@ export const crosswords = [
         countCheck: 104
     },
     {
-        name: 'gazelle',
+        name: 'Gazelle',
         type: 'animals',
         size: 3,
         ordinal: 4,
@@ -2992,7 +2992,7 @@ export const crosswords = [
         countCheck: 87
     },
     {
-        name: 'dog',
+        name: 'Dog',
         type: 'animals',
         size: 3,
         ordinal: 5,
@@ -3740,7 +3740,7 @@ export const crosswords = [
         countCheck: 92
     },
     {
-        name: 'goat',
+        name: 'Goat',
         type: 'animals',
         size: 2,
         ordinal: 6,
@@ -4093,7 +4093,7 @@ export const crosswords = [
         countCheck: 44
     },
     {
-        name: 'duck',
+        name: 'Duck',
         type: 'animals',
         size: 2,
         ordinal: 7,
@@ -4446,7 +4446,7 @@ export const crosswords = [
         countCheck: 45
     },
     {
-        name: 'strawberry',
+        name: 'Strawberry',
         type: 'berries',
         size: 2,
         ordinal: 8,
@@ -4799,7 +4799,7 @@ export const crosswords = [
         countCheck: 49
     },
     {
-        name: 'yacht',
+        name: 'Yacht',
         type: 'engine',
         size: 2,
         ordinal: 9,
@@ -5152,7 +5152,7 @@ export const crosswords = [
         countCheck: 39
     },
     {
-        name: 'pine tree',
+        name: 'Pine tree',
         type: 'plants',
         size: 2,
         ordinal: 10,
@@ -5503,5 +5503,545 @@ export const crosswords = [
             0
         ],
         countCheck: 56
+    },
+    {
+        name: 'Camel',
+        type: 'animals',
+        size: 1,
+        ordinal: 11,
+        horizontalLines: [
+            [
+                0,
+                0,
+                0,
+                1,
+                1
+            ],
+            [
+                1,
+                1,
+                0,
+                1,
+                0
+            ],
+            [
+                1,
+                1,
+                1,
+                1,
+                0
+            ],
+            [
+                1,
+                0,
+                1,
+                0,
+                0
+            ],
+            [
+                1,
+                0,
+                1,
+                0,
+                0
+            ]
+        ],
+        verticalLines: [
+            [
+                0,
+                1,
+                1,
+                1,
+                1
+            ],
+            [
+                0,
+                1,
+                1,
+                0,
+                0
+            ],
+            [
+                0,
+                0,
+                1,
+                1,
+                1
+            ],
+            [
+                1,
+                1,
+                1,
+                0,
+                0
+            ],
+            [
+                1,
+                0,
+                0,
+                0,
+                0
+            ]
+        ],
+        fullCellArray: [
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0
+        ],
+        countCheck: 13
+    },
+    {
+        name: 'House',
+        type: 'building',
+        size: 1,
+        ordinal: 12,
+        horizontalLines: [
+            [
+                0,
+                0,
+                1,
+                0,
+                0
+            ],
+            [
+                0,
+                1,
+                1,
+                1,
+                0
+            ],
+            [
+                1,
+                1,
+                1,
+                1,
+                1
+            ],
+            [
+                1,
+                0,
+                1,
+                0,
+                1
+            ],
+            [
+                1,
+                1,
+                1,
+                1,
+                1
+            ]
+        ],
+        verticalLines: [
+            [
+                0,
+                0,
+                1,
+                1,
+                1
+            ],
+            [
+                0,
+                1,
+                1,
+                0,
+                1
+            ],
+            [
+                1,
+                1,
+                1,
+                1,
+                1
+            ],
+            [
+                0,
+                1,
+                1,
+                0,
+                1
+            ],
+            [
+                0,
+                0,
+                1,
+                1,
+                1
+            ]
+        ],
+        fullCellArray: [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        countCheck: 17
+    },
+    {
+        name: 'Cat',
+        type: 'animals',
+        size: 1,
+        ordinal: 13,
+        horizontalLines: [
+            [
+                0,
+                0,
+                1,
+                0,
+                1
+            ],
+            [
+                0,
+                0,
+                1,
+                1,
+                1
+            ],
+            [
+                1,
+                1,
+                1,
+                1,
+                1
+            ],
+            [
+                1,
+                1,
+                1,
+                1,
+                0
+            ],
+            [
+                1,
+                1,
+                1,
+                1,
+                1
+            ]
+        ],
+        verticalLines: [
+            [
+                0,
+                0,
+                1,
+                1,
+                1
+            ],
+            [
+                0,
+                0,
+                1,
+                1,
+                1
+            ],
+            [
+                1,
+                1,
+                1,
+                1,
+                1
+            ],
+            [
+                0,
+                1,
+                1,
+                1,
+                1
+            ],
+            [
+                1,
+                1,
+                1,
+                0,
+                1
+            ]
+        ],
+        fullCellArray: [
+            0,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        countCheck: 19
+    },
+    {
+        name: 'Umbrella',
+        tupe: 'thing',
+        size: 1,
+        ordinal: 14,
+        horizontalLines: [
+            [
+                0,
+                1,
+                1,
+                1,
+                0
+            ],
+            [
+                1,
+                1,
+                1,
+                1,
+                1
+            ],
+            [
+                0,
+                0,
+                1,
+                0,
+                0
+            ],
+            [
+                0,
+                0,
+                1,
+                0,
+                0
+            ],
+            [
+                0,
+                1,
+                1,
+                0,
+                0
+            ]
+        ],
+        verticalLines: [
+            [
+                0,
+                1,
+                0,
+                0,
+                0
+            ],
+            [
+                1,
+                1,
+                0,
+                0,
+                1
+            ],
+            [
+                1,
+                1,
+                1,
+                1,
+                1
+            ],
+            [
+                1,
+                1,
+                0,
+                0,
+                0
+            ],
+            [
+                0,
+                1,
+                0,
+                0,
+                0
+            ]
+        ],
+        fullCellArray: [
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0
+        ],
+        countCheck: 12
+    },
+    {
+        name: 'Note',
+        type: 'thing',
+        size: 1,
+        ordinal: 15,
+        horizontalLines: [
+            [
+                0,
+                1,
+                1,
+                1,
+                1
+            ],
+            [
+                0,
+                1,
+                0,
+                0,
+                1
+            ],
+            [
+                0,
+                1,
+                0,
+                0,
+                1
+            ],
+            [
+                1,
+                1,
+                0,
+                1,
+                1
+            ],
+            [
+                1,
+                1,
+                0,
+                1,
+                1
+            ]
+        ],
+        verticalLines: [
+            [
+                0,
+                0,
+                0,
+                1,
+                1
+            ],
+            [
+                1,
+                1,
+                1,
+                1,
+                1
+            ],
+            [
+                1,
+                0,
+                0,
+                0,
+                0
+            ],
+            [
+                1,
+                0,
+                0,
+                1,
+                1
+            ],
+            [
+                1,
+                1,
+                1,
+                1,
+                1
+            ]
+        ],
+        fullCellArray: [
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1
+        ],
+        countCheck: 16
     }
 ]

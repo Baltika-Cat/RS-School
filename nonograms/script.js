@@ -34,7 +34,7 @@ const grid = document.createElement('div');
 grid.classList.add('grid');
 gridLeftHint.append(grid);
 
-let length = 2;
+let length = 1;
 
 createGrid (length, grid);
 
@@ -43,7 +43,7 @@ const cellArray = [...document.querySelectorAll('.cell')];
 let crossword = {};
 
 crosswords.forEach ((item) => {
-  if (item.name === 'goat') {
+  if (item.name === 'Cat') {
     crossword = item;
     return;
   }
