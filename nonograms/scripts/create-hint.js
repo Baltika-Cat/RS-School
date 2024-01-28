@@ -1,4 +1,4 @@
-export const createHint = function(length, topHint, leftHint) {
+export const createHint = function(length, topHint, leftHint, horizontalLines, verticalLines) {
   for (let i = 0; i < length; i += 1) {
     if (length === 1) {
       console.log(true)
@@ -95,6 +95,46 @@ export const createHint = function(length, topHint, leftHint) {
       topHint.append(block);
     }
   }
-
-  
+  let horizontal = document.querySelectorAll('.line-horizontal');
+  let vertical = document.querySelectorAll('.line-vertical');
+  for (let i = 0; i < horizontal.length; i += 1) {
+    let array = [];
+    let count = 0;
+    for (let j = horizontalLines[i].length - 1; j >= 0; j -= 1) {
+      if (horizontalLines[i][j] === 1) {
+        count += 1;
+      } else if (horizontalLines[i][j] === 0 || j === 0) {
+        array.push(count);
+        count = 0;
+      }
+    }
+    array = array.filter(item => item !== 0);
+    console.log(horizontal[i])
+    let cellArray = [...horizontal[i].childNodes].reverse();
+    for (let n = cellArray.length - 1; n >= 0; n -= 1) {
+      if (array[n]) {
+        cellArray[n].textContent = array[n];
+      }
+    }
+  }
+  for (let i = 0; i < vertical.length; i += 1) {
+    let array = [];
+    let count = 0;
+    for (let j = verticalLines[i].length - 1; j >= 0; j -= 1) {
+      if (verticalLines[i][j] === 1) {
+        count += 1;
+      } else if (verticalLines[i][j] === 0 || j === 0) {
+        array.push(count);
+        count = 0;
+      }
+    }
+    array = array.filter(item => item !== 0);
+    console.log(vertical[i])
+    let cellArray = [...vertical[i].childNodes].reverse();
+    for (let n = cellArray.length - 1; n >= 0; n -= 1) {
+      if (array[n]) {
+        cellArray[n].textContent = array[n];
+      }
+    }
+  }
 }

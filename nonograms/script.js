@@ -37,7 +37,6 @@ gridLeftHint.append(grid);
 let length = 3;
 
 createGrid (length, grid);
-createHint (length, topHint, leftHint);
 
 const cellArray = [...document.querySelectorAll('.cell')];
 
@@ -49,6 +48,8 @@ crosswords.forEach ((item) => {
     return;
   }
 })
+
+createHint (length, topHint, leftHint, crossword.horizontalLines, crossword.verticalLines);
 
 cellClick(cellArray, crossword.countCheck, crossword.fullCellArray);
 
