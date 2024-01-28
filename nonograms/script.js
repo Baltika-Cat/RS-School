@@ -43,7 +43,7 @@ const cellArray = [...document.querySelectorAll('.cell')];
 let crossword = {};
 
 crosswords.forEach ((item) => {
-  if (item.name === 'rabbit') {
+  if (item.name === 'heron') {
     crossword = item;
     return;
   }

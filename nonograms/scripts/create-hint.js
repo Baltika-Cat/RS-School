@@ -103,7 +103,8 @@ export const createHint = function(length, topHint, leftHint, horizontalLines, v
     for (let j = horizontalLines[i].length - 1; j >= 0; j -= 1) {
       if (horizontalLines[i][j] === 1) {
         count += 1;
-      } else if (horizontalLines[i][j] === 0 || j === 0) {
+      } 
+      if (horizontalLines[i][j] === 0 || j === 0) {
         array.push(count);
         count = 0;
       }
@@ -123,7 +124,8 @@ export const createHint = function(length, topHint, leftHint, horizontalLines, v
     for (let j = verticalLines[i].length - 1; j >= 0; j -= 1) {
       if (verticalLines[i][j] === 1) {
         count += 1;
-      } else if (verticalLines[i][j] === 0 || j === 0) {
+      }
+      if (verticalLines[i][j] === 0 || j === 0) {
         array.push(count);
         count = 0;
       }
