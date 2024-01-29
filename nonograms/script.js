@@ -3,6 +3,8 @@ import { createGrid } from './scripts/create-grid.js';
 import { createCrossword } from './scripts/test-script/supportive-script.js';
 import { crosswords } from './scripts/crosswords.js';
 import { createHint } from './scripts/create-hint.js';
+import { resetNonogram } from './scripts/reset-nonogram.js';
+import { showAnswer } from './scripts/show-answer.js';
 
 window.addEventListener('contextmenu', (e) => {
   e.preventDefault();
@@ -64,16 +66,17 @@ createGrid (length, grid);
 
 const cellArray = [...document.querySelectorAll('.cell')];
 
+let crosswordsArray = crosswords.filter((item) => item.size === length);
+
 let crossword = {};
 
-crosswords.forEach ((item) => {
+crosswordsArray.forEach ((item) => {
   if (item.name === 'Cat') {
     crossword = item;
-    return;
   }
 })
 
-createHint (length, topHint, leftHint, crossword.horizontalLines, crossword.verticalLines);
+createHint(length, topHint, leftHint, crossword.horizontalLines, crossword.verticalLines);
 
 cellClick(cellArray, crossword.countCheck, crossword.fullCellArray);
 
@@ -88,4 +91,12 @@ window.addEventListener('mouseup', (e) => {
     supportiveObject = createCrossword(length, blockArray, cellArray, countArray);
     console.log(supportiveObject);
   }
+})
+
+resetButton.addEventListener('click', () => {
+  resetNonogram(cellArray);
+})
+
+answerButton.addEventListener('click', () => {
+  showAnswer(crossword.fullCellArray, cellArray);
 })
