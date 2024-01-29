@@ -14,6 +14,22 @@ const main = document.createElement('div');
 main.classList.add('main');
 body.append(main);
 
+const buttonsArea = document.createElement('div');
+buttonsArea.classList.add('buttons-area');
+main.append(buttonsArea);
+
+const saveButton = document.createElement('div');
+saveButton.classList.add('button');
+buttonsArea.append(saveButton);
+
+const chooseButton = document.createElement('div');
+chooseButton.classList.add('button');
+buttonsArea.append(chooseButton);
+
+const resetButton = document.createElement('div');
+resetButton.classList.add('button');
+buttonsArea.append(resetButton);
+
 const gridWrap = document.createElement('div');
 gridWrap.classList.add('grid-wrap');
 main.append(gridWrap);
