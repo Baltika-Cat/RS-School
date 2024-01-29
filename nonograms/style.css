@@ -4,11 +4,59 @@
 }
 
 .main {
+  position: relative;
   display: flex;
   justify-content: space-around;
   align-items: center;
   align-content: center;
   height: 100vh;
+}
+
+.background {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background-color: black;
+  opacity: .8;
+  z-index: 1;
+}
+
+.change-size-window,
+.change-name-window {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 70vw;
+  height: 70vw;
+  max-width: 800px;
+  max-height: 600px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 5px black solid;
+  border-radius: 20px;
+  z-index: 10;
+  background-color: white;
+}
+
+.title {
+  font-size: 36px;
+}
+
+.size-area {
+  width: 80%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.return-button {
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .buttons-area {
@@ -26,9 +74,11 @@
   max-width: 300px;
   height: 5%;
   max-height: 50px;
+  min-height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   border: 3px black solid;
   border-radius: 12px;
   transition: .7s;
@@ -212,4 +262,22 @@
   height: 2px;
   width: 100%;
   transform: rotate(-45deg);
+}
+
+.invisible {
+  display: none;
+}
+
+@media screen and (max-width: 800px) {
+  .main {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .buttons-area {
+    flex-direction: row;
+    width: 80vw;
+    height: 10vh;
+    gap: 8px;
+  }
 }

@@ -5,6 +5,7 @@ import { crosswords } from './scripts/crosswords.js';
 import { createHint } from './scripts/create-hint.js';
 import { resetNonogram } from './scripts/reset-nonogram.js';
 import { showAnswer } from './scripts/show-answer.js';
+import { createSizeWindow } from './scripts/create-size-window.js';
 
 window.addEventListener('contextmenu', (e) => {
   e.preventDefault();
@@ -15,6 +16,21 @@ const body = document.body;
 const main = document.createElement('div');
 main.classList.add('main');
 body.append(main);
+
+const background = document.createElement('div');
+background.classList.add('background');
+background.classList.add('invisible');
+main.append(background);
+
+const changeSizeWindow = document.createElement('div');
+changeSizeWindow.classList.add('change-size-window');
+changeSizeWindow.classList.add('invisible');
+main.append(changeSizeWindow);
+
+const changeNameWindow = document.createElement('div');
+changeNameWindow.classList.add('change-name-window');
+changeNameWindow.classList.add('invisible');
+main.append(changeNameWindow);
 
 const buttonsArea = document.createElement('div');
 buttonsArea.classList.add('buttons-area');
@@ -60,7 +76,7 @@ const grid = document.createElement('div');
 grid.classList.add('grid');
 gridLeftHint.append(grid);
 
-let length = 3;
+let length = 1;
 
 createGrid (length, grid);
 
@@ -99,4 +115,18 @@ resetButton.addEventListener('click', () => {
 
 answerButton.addEventListener('click', () => {
   showAnswer(crossword.fullCellArray, cellArray);
+})
+
+chooseButton.addEventListener('click', () => {
+  background.classList.remove('invisible');
+  changeSizeWindow.classList.remove('invisible');
+  createSizeWindow(changeSizeWindow);
+})
+
+changeSizeWindow.addEventListener('click', (e) => {
+  let returnButtons = [...document.querySelectorAll('.return-button')];
+  if (returnButtons.includes(e.target)) {
+    background.classList.add('invisible');
+    changeSizeWindow.classList.add('invisible');
+  }
 })
