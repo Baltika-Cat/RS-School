@@ -98,6 +98,16 @@
   margin: 10px;
 }
 
+.timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 6vh;
+  font-size: 48px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
 .top-hint {
   display: flex;
   background-color: black;

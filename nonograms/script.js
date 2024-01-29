@@ -1,12 +1,13 @@
 import { cellClick } from './scripts/cell-click.js';
 import { createGrid } from './scripts/create-grid.js';
-import { createCrossword } from './scripts/test-script/supportive-script.js';
 import { crosswords } from './scripts/crosswords.js';
 import { createHint } from './scripts/create-hint.js';
 import { resetNonogram } from './scripts/reset-nonogram.js';
 import { showAnswer } from './scripts/show-answer.js';
 import { createSizeWindow } from './scripts/create-size-window.js';
 import { createNameWindow } from './scripts/create-name-window.js';
+import { timer } from './scripts/timer.js';
+//  import { createCrossword } from './scripts/test-script/supportive-script.js';
 
 window.addEventListener('contextmenu', (e) => {
   e.preventDefault();
@@ -61,6 +62,11 @@ const gridWrap = document.createElement('div');
 gridWrap.classList.add('grid-wrap');
 main.append(gridWrap);
 
+const timerWrap = document.createElement('div');
+timerWrap.classList.add('timer');
+timerWrap.textContent = '00:00';
+gridWrap.append(timerWrap);
+
 const topHint = document.createElement('div');
 topHint.classList.add('top-hint');
 gridWrap.append(topHint);
@@ -93,6 +99,14 @@ crosswordsArray.forEach ((item) => {
   }
 })
 
+cellArray.forEach ((item) => {
+  item.addEventListener('click', () => {
+    if (timer.isStarted === false) {
+      timer.updateTimer(timerWrap);
+    }
+  })
+})
+
 createHint(length, topHint, leftHint, crossword.horizontalLines, crossword.verticalLines);
 
 cellClick(cellArray, crossword.countCheck, crossword.fullCellArray);
@@ -101,13 +115,14 @@ const blockArray = document.querySelectorAll('.block');
 
 let countArray = -1;
 
-let supportiveObject = {};
+/* let supportiveObject = {};
 
 window.addEventListener('mouseup', (e) => {
   if (e.button === 1) {
     supportiveObject = createCrossword(length, blockArray, cellArray, countArray);
+    console.log(supportiveObject);
   }
-})
+}) */
 
 resetButton.addEventListener('click', () => {
   resetNonogram(cellArray);
