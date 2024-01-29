@@ -62,10 +62,19 @@ const gridWrap = document.createElement('div');
 gridWrap.classList.add('grid-wrap');
 main.append(gridWrap);
 
+const gridOver = document.createElement('div');
+gridOver.classList.add('grid-over');
+gridWrap.append(gridOver);
+
 const timerWrap = document.createElement('div');
 timerWrap.classList.add('timer');
 timerWrap.textContent = '00:00';
-gridWrap.append(timerWrap);
+gridOver.append(timerWrap);
+
+const themeButton = document.createElement('div');
+themeButton.classList.add('button');
+themeButton.classList.add('theme-button');
+gridOver.append(themeButton);
 
 const topHint = document.createElement('div');
 topHint.classList.add('top-hint');
@@ -126,6 +135,9 @@ resetButton.addEventListener('click', () => {
   resetNonogram(cellArray);
   clearInterval(timer.interval);
   timerWrap.textContent = '00:00';
+  timer.isStarted = false;
+  timer.seconds = 0;
+  timer.minutes = 0;
 })
 
 answerButton.addEventListener('click', () => {
@@ -193,11 +205,19 @@ changeNameWindow.addEventListener('click', (e) => {
 
 cellClick(cellArray, crossword.countCheck, crossword.fullCellArray);
 
-window.addEventListener('mouseup', (e) => {
-  if (e.button === 1) {
-    let allElements = [...body.getElementsByTagName('*')];
-    allElements.forEach ((item) => {
-      item.classList.toggle('dark-theme');
-    })
-  } 
+let theme = 'light';
+themeButton.textContent = 'Dark theme';
+
+themeButton.addEventListener('click', () => {
+  if (theme === 'light') {
+    theme = 'dark';
+    themeButton.textContent = 'Light theme';
+  } else {
+    theme = 'light';
+    themeButton.textContent = 'Dark theme';
+  }
+  let allElements = [...body.getElementsByTagName('*')];
+  allElements.forEach ((item) => {
+    item.classList.toggle('dark-theme');
+  })
 })
