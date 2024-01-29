@@ -3,6 +3,12 @@
   margin: 0px;
 }
 
+:root {
+  --blackColor: black;
+  --whiteColor: white;
+  --grayColor: black;
+}
+
 .main {
   position: relative;
   display: flex;
@@ -10,6 +16,7 @@
   align-items: center;
   align-content: center;
   height: 100vh;
+  background-color: var(--whiteColor);
 }
 
 .background {
@@ -28,27 +35,28 @@
   justify-content: space-around;
   align-items: center;
   width: 70vw;
-  height: 70vw;
+  height: 80vw;
   max-width: 800px;
   max-height: 600px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 5px black solid;
+  border: 5px var(--blackColor) solid;
   border-radius: 20px;
   z-index: 10;
-  background-color: white;
+  background-color: var(--whiteColor);
 }
 
 .title {
   font-size: 36px;
+  color: var(--blackColor);
 }
 
 .size-area,
 .name-area {
   width: 80%;
-  height: 50%;
+  height: 60%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -62,6 +70,7 @@
 
 .buttons-area {
   width: 20vw;
+  max-width: 250px;
   height: 95%;
   display: flex;
   flex-direction: column;
@@ -72,7 +81,7 @@
 
 .button {
   width: 100%;
-  max-width: 300px;
+  max-width: 200px;
   height: 5%;
   max-height: 50px;
   min-height: 40px;
@@ -80,9 +89,10 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  border: 3px black solid;
+  border: 3px var(--blackColor) solid;
   border-radius: 12px;
   transition: .7s;
+  color: var(--blackColor);
 }
 
 .button:hover {
@@ -99,6 +109,7 @@
 }
 
 .timer {
+  font-family: Arial;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -106,14 +117,15 @@
   font-size: 48px;
   text-align: center;
   margin-bottom: 10px;
+  color: var(--blackColor);
 }
 
 .top-hint {
   display: flex;
-  background-color: black;
+  background-color: var(--grayColor);
   justify-content: center;
   align-items: center;
-  color: white;
+  color: var(--whiteColor);
 }
 
 .grid-left-hint {
@@ -125,13 +137,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: black;
-  color: white;
+  background-color: var(--grayColor);
+  color: var(--whiteColor);
 }
 
 .block-hint {
   display: flex;
-  border: 2px black solid;
+  border: 2px var(--blackColor) solid;
 }
 
 .block-hint-left {
@@ -173,7 +185,7 @@
 
 .cell-hint {
   display: flex;
-  border: 1px white solid;
+  border: 1px var(--whiteColor) solid;
   justify-content: center;
   align-items: center;
 }
@@ -194,7 +206,7 @@
 .block {
   display: flex;
   flex-wrap: wrap;
-  border: 2px black solid;
+  border: 2px var(--blackColor) solid;
 }
 
 .big-block {
@@ -219,7 +231,7 @@
 }
 
 .cell {
-  background-color: white;
+  background-color: var(--whiteColor);
   border: 1px grey solid;
   cursor: pointer;
 }
@@ -246,7 +258,7 @@
 }
 
 .cell-full {
-  background-color: black;
+  background-color: var(--blackColor);
 }
 
 .cell-cross {
@@ -258,7 +270,7 @@
   top: 50%;
   display: block;
   content: '';
-  background-color: black;
+  background-color: var(--blackColor);
   height: 2px;
   width: 100%;
   transform: rotate(45deg);
@@ -269,7 +281,7 @@
   top: 50%;
   display: block;
   content: '';
-  background-color: black;
+  background-color: var(--blackColor);
   height: 2px;
   width: 100%;
   transform: rotate(-45deg);
@@ -277,6 +289,12 @@
 
 .invisible {
   display: none;
+}
+
+.dark-theme {
+  --whiteColor: black;
+  --blackColor: white;
+  --grayColor: #BBB;
 }
 
 @media screen and (max-width: 800px) {
@@ -288,6 +306,7 @@
   .buttons-area {
     flex-direction: row;
     width: 80vw;
+    max-width: 80vw;
     height: 10vh;
     gap: 8px;
   }

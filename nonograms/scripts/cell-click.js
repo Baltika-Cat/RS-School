@@ -4,6 +4,7 @@ export const cellClick = function (array, rightCount, rightArray) {
   let count = 0;
   array.forEach ((cell) => {
     cell.addEventListener ('mouseup', (e) => {
+      console.log(array.indexOf(cell))
       let mark = false;
       if (e.button === 0) {
         cell.classList.remove('cell-cross');
