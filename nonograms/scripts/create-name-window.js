@@ -1,20 +1,20 @@
-export const createSizeWindow = function(window) {
+export const createNameWindow = function(window, nameArray) {
   let windowChilds = [...window.childNodes];
   windowChilds.forEach ((item) => {
     window.removeChild(item);
   })
   let title = document.createElement('h3');
   title.classList.add('title');
-  title.textContent = 'Choose size';
+  title.textContent = 'Choose nonogram';
   window.append(title);
-  let sizeArea = document.createElement('div');
-  sizeArea.classList.add('size-area');
-  window.append(sizeArea);
-  for (let i = 1; i <= 3; i += 1) {
+  let nameArea = document.createElement('div');
+  nameArea.classList.add('name-area');
+  window.append(nameArea);
+  for (let i = 0; i < nameArray.length; i += 1) {
     let button = document.createElement('div');
     button.classList.add('button');
-    button.textContent = `${5 * i}x${5 * i}`;
-    sizeArea.append(button);
+    button.textContent = nameArray[i];
+    nameArea.append(button);
   }
   let button = document.createElement('div');
   button.classList.add('button');

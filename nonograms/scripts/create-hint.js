@@ -1,7 +1,6 @@
 export const createHint = function(length, topHint, leftHint, horizontalLines, verticalLines) {
   for (let i = 0; i < length; i += 1) {
     if (length === 1) {
-      console.log(true)
       let block = document.createElement('div');
       block.classList.add('block-hint-left');
       for (let j = 0; j < 5; j += 1) {
@@ -110,7 +109,6 @@ export const createHint = function(length, topHint, leftHint, horizontalLines, v
       }
     }
     array = array.filter(item => item !== 0);
-    console.log(horizontal[i])
     let cellArray = [...horizontal[i].childNodes].reverse();
     for (let n = cellArray.length - 1; n >= 0; n -= 1) {
       if (array[n]) {
@@ -131,7 +129,6 @@ export const createHint = function(length, topHint, leftHint, horizontalLines, v
       }
     }
     array = array.filter(item => item !== 0);
-    console.log(vertical[i])
     let cellArray = [...vertical[i].childNodes].reverse();
     for (let n = cellArray.length - 1; n >= 0; n -= 1) {
       if (array[n]) {

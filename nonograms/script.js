@@ -6,6 +6,7 @@ import { createHint } from './scripts/create-hint.js';
 import { resetNonogram } from './scripts/reset-nonogram.js';
 import { showAnswer } from './scripts/show-answer.js';
 import { createSizeWindow } from './scripts/create-size-window.js';
+import { createNameWindow } from './scripts/create-name-window.js';
 
 window.addEventListener('contextmenu', (e) => {
   e.preventDefault();
@@ -105,7 +106,6 @@ let supportiveObject = {};
 window.addEventListener('mouseup', (e) => {
   if (e.button === 1) {
     supportiveObject = createCrossword(length, blockArray, cellArray, countArray);
-    console.log(supportiveObject);
   }
 })
 
@@ -125,8 +125,49 @@ chooseButton.addEventListener('click', () => {
 
 changeSizeWindow.addEventListener('click', (e) => {
   let returnButtons = [...document.querySelectorAll('.return-button')];
+  let sizes = [...document.querySelector('.size-area').childNodes];
   if (returnButtons.includes(e.target)) {
     background.classList.add('invisible');
     changeSizeWindow.classList.add('invisible');
+  }
+  else if (sizes.includes(e.target)) {
+    length = sizes.indexOf(e.target) + 1;
+    let nameArray = crosswords.filter((item) => item.size === sizes.indexOf(e.target) + 1);
+    nameArray = nameArray.map((item) => item.name);
+    createNameWindow(changeNameWindow, nameArray);
+    changeSizeWindow.classList.add('invisible');
+    changeNameWindow.classList.remove('invisible');
+  }
+})
+
+changeNameWindow.addEventListener('click', (e) => {
+  let returnButtons = [...document.querySelectorAll('.return-button')];
+  let buttons = [...document.querySelector('.name-area').childNodes];
+  if (returnButtons.includes(e.target)) {
+    changeNameWindow.classList.add('invisible');
+    changeSizeWindow.classList.remove('invisible');
+  } else if (buttons.includes(e.target)) {
+    console.log(true)
+    crosswordsArray = crosswords.filter((item) => item.size === length);
+    crosswordsArray.forEach ((item) => {
+      if (item.name === e.target.textContent) {
+        console.log(e.target.textContent)
+        crossword = item;
+      }
+    })
+    let topHintChilds = [...topHint.childNodes];
+    let leftHintChilds = [...leftHint.childNodes];
+    let gridChilds = [...grid.childNodes];
+    topHintChilds.forEach (item => topHint.removeChild(item));
+    leftHintChilds.forEach (item => leftHint.removeChild(item));
+    gridChilds.forEach (item => grid.removeChild(item));
+    createGrid(length, grid);
+    createHint(length, topHint, leftHint, crossword.horizontalLines, crossword.verticalLines);
+    gridWrap.append(topHint);
+    gridLeftHint.append(leftHint);
+    gridLeftHint.append(grid);
+    gridWrap.append(gridLeftHint);
+    background.classList.add('invisible');
+    changeNameWindow.classList.add('invisible');
   }
 })
