@@ -20,15 +20,23 @@ main.append(buttonsArea);
 
 const saveButton = document.createElement('div');
 saveButton.classList.add('button');
+saveButton.textContent = 'Save';
 buttonsArea.append(saveButton);
 
 const chooseButton = document.createElement('div');
 chooseButton.classList.add('button');
+chooseButton.textContent = 'Choose nonogram';
 buttonsArea.append(chooseButton);
 
 const resetButton = document.createElement('div');
 resetButton.classList.add('button');
+resetButton.textContent = 'Reset';
 buttonsArea.append(resetButton);
+
+const answerButton = document.createElement('div');
+answerButton.classList.add('button');
+answerButton.textContent = 'Show answer';
+buttonsArea.append(answerButton);
 
 const gridWrap = document.createElement('div');
 gridWrap.classList.add('grid-wrap');
@@ -50,7 +58,7 @@ const grid = document.createElement('div');
 grid.classList.add('grid');
 gridLeftHint.append(grid);
 
-let length = 1;
+let length = 3;
 
 createGrid (length, grid);
 
