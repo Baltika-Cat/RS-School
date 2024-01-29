@@ -87,7 +87,7 @@ let length = 1;
 
 createGrid (length, grid);
 
-const cellArray = [...document.querySelectorAll('.cell')];
+let cellArray = [...document.querySelectorAll('.cell')];
 
 let crosswordsArray = crosswords.filter((item) => item.size === length);
 
@@ -109,13 +109,11 @@ cellArray.forEach ((item) => {
 
 createHint(length, topHint, leftHint, crossword.horizontalLines, crossword.verticalLines);
 
-cellClick(cellArray, crossword.countCheck, crossword.fullCellArray);
-
-const blockArray = document.querySelectorAll('.block');
+/* const blockArray = document.querySelectorAll('.block');
 
 let countArray = -1;
 
-/* let supportiveObject = {};
+let supportiveObject = {};
 
 window.addEventListener('mouseup', (e) => {
   if (e.button === 1) {
@@ -126,6 +124,8 @@ window.addEventListener('mouseup', (e) => {
 
 resetButton.addEventListener('click', () => {
   resetNonogram(cellArray);
+  clearInterval(timer.interval);
+  timerWrap.textContent = '00:00';
 })
 
 answerButton.addEventListener('click', () => {
@@ -136,6 +136,7 @@ chooseButton.addEventListener('click', () => {
   background.classList.remove('invisible');
   changeSizeWindow.classList.remove('invisible');
   createSizeWindow(changeSizeWindow);
+  timer.isPaused = true;
 })
 
 changeSizeWindow.addEventListener('click', (e) => {
@@ -144,6 +145,7 @@ changeSizeWindow.addEventListener('click', (e) => {
   if (returnButtons.includes(e.target)) {
     background.classList.add('invisible');
     changeSizeWindow.classList.add('invisible');
+    timer.isPaused = false;
   }
   else if (sizes.includes(e.target)) {
     length = sizes.indexOf(e.target) + 1;
@@ -184,5 +186,18 @@ changeNameWindow.addEventListener('click', (e) => {
     gridWrap.append(gridLeftHint);
     background.classList.add('invisible');
     changeNameWindow.classList.add('invisible');
+    cellArray = [...document.querySelectorAll('.cell')];
+    cellClick(cellArray, crossword.countCheck, crossword.fullCellArray);
   }
+})
+
+cellClick(cellArray, crossword.countCheck, crossword.fullCellArray);
+
+window.addEventListener('mouseup', (e) => {
+  if (e.button === 1) {
+    let allElements = [...body.getElementsByTagName('*')];
+    allElements.forEach ((item) => {
+      item.classList.toggle('dark-theme');
+    })
+  } 
 })
