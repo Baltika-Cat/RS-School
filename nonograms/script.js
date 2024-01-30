@@ -223,21 +223,50 @@ saveButton.addEventListener('click', () => {
   cellArray.forEach ((cell) => {
     if (cell.classList.contains('cell-full')) {
       cellFull.push(1);
+    } else if (cell.classList.contains('cell-cross')) {
+      cellFull.push(2);
     } else {
       cellFull.push(0);
     }
   })
   let object = {
-    topHint: topHint,
-    leftHint: leftHint,
-    grid: grid,
-    cellFull: cellFull
+    ordinal: crossword.ordinal,
+    cellFull: cellFull,
+    timer: timerWrap.textContent,
+    minutes: timer.minutes,
+    seconds: timer.seconds
   }
   localStorage.setItem('saved game', JSON.stringify(object));
 })
 
-window.addEventListener('click', (e) => {
+window.addEventListener('mouseup', (e) => {
   if (e.button === 1) {
-
+    removeHintGrid(topHint, leftHint, grid);
+    let object = JSON.parse(localStorage.getItem('saved game'));
+    console.log(topHint)
+    let cross = crosswords.filter((item) => item.ordinal === object.ordinal)[0];
+    createGrid(cross.size, grid);
+    createHint(cross.size, topHint, leftHint, cross.horizontalLines, cross.verticalLines);
+    cellArray = [...document.querySelectorAll('.cell')];
+    cellArray.map((item, index) => {
+      if (object.cellFull[index] === 1) {
+        item.classList.add('cell-full');
+        item.classList.remove('cell-cross');
+      } else if (object.cellFull[index] === 2) {
+        item.classList.add('cell-cross');
+        item.classList.remove('cell-full');
+      } else {
+        item.classList.remove('cell-cross');
+        item.classList.remove('cell-full');
+      }
+    })
+    cellClick(cellArray, crossword.countCheck, crossword.fullCellArray);
+    timer.isStarted = false;
+    timer.isPaused = false;
+    timer.minutes = object.minutes;
+    timer.seconds = object.seconds;
+    clearInterval(timer.interval);
+    timerWrap.textContent = object.timer;
+    startTimer(cellArray, timer, timerWrap);
   }
 })
