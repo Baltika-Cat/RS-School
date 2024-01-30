@@ -9,6 +9,7 @@ import { createNameWindow } from './scripts/create-name-window.js';
 import { timer } from './scripts/timer.js';
 import { removeHintGrid } from './scripts/remove-hint-grid.js';
 import { appendHintGrid } from './scripts/append-hint-grid.js';
+import { startTimer } from './scripts/start-timer.js';
 //  import { createCrossword } from './scripts/test-script/supportive-script.js';
 
 window.addEventListener('contextmenu', (e) => {
@@ -110,13 +111,7 @@ crosswordsArray.forEach ((item) => {
   }
 })
 
-cellArray.forEach ((item) => {
-  item.addEventListener('click', () => {
-    if (timer.isStarted === false) {
-      timer.updateTimer(timerWrap);
-    }
-  })
-})
+startTimer(cellArray, timer, timerWrap);
 
 createHint(length, topHint, leftHint, crossword.horizontalLines, crossword.verticalLines);
 
@@ -194,6 +189,13 @@ changeNameWindow.addEventListener('click', (e) => {
     changeNameWindow.classList.add('invisible');
     cellArray = [...document.querySelectorAll('.cell')];
     cellClick(cellArray, crossword.countCheck, crossword.fullCellArray);
+    timerWrap.textContent = '00:00';
+    timer.isStarted = false;
+    timer.isPaused = false;
+    timer.seconds = 0;
+    timer.minutes = 0;
+    clearInterval(timer.interval);
+    startTimer(cellArray, timer, timerWrap);
   }
 })
 
