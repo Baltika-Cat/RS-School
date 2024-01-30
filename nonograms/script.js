@@ -7,6 +7,8 @@ import { showAnswer } from './scripts/show-answer.js';
 import { createSizeWindow } from './scripts/create-size-window.js';
 import { createNameWindow } from './scripts/create-name-window.js';
 import { timer } from './scripts/timer.js';
+import { removeHintGrid } from './scripts/remove-hint-grid.js';
+import { appendHintGrid } from './scripts/append-hint-grid.js';
 //  import { createCrossword } from './scripts/test-script/supportive-script.js';
 
 window.addEventListener('contextmenu', (e) => {
@@ -184,18 +186,10 @@ changeNameWindow.addEventListener('click', (e) => {
         crossword = item;
       }
     })
-    let topHintChilds = [...topHint.childNodes];
-    let leftHintChilds = [...leftHint.childNodes];
-    let gridChilds = [...grid.childNodes];
-    topHintChilds.forEach (item => topHint.removeChild(item));
-    leftHintChilds.forEach (item => leftHint.removeChild(item));
-    gridChilds.forEach (item => grid.removeChild(item));
+    removeHintGrid(topHint, leftHint, grid);
     createGrid(length, grid);
     createHint(length, topHint, leftHint, crossword.horizontalLines, crossword.verticalLines);
-    gridWrap.append(topHint);
-    gridLeftHint.append(leftHint);
-    gridLeftHint.append(grid);
-    gridWrap.append(gridLeftHint);
+    appendHintGrid(gridWrap, topHint, gridLeftHint, leftHint, grid);
     background.classList.add('invisible');
     changeNameWindow.classList.add('invisible');
     cellArray = [...document.querySelectorAll('.cell')];
@@ -220,4 +214,28 @@ themeButton.addEventListener('click', () => {
   allElements.forEach ((item) => {
     item.classList.toggle('dark-theme');
   })
+})
+
+saveButton.addEventListener('click', () => {
+  let cellFull = [];
+  cellArray.forEach ((cell) => {
+    if (cell.classList.contains('cell-full')) {
+      cellFull.push(1);
+    } else {
+      cellFull.push(0);
+    }
+  })
+  let object = {
+    topHint: topHint,
+    leftHint: leftHint,
+    grid: grid,
+    cellFull: cellFull
+  }
+  localStorage.setItem('saved game', JSON.stringify(object));
+})
+
+window.addEventListener('click', (e) => {
+  if (e.button === 1) {
+
+  }
 })
