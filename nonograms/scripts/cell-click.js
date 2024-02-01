@@ -1,18 +1,22 @@
 import { checkCrossword } from './check-crossword.js';
 
-export const cellClick = function (array, rightCount, rightArray) {
-  let count = 0;
+export const cellClick = function (array, rightCount, rightArray, resetButton) {
+  let currentCount = 0;
   array.forEach ((cell) => {
     cell.addEventListener ('mouseup', (e) => {
-      console.log(array.indexOf(cell))
+      resetButton.addEventListener('click', () => {
+        currentCount = 0;
+      })
+      // console.log(array.indexOf(cell))
       let mark = false;
       if (e.button === 0) {
         cell.classList.remove('cell-cross');
         cell.classList.toggle('cell-full');
         if (cell.classList.contains('cell-full')) {
-          count += 1;
+          console.log('full')
+          currentCount += 1;
         } else {
-          count -= 1;
+          currentCount -= 1;
         }
       }
       if (e.button === 2) {
@@ -22,10 +26,10 @@ export const cellClick = function (array, rightCount, rightArray) {
         cell.classList.remove('cell-full');
         cell.classList.toggle('cell-cross');
         if (mark) {
-          count -= 1;
+          currentCount -= 1;
         }
       }
-      if (count === rightCount) {
+      if (currentCount === rightCount) {
         let currentArray = [];
         array.forEach((cell) => {
           if (cell.classList.contains('cell-full')) {
@@ -34,8 +38,12 @@ export const cellClick = function (array, rightCount, rightArray) {
             currentArray.push(0);
           }
         })
+        console.log(currentArray)
+        console.log(rightArray)
         checkCrossword(currentArray, rightArray);
       }
+      console.log(currentCount)
+      console.log(rightCount)
     })
   })
 }

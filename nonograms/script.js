@@ -188,7 +188,7 @@ changeNameWindow.addEventListener('click', (e) => {
     background.classList.add('invisible');
     changeNameWindow.classList.add('invisible');
     cellArray = [...document.querySelectorAll('.cell')];
-    cellClick(cellArray, crossword.countCheck, crossword.fullCellArray);
+    cellClick(cellArray, crossword.countCheck, crossword.fullCellArray, resetButton);
     timerWrap.textContent = '00:00';
     timer.isStarted = false;
     timer.isPaused = false;
@@ -199,7 +199,7 @@ changeNameWindow.addEventListener('click', (e) => {
   }
 })
 
-cellClick(cellArray, crossword.countCheck, crossword.fullCellArray);
+cellClick(cellArray, crossword.countCheck, crossword.fullCellArray, resetButton);
 
 let theme = 'light';
 themeButton.textContent = 'Dark theme';
@@ -260,7 +260,7 @@ window.addEventListener('mouseup', (e) => {
         item.classList.remove('cell-full');
       }
     })
-    cellClick(cellArray, crossword.countCheck, crossword.fullCellArray);
+    cellClick(cellArray, crossword.countCheck, crossword.fullCellArray, resetButton);
     timer.isStarted = false;
     timer.isPaused = false;
     timer.minutes = object.minutes;
