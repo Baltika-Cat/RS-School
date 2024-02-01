@@ -6,26 +6,55 @@
 :root {
   --blackColor: black;
   --whiteColor: white;
-  --grayColor: black;
+  --grayColor: #222;
 }
 
 .main {
   position: relative;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   align-content: center;
   height: 100vh;
   background-color: var(--whiteColor);
+  gap: 5vw;
 }
 
 .background {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   width: 100vw;
   height: 100vh;
   position: absolute;
   background-color: black;
   opacity: .8;
   z-index: 1;
+}
+
+.background-win {
+  background-color: var(--whiteColor);
+  opacity: 1;
+}
+
+.title-win {
+  color: var(--blackColor);
+  font-size: 48px;
+  text-align: center;
+  margin: 0px 20px;
+}
+
+.grid-win {
+  position: relative;
+  z-index: 2;
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 5;
 }
 
 .change-size-window,
@@ -76,7 +105,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  margin-left: 10px;
+  margin-left: 20px;
 }
 
 .button {
@@ -105,7 +134,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 10px;
+  margin: 20px;
+  margin-left: 0px;
 }
 
 .grid-over {
@@ -142,6 +172,7 @@
   justify-content: center;
   align-items: center;
   color: var(--whiteColor);
+  font-weight: bold;
 }
 
 .grid-left-hint {
@@ -155,6 +186,7 @@
   align-items: center;
   background-color: var(--grayColor);
   color: var(--whiteColor);
+  font-weight: bold;
 }
 
 .block-hint {
@@ -310,10 +342,10 @@
 .dark-theme {
   --whiteColor: black;
   --blackColor: white;
-  --grayColor: #BBB;
+  --grayColor: #DDD;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 950px) {
   .main {
     flex-direction: column;
     justify-content: center;
@@ -325,5 +357,6 @@
     max-width: 80vw;
     height: 10vh;
     gap: 8px;
+    margin-left: 0px;
   }
 }

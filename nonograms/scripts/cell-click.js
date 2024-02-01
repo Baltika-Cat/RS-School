@@ -1,6 +1,6 @@
 import { checkCrossword } from './check-crossword.js';
 
-export const cellClick = function (array, rightCount, rightArray, resetButton) {
+export const cellClick = function (array, crossword, resetButton, background, grid, chooseButton) {
   let currentCount = 0;
   array.forEach ((cell) => {
     cell.addEventListener ('mouseup', (e) => {
@@ -13,7 +13,6 @@ export const cellClick = function (array, rightCount, rightArray, resetButton) {
         cell.classList.remove('cell-cross');
         cell.classList.toggle('cell-full');
         if (cell.classList.contains('cell-full')) {
-          console.log('full')
           currentCount += 1;
         } else {
           currentCount -= 1;
@@ -29,7 +28,7 @@ export const cellClick = function (array, rightCount, rightArray, resetButton) {
           currentCount -= 1;
         }
       }
-      if (currentCount === rightCount) {
+      if (currentCount === crossword.countCheck) {
         let currentArray = [];
         array.forEach((cell) => {
           if (cell.classList.contains('cell-full')) {
@@ -38,12 +37,11 @@ export const cellClick = function (array, rightCount, rightArray, resetButton) {
             currentArray.push(0);
           }
         })
-        console.log(currentArray)
-        console.log(rightArray)
-        checkCrossword(currentArray, rightArray);
+        checkCrossword(currentArray, crossword.fullCellArray, background, grid, chooseButton);
       }
-      console.log(currentCount)
-      console.log(rightCount)
+      /*console.log(currentCount)
+      console.log(crossword.countCheck)
+      console.log(crossword)*/
     })
   })
 }
