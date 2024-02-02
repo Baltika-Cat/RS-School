@@ -277,13 +277,23 @@ saveButton.addEventListener('click', () => {
     seconds: timer.seconds
   }
   localStorage.setItem('saved game', JSON.stringify(object));
+  saveButton.classList.add('save-button');
+  saveButton.textContent = 'Saved!';
+  setTimeout(() => {
+    saveButton.classList.remove('save-button');
+    saveButton.textContent = 'Save';
+  }, 1500);
 })
 
 window.addEventListener('click', (e) => {
   let continueButton = document.querySelector('.continue-button');
+  let randomButton = document.querySelector('.random-button');
   if (e.target === continueButton) {
     removeWinBackground();
-    buttonsArea.childNodes[0].after(chooseButton);
+    if (buttonsArea.childNodes.length < 4) {
+      buttonsArea.childNodes[0].after(chooseButton);
+      chooseButton.classList.remove('button-win');
+    }
     chooseButton.classList.remove('invisible');
     saveButton.classList.remove('save-button');
     background.classList.add('invisible');
@@ -314,5 +324,33 @@ window.addEventListener('click', (e) => {
     clearInterval(timer.interval);
     timerWrap.textContent = object.timer;
     startTimer(cellArray, timer, timerWrap);
+  } else if (e.target === randomButton) {
+    let random = Math.round(Math.random() * (crosswords.length - 1));
+    console.log(random)
+    crossword = crosswords.filter(item => item === crosswords[random])[0];
+    length = crossword.size;
+    chooseButton.classList.remove('invisible');
+    saveButton.classList.remove('save-button');
+    removeHintGrid(topHint, leftHint, grid);
+    createGrid(length, grid);
+    createHint(length, topHint, leftHint, crossword.horizontalLines, crossword.verticalLines);
+    appendHintGrid(gridWrap, topHint, gridLeftHint, leftHint, grid);
+    changeSizeWindow.classList.add('invisible');
+    background.classList.add('invisible');
+    cellArray = [...grid.querySelectorAll('.cell')];
+    cellClick(cellArray, crossword, resetButton, background, grid, chooseButton);
+    timerWrap.textContent = '00:00';
+    timer.isStarted = false;
+    timer.isPaused = false;
+    timer.seconds = 0;
+    timer.minutes = 0;
+    clearInterval(timer.interval);
+    startTimer(cellArray, timer, timerWrap);
+    if (buttonsArea.childNodes.length < 4) {
+      buttonsArea.childNodes[0].after(chooseButton);
+      chooseButton.classList.remove('button-win');
+    }
+    removeWinBackground();
   }
 })
+
