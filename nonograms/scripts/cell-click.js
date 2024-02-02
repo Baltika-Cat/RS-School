@@ -5,12 +5,18 @@ export const cellClick = function (array, crossword, resetButton, background, gr
   leftClick.src = 'assets/sounds/click-sound.mp3';
   let rightClick = new Audio();
   rightClick.src = 'assets/sounds/click-cross-sound.mp3';
-  let currentCount = 0;
+  let currentCount = array.filter(item => item.classList.contains('cell-full')).length;
   array.forEach ((cell) => {
     cell.addEventListener ('mouseup', (e) => {
       resetButton.addEventListener('click', () => {
         currentCount = 0;
       })
+      let continueButton = document.querySelector('.continue-button');
+      if (continueButton) {
+        continueButton.addEventListener('click', () => {
+          currentCount = array.filter(item => item.classList.contains('cell-full')).length;
+        })
+      }
       // console.log(array.indexOf(cell))
       let mark = false;
       if (e.button === 0) {
@@ -45,9 +51,9 @@ export const cellClick = function (array, crossword, resetButton, background, gr
         })
         checkCrossword(currentArray, crossword.fullCellArray, background, grid, chooseButton);
       }
-      /*console.log(currentCount)
+      console.log(currentCount)
       console.log(crossword.countCheck)
-      console.log(crossword)*/
+      console.log(crossword)
     })
   })
 }

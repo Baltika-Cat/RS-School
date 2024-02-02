@@ -179,6 +179,7 @@ changeSizeWindow.addEventListener('click', (e) => {
   let returnButtons = [...document.querySelectorAll('.return-button')];
   let sizes = [...document.querySelector('.size-area').childNodes];
   if (returnButtons.includes(e.target)) {
+    chooseButton.classList.remove('invisible');
     background.classList.add('invisible');
     changeSizeWindow.classList.add('invisible');
     timer.isPaused = false;
@@ -210,7 +211,8 @@ changeNameWindow.addEventListener('click', (e) => {
         crossword = item;
       }
     })
-    saveButton.classList.removes('save-button');
+    chooseButton.classList.remove('invisible');
+    saveButton.classList.remove('save-button');
     removeHintGrid(topHint, leftHint, grid);
     createGrid(length, grid);
     createHint(length, topHint, leftHint, crossword.horizontalLines, crossword.verticalLines);
@@ -280,6 +282,9 @@ saveButton.addEventListener('click', () => {
 window.addEventListener('click', (e) => {
   let continueButton = document.querySelector('.continue-button');
   if (e.target === continueButton) {
+    removeWinBackground();
+    buttonsArea.childNodes[0].after(chooseButton);
+    chooseButton.classList.remove('invisible');
     saveButton.classList.remove('save-button');
     background.classList.add('invisible');
     changeSizeWindow.classList.add('invisible');
@@ -301,7 +306,7 @@ window.addEventListener('click', (e) => {
         item.classList.remove('cell-full');
       }
     })
-    cellClick(cellArray, crossword, resetButton, background, grid, chooseButton);
+    cellClick(cellArray, cross, resetButton, background, grid, chooseButton);
     timer.isStarted = false;
     timer.isPaused = false;
     timer.minutes = object.minutes;

@@ -39,6 +39,9 @@ export const checkCrossword = function (currentArray, rightArray, background, gr
       gridWin.append(cover);
       chooseButton.classList.add('button-win');
       background.append(chooseButton);
+      chooseButton.addEventListener('click', () => {
+        chooseButton.classList.add('invisible');
+      })
     }, 50)
   }
 }
