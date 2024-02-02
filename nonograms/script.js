@@ -22,6 +22,10 @@ const main = document.createElement('div');
 main.classList.add('main');
 body.append(main);
 
+const backgroundImage = document.createElement('div');
+backgroundImage.classList.add('background-image');
+main.append(backgroundImage);
+
 const background = document.createElement('div');
 background.classList.add('background');
 background.classList.add('invisible');
@@ -244,8 +248,11 @@ themeButton.addEventListener('click', () => {
     themeButton.textContent = 'Dark theme';
   }
   let allElements = [...body.getElementsByTagName('*')];
+  backgroundImage.classList.toggle('background-dark-theme');
   allElements.forEach ((item) => {
-    item.classList.toggle('dark-theme');
+    if (!item.classList.contains('background-image')) {
+      item.classList.toggle('dark-theme');
+    }
   })
 })
 
