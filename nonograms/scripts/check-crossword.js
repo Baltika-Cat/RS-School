@@ -13,7 +13,16 @@ export const checkCrossword = function (currentArray, rightArray, background, gr
       background.classList.add('background-win');
       background.classList.remove('invisible');
       let title = document.createElement('div');
-      title.textContent = 'Great! You have solved the nonogram!';
+      let minute = timer.minutes > 1 ? 'minutes' : 'minute';
+      let second = timer.seconds > 1 ? 'seconds' : 'second';
+      let winText = 'Great! You have solved the nonogram in '
+      if (timer.minutes === 0) {
+        title.textContent = `${winText} ${timer.seconds} ${second}!`;
+      } else if (timer.seconds === 0) {
+        title.textContent = `${winText} ${timer.minutes} ${minute}!`;
+      } else {
+        title.textContent = `${winText} ${timer.minutes} ${minute} and ${timer.seconds} ${second}!`;
+      }
       title.classList.add('title-win');
       background.append(title);
       let gridWin = grid.cloneNode(true);
