@@ -139,6 +139,11 @@ resetButton.addEventListener('click', () => {
 })
 
 answerButton.addEventListener('click', () => {
+  clearInterval(timer.interval);
+  timerWrap.textContent = '00:00';
+  timer.isStarted = false;
+  timer.seconds = 0;
+  timer.minutes = 0;
   saveButton.classList.add('save-button');
   showAnswer(crossword.fullCellArray, cellArray);
 })
