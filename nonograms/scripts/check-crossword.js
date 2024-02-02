@@ -1,6 +1,16 @@
 import { timer } from './timer.js';
 
-export const checkCrossword = function (currentArray, rightArray, background, grid, chooseButton) {
+let latestArray;
+
+if (localStorage.getItem('latestScores')) {
+  latestArray = JSON.parse(localStorage.getItem('latestScores'));
+} else {
+  latestArray = [];
+}
+let bestArray = [];
+
+export const checkCrossword = function (currentArray, crossword, background, grid, chooseButton) {
+  let rightArray = crossword.fullCellArray;
   let winSound = new Audio();
   winSound.src = 'assets/sounds/win-sound.mp3';
   //console.log(rightArray)
@@ -8,7 +18,6 @@ export const checkCrossword = function (currentArray, rightArray, background, gr
     setTimeout(() => {
       winSound.play();
       timer.isStopped = true;
-      console.log(timer.isStopped)
       // console.log('WIN!!!!!!!!!!!!!!!!!')
       background.classList.add('background-win');
       background.classList.remove('invisible');
@@ -42,6 +51,21 @@ export const checkCrossword = function (currentArray, rightArray, background, gr
       chooseButton.addEventListener('click', () => {
         chooseButton.classList.add('invisible');
       })
-    }, 50)
+    }, 1)
+    let score = {
+      seconds: (timer.minutes * 60) + timer.seconds,
+      name: crossword.name,
+      size: `${crossword.size * 5}x${crossword.size * 5}`,
+      time: `${timer.minutes.toString().padStart(2, '0')}:${timer.seconds.toString().padStart(2, '0')}`
+    }
+    if (latestArray.length < 5) {
+      latestArray.push(score);
+    } else {
+      latestArray.splice(0, 1, score);
+    }
+    localStorage.setItem('latestScores', JSON.stringify(latestArray));
+    bestArray = Array.from(latestArray);
+    localStorage.setItem('bestScores', JSON.stringify(bestArray.sort((a, b) => a.seconds - b.seconds)));
+    console.log(JSON.parse(localStorage.getItem('bestScores')));
   }
 }

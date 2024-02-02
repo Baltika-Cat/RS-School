@@ -49,11 +49,11 @@ export const cellClick = function (array, crossword, resetButton, background, gr
             currentArray.push(0);
           }
         })
-        checkCrossword(currentArray, crossword.fullCellArray, background, grid, chooseButton);
+        checkCrossword(currentArray, crossword, background, grid, chooseButton);
       }
-      console.log(currentCount)
+      /*console.log(currentCount)
       console.log(crossword.countCheck)
-      console.log(crossword)
+      console.log(crossword)*/
     })
   })
 }

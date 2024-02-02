@@ -41,6 +41,11 @@ changeNameWindow.classList.add('change-name-window');
 changeNameWindow.classList.add('invisible');
 main.append(changeNameWindow);
 
+const scoreWindow = document.createElement('div');
+scoreWindow.classList.add('score-window');
+scoreWindow.classList.add('invisible');
+main.append(scoreWindow);
+
 const buttonsArea = document.createElement('div');
 buttonsArea.classList.add('buttons-area');
 main.append(buttonsArea);
@@ -72,6 +77,11 @@ main.append(gridWrap);
 const gridOver = document.createElement('div');
 gridOver.classList.add('grid-over');
 gridWrap.append(gridOver);
+
+const scoreTable = document.createElement('div');
+scoreTable.classList.add('button');
+scoreTable.classList.add('score-table');
+gridOver.append(scoreTable);
 
 const timerWrap = document.createElement('div');
 timerWrap.classList.add('timer');
@@ -186,7 +196,6 @@ changeSizeWindow.addEventListener('click', (e) => {
     if (buttonsArea.childNodes.length < 4) {
       removeWinBackground();
     }
-    console.log(timer.isStopped)
   }
   else if (sizes.includes(e.target)) {
     length = sizes.indexOf(e.target) + 1;
@@ -326,7 +335,6 @@ window.addEventListener('click', (e) => {
     startTimer(cellArray, timer, timerWrap);
   } else if (e.target === randomButton) {
     let random = Math.round(Math.random() * (crosswords.length - 1));
-    console.log(random)
     crossword = crosswords.filter(item => item === crosswords[random])[0];
     length = crossword.size;
     chooseButton.classList.remove('invisible');
