@@ -22,11 +22,13 @@ export const createSizeWindow = function(window) {
 
   let continueButton = document.createElement('div');
   continueButton.classList.add('button');
+  continueButton.classList.add('continue-button');
   continueButton.textContent = 'Continue nonogram';
   continueRandomBlock.append(continueButton);
 
   let randomButton = document.createElement('div');
   randomButton.classList.add('button');
+  randomButton.classList.add('random-button');
   randomButton.textContent = 'Random nonogram';
   continueRandomBlock.append(randomButton);
 

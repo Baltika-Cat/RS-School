@@ -262,8 +262,11 @@ saveButton.addEventListener('click', () => {
   localStorage.setItem('saved game', JSON.stringify(object));
 })
 
-window.addEventListener('mouseup', (e) => {
-  if (e.button === 1) {
+window.addEventListener('click', (e) => {
+  let continueButton = document.querySelector('.continue-button');
+  if (e.target === continueButton) {
+    background.classList.add('invisible');
+    changeSizeWindow.classList.add('invisible');
     removeHintGrid(topHint, leftHint, grid);
     let object = JSON.parse(localStorage.getItem('saved game'));
     let cross = crosswords.filter((item) => item.ordinal === object.ordinal)[0];
