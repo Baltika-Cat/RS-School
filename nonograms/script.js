@@ -129,6 +129,7 @@ window.addEventListener('mouseup', (e) => {
 }) */
 
 resetButton.addEventListener('click', () => {
+  saveButton.classList.remove('save-button');
   resetNonogram(cellArray);
   clearInterval(timer.interval);
   timerWrap.textContent = '00:00';
@@ -138,6 +139,7 @@ resetButton.addEventListener('click', () => {
 })
 
 answerButton.addEventListener('click', () => {
+  saveButton.classList.add('save-button');
   showAnswer(crossword.fullCellArray, cellArray);
 })
 
@@ -199,6 +201,7 @@ changeNameWindow.addEventListener('click', (e) => {
         crossword = item;
       }
     })
+    saveButton.classList.removes('save-button');
     removeHintGrid(topHint, leftHint, grid);
     createGrid(length, grid);
     createHint(length, topHint, leftHint, crossword.horizontalLines, crossword.verticalLines);
@@ -265,6 +268,7 @@ saveButton.addEventListener('click', () => {
 window.addEventListener('click', (e) => {
   let continueButton = document.querySelector('.continue-button');
   if (e.target === continueButton) {
+    saveButton.classList.remove('save-button');
     background.classList.add('invisible');
     changeSizeWindow.classList.add('invisible');
     removeHintGrid(topHint, leftHint, grid);
