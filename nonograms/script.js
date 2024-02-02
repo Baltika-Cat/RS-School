@@ -155,17 +155,13 @@ const removeWinBackground = function() {
   let backgroundChildren = [...background.childNodes];
   let backgroundCells = [...background.querySelectorAll('.cell')];
   let backgroundBlocks = [...background.querySelectorAll('.block')];
-  console.log(backgroundBlocks)
-  console.log(backgroundCells)
   backgroundCells.forEach (item => item.remove());
   backgroundCells = [...background.querySelectorAll('.cell')];
-  console.log(backgroundCells)
   backgroundChildren.forEach (item => {
     let children = [...item.childNodes];
     children.forEach (child => item.removeChild(child));
     item.remove();
   });
-  console.log(backgroundBlocks)
 }
 
 changeSizeWindow.addEventListener('click', (e) => {
@@ -178,6 +174,7 @@ changeSizeWindow.addEventListener('click', (e) => {
     if (buttonsArea.childNodes.length < 4) {
       removeWinBackground();
     }
+    console.log(timer.isStopped)
   }
   else if (sizes.includes(e.target)) {
     length = sizes.indexOf(e.target) + 1;
@@ -195,13 +192,10 @@ changeNameWindow.addEventListener('click', (e) => {
   if (returnButtons.includes(e.target)) {
     changeNameWindow.classList.add('invisible');
     changeSizeWindow.classList.remove('invisible');
-    console.log(timer.isStopped)
   } else if (buttons.includes(e.target)) {
-    console.log(true)
     crosswordsArray = crosswords.filter((item) => item.size === length);
     crosswordsArray.forEach ((item) => {
       if (item.name === e.target.textContent) {
-        console.log(e.target.textContent)
         crossword = item;
       }
     })
@@ -272,7 +266,6 @@ window.addEventListener('mouseup', (e) => {
   if (e.button === 1) {
     removeHintGrid(topHint, leftHint, grid);
     let object = JSON.parse(localStorage.getItem('saved game'));
-    console.log(topHint)
     let cross = crosswords.filter((item) => item.ordinal === object.ordinal)[0];
     createGrid(cross.size, grid);
     createHint(cross.size, topHint, leftHint, cross.horizontalLines, cross.verticalLines);
