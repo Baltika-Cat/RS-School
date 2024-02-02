@@ -3,13 +3,14 @@ export const timer = {
   seconds: 0,
   isPaused: false,
   isStarted: false,
+  isStopped: false,
   interval: '',
   updateTimer(timerBlock) {
-    console.log(true)
+    // console.log(true)
    // if (this.isStarted === false) {
       this.isStarted = true;
       this.interval = setInterval(() => {
-        if (this.isPaused === false) {
+        if (this.isPaused === false && this.isStopped === false) {
           this.seconds += 1;
           if (this.seconds === 60) {
             this.minutes += 1;

@@ -1,10 +1,14 @@
 import { timer } from './timer.js';
 
 export const checkCrossword = function (currentArray, rightArray, background, grid, chooseButton) {
-  console.log(false)
+  let winSound = new Audio();
+  winSound.src = 'assets/sounds/win-sound.mp3';
   //console.log(rightArray)
   if (currentArray.join('') === rightArray.join('')) {
-    console.log('WIN!!!!!!!!!!!!!!!!!')
+    winSound.play();
+    timer.isStopped = true;
+    console.log(timer.isStopped)
+    // console.log('WIN!!!!!!!!!!!!!!!!!')
     background.classList.add('background-win');
     background.classList.remove('invisible');
     let title = document.createElement('div');

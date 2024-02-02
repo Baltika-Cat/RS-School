@@ -32,20 +32,6 @@ changeSizeWindow.classList.add('change-size-window');
 changeSizeWindow.classList.add('invisible');
 main.append(changeSizeWindow);
 
-const continueRandomBlock = document.createElement('div');
-continueRandomBlock.classList.add('continue-random-block');
-changeSizeWindow.append(continueRandomBlock);
-
-const continueButton = document.createElement('div');
-continueButton.classList.add('button');
-continueButton.textContent = 'Continue nonogram';
-continueRandomBlock.append(continueButton);
-
-const randomButton = document.createElement('div');
-randomButton.classList.add('button');
-randomButton.textContent = 'Random nonogram';
-continueRandomBlock.append(randomButton);
-
 const changeNameWindow = document.createElement('div');
 changeNameWindow.classList.add('change-name-window');
 changeNameWindow.classList.add('invisible');
@@ -209,6 +195,7 @@ changeNameWindow.addEventListener('click', (e) => {
   if (returnButtons.includes(e.target)) {
     changeNameWindow.classList.add('invisible');
     changeSizeWindow.classList.remove('invisible');
+    console.log(timer.isStopped)
   } else if (buttons.includes(e.target)) {
     console.log(true)
     crosswordsArray = crosswords.filter((item) => item.size === length);

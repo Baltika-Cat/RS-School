@@ -1,6 +1,10 @@
 import { checkCrossword } from './check-crossword.js';
 
 export const cellClick = function (array, crossword, resetButton, background, grid, chooseButton) {
+  let leftClick = new Audio();
+  leftClick.src = 'assets/sounds/click-sound.mp3';
+  let rightClick = new Audio();
+  rightClick.src = 'assets/sounds/click-cross-sound.mp3';
   let currentCount = 0;
   array.forEach ((cell) => {
     cell.addEventListener ('mouseup', (e) => {
@@ -10,6 +14,7 @@ export const cellClick = function (array, crossword, resetButton, background, gr
       // console.log(array.indexOf(cell))
       let mark = false;
       if (e.button === 0) {
+        leftClick.play();
         cell.classList.remove('cell-cross');
         cell.classList.toggle('cell-full');
         if (cell.classList.contains('cell-full')) {
@@ -19,6 +24,7 @@ export const cellClick = function (array, crossword, resetButton, background, gr
         }
       }
       if (e.button === 2) {
+        rightClick.play();
         if (cell.classList.contains('cell-full')) {
           mark = true;
         }
