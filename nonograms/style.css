@@ -409,4 +409,8 @@
   .grid-wrap {
     margin-right: 0px;
   }
+
+  .timer {
+    font-size: 6vw;
+  }
 }
