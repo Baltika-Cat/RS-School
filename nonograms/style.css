@@ -65,7 +65,8 @@
 }
 
 .change-size-window,
-.change-name-window {
+.change-name-window,
+.score-window {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -90,7 +91,8 @@
 }
 
 .size-area,
-.name-area {
+.name-area,
+.score-area {
   width: 80%;
   height: 50%;
   display: flex;
@@ -99,6 +101,14 @@
   align-items: center;
   border: 1px var(--blackColor) solid;
   border-radius: 20px;
+}
+
+.score-area {
+  height: 70%;
+}
+
+.score-line {
+  font-size: 24px;
 }
 
 .continue-random-block {
@@ -170,6 +180,13 @@
   position: relative;
   height: 6vw;
   margin-bottom: 10px;
+}
+
+.score-button {
+  position: absolute;
+  width: 100px;
+  left: 0px;
+  font-size: 16px;
 }
 
 .timer {
@@ -387,5 +404,9 @@
     height: 10vh;
     gap: 8px;
     margin-left: 0px;
+  }
+
+  .grid-wrap {
+    margin-right: 0px;
   }
 }

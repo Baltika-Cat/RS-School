@@ -10,6 +10,7 @@ import { timer } from './scripts/timer.js';
 import { removeHintGrid } from './scripts/remove-hint-grid.js';
 import { appendHintGrid } from './scripts/append-hint-grid.js';
 import { startTimer } from './scripts/start-timer.js';
+import { createScoreTable } from './scripts/create-score-table.js';
 //  import { createCrossword } from './scripts/test-script/supportive-script.js';
 
 window.addEventListener('contextmenu', (e) => {
@@ -46,6 +47,10 @@ scoreWindow.classList.add('score-window');
 scoreWindow.classList.add('invisible');
 main.append(scoreWindow);
 
+const scoreArea = document.createElement('ol');
+scoreArea.classList.add('score-area');
+scoreWindow.append(scoreArea);
+
 const buttonsArea = document.createElement('div');
 buttonsArea.classList.add('buttons-area');
 main.append(buttonsArea);
@@ -78,10 +83,11 @@ const gridOver = document.createElement('div');
 gridOver.classList.add('grid-over');
 gridWrap.append(gridOver);
 
-const scoreTable = document.createElement('div');
-scoreTable.classList.add('button');
-scoreTable.classList.add('score-table');
-gridOver.append(scoreTable);
+const scoreButton = document.createElement('div');
+scoreButton.classList.add('button');
+scoreButton.classList.add('score-button');
+scoreButton.textContent = 'Score table';
+gridOver.append(scoreButton);
 
 const timerWrap = document.createElement('div');
 timerWrap.classList.add('timer');
@@ -362,3 +368,18 @@ window.addEventListener('click', (e) => {
   }
 })
 
+scoreButton.addEventListener('click', () => {
+  createScoreTable(scoreWindow, scoreArea);
+  background.classList.remove('invisible');
+  scoreWindow.classList.remove('invisible');
+  timer.isPaused = true;
+})
+
+scoreWindow.addEventListener('click', (e) => {
+  let returnButtons = [...document.querySelectorAll('.return-button')];
+  if (returnButtons.includes(e.target)) {
+    background.classList.add('invisible');
+    scoreWindow.classList.add('invisible');
+    timer.isPaused = false;
+  }
+})

@@ -61,11 +61,15 @@ export const checkCrossword = function (currentArray, crossword, background, gri
     if (latestArray.length < 5) {
       latestArray.push(score);
     } else {
-      latestArray.splice(0, 1, score);
+      for (let i = 0; i < latestArray.length - 1; i += 1) {
+        latestArray.splice(i, 1, latestArray[i + 1]);
+      }
+      latestArray.splice(4, 1, score);
     }
     localStorage.setItem('latestScores', JSON.stringify(latestArray));
     bestArray = Array.from(latestArray);
     localStorage.setItem('bestScores', JSON.stringify(bestArray.sort((a, b) => a.seconds - b.seconds)));
     console.log(JSON.parse(localStorage.getItem('bestScores')));
+    console.log(JSON.parse(localStorage.getItem('latestScores')))
   }
 }
