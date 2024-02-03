@@ -9,22 +9,12 @@ if (localStorage.getItem('latestScores')) {
 }
 let bestArray = [];
 
-export const checkCrossword = function (currentArray, crossword, background, grid, chooseButton) {
-  let sound = document.querySelector('.sound');
+export const checkCrossword = function (currentArray, crossword, background, grid, chooseButton, winSound) {
   let rightArray = crossword.fullCellArray;
-  let winSound = new Audio();
-  winSound.src = 'assets/sounds/win-sound.mp3';
-  if (sound.classList.contains('invisible')) {
-    winSound.muted = true;
-  } else {
-    winSound.muted = false;
-  }
-  //console.log(rightArray)
   if (currentArray.join('') === rightArray.join('')) {
     setTimeout(() => {
       winSound.play();
       timer.isStopped = true;
-      // console.log('WIN!!!!!!!!!!!!!!!!!')
       background.classList.add('background-win');
       background.classList.remove('invisible');
       let title = document.createElement('div');
@@ -75,7 +65,5 @@ export const checkCrossword = function (currentArray, crossword, background, gri
     localStorage.setItem('latestScores', JSON.stringify(latestArray));
     bestArray = Array.from(latestArray);
     localStorage.setItem('bestScores', JSON.stringify(bestArray.sort((a, b) => a.seconds - b.seconds)));
-    console.log(JSON.parse(localStorage.getItem('bestScores')));
-    console.log(JSON.parse(localStorage.getItem('latestScores')))
   }
 }

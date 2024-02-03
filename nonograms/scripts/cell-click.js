@@ -1,27 +1,9 @@
 import { checkCrossword } from './check-crossword.js';
 
-export const cellClick = function (array, crossword, resetButton, background, grid, chooseButton) {
-  let soundButton = document.querySelector('.sound-wrap');
-  let leftClick = new Audio();
-  leftClick.src = 'assets/sounds/click-sound.mp3';
-  let rightClick = new Audio();
-  rightClick.src = 'assets/sounds/click-cross-sound.mp3';
-  let sound = document.querySelector('.sound');
-  let mute = document.querySelector('.mute');
-  let switchOffSound = function() {
-    console.log('click')
-    sound.classList.toggle('invisible');
-    mute.classList.toggle('invisible');
-    if (sound.classList.contains('invisible')) {
-      leftClick.muted = true;
-      rightClick.muted = true;
-    } else {
-      leftClick.muted = false;
-      rightClick.muted = false;
-    }
-  }
-  soundButton.removeEventListener('click', switchOffSound);
-  soundButton.addEventListener('click', switchOffSound);
+export const cellClick = function(array, crossword, resetButton, background, grid, chooseButton, sounds) {
+  let leftClick = sounds.leftClick;
+  let rightClick = sounds.rightClick;
+  let winSound = sounds.winSound;
   let currentCount = array.filter(item => item.classList.contains('cell-full')).length;
   array.forEach ((cell) => {
     cell.addEventListener ('mouseup', (e) => {
@@ -34,7 +16,6 @@ export const cellClick = function (array, crossword, resetButton, background, gr
           currentCount = array.filter(item => item.classList.contains('cell-full')).length;
         })
       }
-      // console.log(array.indexOf(cell))
       let mark = false;
       if (e.button === 0) {
         leftClick.play();
@@ -66,11 +47,8 @@ export const cellClick = function (array, crossword, resetButton, background, gr
             currentArray.push(0);
           }
         })
-        checkCrossword(currentArray, crossword, background, grid, chooseButton);
+        checkCrossword(currentArray, crossword, background, grid, chooseButton, winSound);
       }
-      /*console.log(currentCount)
-      console.log(crossword.countCheck)
-      console.log(crossword)*/
     })
   })
 }

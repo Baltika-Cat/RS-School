@@ -130,6 +130,19 @@ const grid = document.createElement('div');
 grid.classList.add('grid');
 gridLeftHint.append(grid);
 
+let leftClick = new Audio();
+leftClick.src = 'assets/sounds/click-sound.mp3';
+let rightClick = new Audio();
+rightClick.src = 'assets/sounds/click-cross-sound.mp3';
+let winSound = new Audio();
+winSound.src = 'assets/sounds/win-sound.mp3';
+
+let sounds = {
+  leftClick: leftClick,
+  rightClick: rightClick,
+  winSound: winSound
+}
+
 let length = 1;
 
 createGrid (length, grid);
@@ -149,20 +162,6 @@ crosswordsArray.forEach ((item) => {
 startTimer(cellArray, timer, timerWrap);
 
 createHint(length, topHint, leftHint, crossword.horizontalLines, crossword.verticalLines);
-
-/* const blockArray = document.querySelectorAll('.block');
-
-let countArray = -1;
-
-let supportiveObject = {};
-
-window.addEventListener('mouseup', (e) => {
-  if (e.button === 1) {
-    supportiveObject = createCrossword(length, blockArray, cellArray, countArray);
-    console.log(supportiveObject);
-  }
-}) */
-
 resetButton.addEventListener('click', () => {
   saveButton.classList.remove('save-button');
   resetNonogram(cellArray);
@@ -250,7 +249,7 @@ changeNameWindow.addEventListener('click', (e) => {
     background.classList.add('invisible');
     changeNameWindow.classList.add('invisible');
     cellArray = [...grid.querySelectorAll('.cell')];
-    cellClick(cellArray, crossword, resetButton, background, grid, chooseButton);
+    cellClick(cellArray, crossword, resetButton, background, grid, chooseButton, sounds);
     timerWrap.textContent = '00:00';
     timer.isStarted = false;
     timer.isPaused = false;
@@ -266,7 +265,7 @@ changeNameWindow.addEventListener('click', (e) => {
   }
 })
 
-cellClick(cellArray, crossword, resetButton, background, grid, chooseButton);
+cellClick(cellArray, crossword, resetButton, background, grid, chooseButton, sounds);
 
 let theme = 'light';
 themeButton.textContent = 'Dark theme';
@@ -346,7 +345,7 @@ window.addEventListener('click', (e) => {
         item.classList.remove('cell-full');
       }
     })
-    cellClick(cellArray, cross, resetButton, background, grid, chooseButton);
+    cellClick(cellArray, cross, resetButton, background, grid, chooseButton, sounds);
     timer.isStarted = false;
     timer.isPaused = false;
     timer.minutes = object.minutes;
@@ -367,7 +366,7 @@ window.addEventListener('click', (e) => {
     changeSizeWindow.classList.add('invisible');
     background.classList.add('invisible');
     cellArray = [...grid.querySelectorAll('.cell')];
-    cellClick(cellArray, crossword, resetButton, background, grid, chooseButton);
+    cellClick(cellArray, crossword, resetButton, background, grid, chooseButton, sounds);
     timerWrap.textContent = '00:00';
     timer.isStarted = false;
     timer.isPaused = false;
@@ -396,5 +395,19 @@ scoreWindow.addEventListener('click', (e) => {
     background.classList.add('invisible');
     scoreWindow.classList.add('invisible');
     timer.isPaused = false;
+  }
+})
+
+soundWrap.addEventListener('click', () => {
+  sound.classList.toggle('invisible');
+  mute.classList.toggle('invisible');
+  if (sound.classList.contains('invisible')) {
+    leftClick.muted = true;
+    rightClick.muted = true;
+    winSound.muted = true;
+  } else {
+    leftClick.muted = false;
+    rightClick.muted = false;
+    winSound.muted = false;
   }
 })
