@@ -94,6 +94,21 @@ timerWrap.classList.add('timer');
 timerWrap.textContent = '00:00';
 gridOver.append(timerWrap);
 
+const soundWrap = document.createElement('div');
+soundWrap.classList.add('sound-wrap');
+gridOver.append(soundWrap);
+
+const sound = new Image();
+sound.src = 'assets/images/sound.svg';
+sound.classList.add('sound');
+soundWrap.append(sound);
+
+const mute = new Image();
+mute.src = 'assets/images/mute.svg';
+mute.classList.add('mute');
+mute.classList.add('invisible');
+soundWrap.append(mute);
+
 const themeButton = document.createElement('div');
 themeButton.classList.add('button');
 themeButton.classList.add('theme-button');

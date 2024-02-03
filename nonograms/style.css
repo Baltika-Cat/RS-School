@@ -199,6 +199,23 @@
   color: var(--blackColor);
 }
 
+.sound-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  right: 120px;
+  cursor: pointer;
+}
+
+.sound,
+.mute {
+  width: 35px;
+  height: 35px;
+}
+
 .theme-button {
   position: absolute;
   width: 100px;
@@ -389,6 +406,11 @@
   --whiteColor: black;
   --blackColor: white;
   --grayColor: #DDD;
+}
+
+.sound.dark-theme,
+.mute.dark-theme {
+  filter: invert(100%);
 }
 
 @media screen and (max-width: 800px) {

@@ -10,9 +10,15 @@ if (localStorage.getItem('latestScores')) {
 let bestArray = [];
 
 export const checkCrossword = function (currentArray, crossword, background, grid, chooseButton) {
+  let sound = document.querySelector('.sound');
   let rightArray = crossword.fullCellArray;
   let winSound = new Audio();
   winSound.src = 'assets/sounds/win-sound.mp3';
+  if (sound.classList.contains('invisible')) {
+    winSound.muted = true;
+  } else {
+    winSound.muted = false;
+  }
   //console.log(rightArray)
   if (currentArray.join('') === rightArray.join('')) {
     setTimeout(() => {
