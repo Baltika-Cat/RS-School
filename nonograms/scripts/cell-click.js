@@ -8,7 +8,8 @@ export const cellClick = function (array, crossword, resetButton, background, gr
   rightClick.src = 'assets/sounds/click-cross-sound.mp3';
   let sound = document.querySelector('.sound');
   let mute = document.querySelector('.mute');
-  soundButton.addEventListener('click', () => {
+  let switchOffSound = function() {
+    console.log('click')
     sound.classList.toggle('invisible');
     mute.classList.toggle('invisible');
     if (sound.classList.contains('invisible')) {
@@ -18,7 +19,9 @@ export const cellClick = function (array, crossword, resetButton, background, gr
       leftClick.muted = false;
       rightClick.muted = false;
     }
-  })
+  }
+  soundButton.removeEventListener('click', switchOffSound);
+  soundButton.addEventListener('click', switchOffSound);
   let currentCount = array.filter(item => item.classList.contains('cell-full')).length;
   array.forEach ((cell) => {
     cell.addEventListener ('mouseup', (e) => {
