@@ -160,7 +160,7 @@
   transition: .7s;
 }
 
-.save-button {
+.inactive-button {
   opacity: .4;
   pointer-events: none;
 }

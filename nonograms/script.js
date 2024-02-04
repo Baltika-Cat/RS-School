@@ -163,7 +163,7 @@ startTimer(cellArray, timer, timerWrap);
 
 createHint(length, topHint, leftHint, crossword.horizontalLines, crossword.verticalLines);
 resetButton.addEventListener('click', () => {
-  saveButton.classList.remove('save-button');
+  saveButton.classList.remove('inactive-button');
   resetNonogram(cellArray);
   clearInterval(timer.interval);
   timerWrap.textContent = '00:00';
@@ -178,7 +178,7 @@ answerButton.addEventListener('click', () => {
   timer.isStarted = false;
   timer.seconds = 0;
   timer.minutes = 0;
-  saveButton.classList.add('save-button');
+  saveButton.classList.add('inactive-button');
   showAnswer(crossword.fullCellArray, cellArray);
 })
 
@@ -241,7 +241,7 @@ changeNameWindow.addEventListener('click', (e) => {
       }
     })
     chooseButton.classList.remove('invisible');
-    saveButton.classList.remove('save-button');
+    saveButton.classList.remove('inactive-button');
     removeHintGrid(topHint, leftHint, grid);
     createGrid(length, grid);
     createHint(length, topHint, leftHint, crossword.horizontalLines, crossword.verticalLines);
@@ -306,10 +306,10 @@ saveButton.addEventListener('click', () => {
     seconds: timer.seconds
   }
   localStorage.setItem('saved game', JSON.stringify(object));
-  saveButton.classList.add('save-button');
+  saveButton.classList.add('inactive-button');
   saveButton.textContent = 'Saved!';
   setTimeout(() => {
-    saveButton.classList.remove('save-button');
+    saveButton.classList.remove('inactive-button');
     saveButton.textContent = 'Save';
   }, 1500);
 })
@@ -324,7 +324,7 @@ window.addEventListener('click', (e) => {
       chooseButton.classList.remove('button-win');
     }
     chooseButton.classList.remove('invisible');
-    saveButton.classList.remove('save-button');
+    saveButton.classList.remove('inactive-button');
     background.classList.add('invisible');
     changeSizeWindow.classList.add('invisible');
     removeHintGrid(topHint, leftHint, grid);
@@ -358,7 +358,7 @@ window.addEventListener('click', (e) => {
     crossword = crosswords.filter(item => item === crosswords[random])[0];
     length = crossword.size;
     chooseButton.classList.remove('invisible');
-    saveButton.classList.remove('save-button');
+    saveButton.classList.remove('inactive-button');
     removeHintGrid(topHint, leftHint, grid);
     createGrid(length, grid);
     createHint(length, topHint, leftHint, crossword.horizontalLines, crossword.verticalLines);

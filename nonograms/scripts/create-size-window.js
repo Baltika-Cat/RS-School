@@ -25,6 +25,9 @@ export const createSizeWindow = function(window) {
   continueButton.classList.add('continue-button');
   continueButton.textContent = 'Continue nonogram';
   continueRandomBlock.append(continueButton);
+  if (!localStorage.getItem('saved game')) {
+    continueButton.classList.add('inactive-button');
+  }
 
   let randomButton = document.createElement('div');
   randomButton.classList.add('button');
