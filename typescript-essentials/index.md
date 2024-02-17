@@ -14,3 +14,5 @@ In this module, I learned what generics are and learned how to use them correctl
 7. **Work with External Libraries in TypeScript** - [badge](https://learn.microsoft.com/api/achievements/share/en-us/BaltikaCat-6963/X23B9P6Y?sharingId=172C5F42AC6EDE58)  
 This section describes how to work with Typescript modules. In particular, exporting from one module and importing into another.
 This knowledge is very useful in any program, because it allows you to organize the code, helps make the code more readable and concise. It also becomes possible to download third-party libraries, which greatly expands the possibilities.
+8. **Organize Code with Namespaces in TypeScript** - [badge](https://learn.microsoft.com/api/achievements/share/en-us/BaltikaCat-6963/UF5VCE83?sharingId=172C5F42AC6EDE58)  
+This module describes namespaces. In fact, their use is somewhat similar to the use of modules. They allow you to reduce the amount of code in the global scope, thereby reducing the "global scope pollution". They also provide context for names, reducing naming conflicts, and improve code reuse capabilities. But despite their ease of use, using modules is preferable with ES6.
