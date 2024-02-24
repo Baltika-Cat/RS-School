@@ -29,7 +29,7 @@ class Loader {
         const urlOptions: object = { ...this.options, ...options };
         let url: string = `${this.baseLink}${endpoint}?`;
 
-        Object.entries(urlOptions).forEach(([key, value]: [key: string, value: string]): void => {
+        Object.entries(urlOptions).forEach(([key, value]: [key: string | undefined, value: string]): void => {
             url += `${key}=${value}&`;
         });
 
