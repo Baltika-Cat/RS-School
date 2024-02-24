@@ -1,3 +1,7 @@
+type CallbackTypes = object | undefined | void;
+
+export type CallbackReturns = object | void;
+
 class Loader {
     private baseLink: string;
     private options: object;
@@ -8,7 +12,7 @@ class Loader {
 
     getResp(
         { endpoint, options = {} }: {endpoint: string, options?: object},
-        callback = () => {
+        callback = <T extends CallbackTypes>(data?: T): CallbackReturns => {
             console.error('No callback for GET response');
         }
     ): void {
