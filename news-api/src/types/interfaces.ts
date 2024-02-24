@@ -28,9 +28,9 @@ interface NewsSources {
     country: string
 }
 
-interface SourcesResponse {
+interface NewsSourcesResponse {
     status: string,
     sources: NewsSources[]
 }
 
-export { Articles, Everything, NewsSources, SourcesResponse };
+export { Articles, Everything, NewsSources, NewsSourcesResponse };
