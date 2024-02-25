@@ -1,3 +1,32 @@
+type Status = 'ok' | 'error';
+
+enum Language {
+    AR = 'ar',
+    DE = 'de',
+    EN = 'en',
+    ES = 'es',
+    FR = 'fr',
+    HE = 'he',
+    IT = 'it',
+    NL = 'nl',
+    NO = 'no',
+    PT = 'pt',
+    RU = 'ru',
+    SV = 'sv',
+    UD = 'ud',
+    ZH = 'zh'
+}
+
+enum Category {
+    Business = 'business',
+    Entertaiment = 'entertaiment',
+    General = 'general',
+    Health = 'health',
+    Science = 'science',
+    Sports = 'sports',
+    Technology = 'technology'
+}
+
 interface Articles {
     source: {
         id: string,
@@ -13,7 +42,7 @@ interface Articles {
 }
 
 interface Everything {
-    status: string,
+    status: Status,
     totalResults: number,
     articles: Articles[];
 }
@@ -23,13 +52,13 @@ interface NewsSources {
     name: string,
     description: string,
     url: string,
-    category: string,
-    language: string,
+    category: Category,
+    language: Language,
     country: string
 }
 
 interface NewsSourcesResponse {
-    status: string,
+    status: Status,
     sources: NewsSources[]
 }
 
