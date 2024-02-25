@@ -49,9 +49,9 @@ class Loader {
     private load(method: string, endpoint: string, callback: Callback<CallbackTypes>, options = {}): void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
-            .then((res) => res.json())
-            .then((data) => callback(data))
-            .catch((err) => console.error(err));
+            .then((res: Response) => res.json())
+            .then((data: CallbackTypes) => callback(data))
+            .catch((err: Error) => console.error(err));
     }
 }
 
