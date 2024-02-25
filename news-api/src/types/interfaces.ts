@@ -41,11 +41,18 @@ interface Articles {
     content: string
 }
 
-interface Everything {
+interface EverythingWithKitten {
+    kittenSaysMeow: string,
+    kittenDrinkMilk: string,
     status: Status,
     totalResults: number,
     articles: Articles[];
 }
+
+type PartialEverything = Partial<EverythingWithKitten>;
+type RequiredEverything = Required<PartialEverything>;
+type PickEverything = Pick<RequiredEverything, 'status' | 'totalResults' | 'articles'>;
+type Everything = Readonly<PickEverything>;
 
 interface NewsSources {
     id: string,
