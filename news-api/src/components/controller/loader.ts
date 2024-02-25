@@ -1,6 +1,8 @@
-type CallbackTypes = object | undefined | void;
+import { Everything, NewsSourcesResponse } from '../../types/interfaces';
 
-export type CallbackReturns = object | void;
+export type CallbackTypes = Everything | NewsSourcesResponse | void;
+
+export type Callback<T> = (data?: T) => T;
 
 class Loader {
     private baseLink: string;
@@ -12,10 +14,14 @@ class Loader {
 
     getResp(
         { endpoint, options = {} }: {endpoint: string, options?: object},
-        callback = <T extends CallbackTypes>(data?: T): CallbackReturns => {
-            console.error('No callback for GET response');
+        callback: Callback<CallbackTypes> = (data?: CallbackTypes): CallbackTypes => {
+            if (data) {
+                return data;
+            } else {
+                console.error('No callback for GET response');
+            }
         }
-    ): void {
+    ) {
         this.load('GET', endpoint, callback, options);
     }
 
@@ -40,7 +46,7 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load(method: string, endpoint: string, callback: Function, options = {}): void {
+    load(method: string, endpoint: string, callback: Callback<CallbackTypes>, options = {}): void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json())

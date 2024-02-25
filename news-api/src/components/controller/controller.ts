@@ -1,8 +1,9 @@
 import AppLoader from './appLoader';
-import { CallbackReturns } from './loader';
+import { CallbackTypes, Callback } from './loader';
+// import { Everything, NewsSourcesResponse } from '../../types/interfaces';
 
 class AppController extends AppLoader {
-    getSources(callback: CallbackReturns) {
+    getSources(callback: Callback<CallbackTypes>) {
         super.getResp(
             {
                 endpoint: 'sources',
@@ -11,7 +12,7 @@ class AppController extends AppLoader {
         );
     }
 
-    getNews(e: Event, callback: CallbackReturns): void {
+    getNews(e: Event, callback: Callback<CallbackTypes>): void {
         let target = <EventTarget>e.target;
         const newsContainer = <EventTarget>e.currentTarget;
 
@@ -33,7 +34,7 @@ class AppController extends AppLoader {
                     }
                     return;
                 }
-                target = <EventTarget>target!.parentNode;
+                target = <EventTarget>target.parentNode;
             }
         }
     }
