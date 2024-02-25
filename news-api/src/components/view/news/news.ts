@@ -2,8 +2,9 @@ import './news.css';
 import { Articles } from '../../../types/interfaces';
 
 class News {
-    draw(data: Articles[]): void {
-        const news: Articles[] = data.length >= 10 ? data.filter((_item: Articles, idx: number): boolean => idx < 10) : data;
+    public draw(data: Articles[]): void {
+        const news: Articles[] =
+            data.length >= 10 ? data.filter((_item: Articles, idx: number): boolean => idx < 10) : data;
 
         const fragment = document.createDocumentFragment();
         const newsItemTemp = <HTMLTemplateElement>document.querySelector('#newsItemTemp');
@@ -14,9 +15,7 @@ class News {
             if (idx % 2) newsClone.querySelector('.news__item')!.classList.add('alt');
 
             const newsClonePhoto = <HTMLDivElement>newsClone.querySelector('.news__meta-photo');
-            newsClonePhoto.style.backgroundImage = `url(${
-                item.urlToImage || 'img/news_placeholder.jpg'
-            })`;
+            newsClonePhoto.style.backgroundImage = `url(${item.urlToImage || 'img/news_placeholder.jpg'})`;
             newsClone.querySelector('.news__meta-author')!.textContent = item.author || item.source.name;
             newsClone.querySelector('.news__meta-date')!.textContent = item.publishedAt
                 .slice(0, 10)
