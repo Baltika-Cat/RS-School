@@ -1,16 +1,15 @@
 import App from './components/app/app';
 import './global.css';
 
-const switchTheme = document.querySelector('.switch-label');
-const body = document.body;
+const switchTheme = document.querySelector('.slider');
+const html = document.querySelector('html');
 
-if (switchTheme) {
+if (switchTheme && html) {
     switchTheme.addEventListener('click', () => {
-        if (!body.classList.contains('light-theme')) {
-            console.log(true);
-            body.classList.add('light-theme');
+        if (!html.classList.contains('light-theme')) {
+            html.classList.add('light-theme');
         } else {
-            body.classList.remove('light-theme');
+            html.classList.remove('light-theme');
         }
     });
 }
