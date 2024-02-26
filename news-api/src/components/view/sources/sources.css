@@ -16,7 +16,7 @@
     font: inherit;
     line-height: 1;
     margin: 0.5em;
-    padding: 1em 2em;
+    padding: 0.6em 1.2em;
     color: #aaa;
     transition: 0.25s;
     cursor: pointer;
@@ -32,6 +32,7 @@
 
 .source__item-name {
     position: relative;
+    font-size: calc(0.5vw + 8.4px);
     z-index: 1;
     font-weight: 400;
     white-space: nowrap;
