@@ -1,6 +1,5 @@
 import AppLoader from './appLoader';
 import { CallbackTypes, Callback } from './loader';
-// import { Everything, NewsSourcesResponse } from '../../types/interfaces';
 
 class AppController extends AppLoader {
     public getSources(callback: Callback<CallbackTypes>) {
@@ -18,7 +17,7 @@ class AppController extends AppLoader {
             activeButton.classList.remove('active-source');
         }
         let target = <EventTarget>e.target;
-        if (target instanceof HTMLDivElement) {
+        if (target instanceof HTMLDivElement && target.classList.contains('source__item')) {
             target.classList.add('active-source');
         } else if (target instanceof HTMLSpanElement && target.parentNode instanceof HTMLDivElement) {
             target.parentNode.classList.add('active-source');

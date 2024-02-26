@@ -1,6 +1,5 @@
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
-// import { Everything, NewsSourcesResponse } from '../../types/interfaces';
 import { CallbackTypes } from '../controller/loader';
 
 class App {
