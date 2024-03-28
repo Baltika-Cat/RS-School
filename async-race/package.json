@@ -1,0 +1,30 @@
+{
+  "name": "async-race",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "format": "npx prettier --write 'src/**/*.{ts,css}'",
+    "ci:format": "npx prettier --check 'src/**/*.{ts,css}'",
+    "lint": "npx eslint src/**/*.ts",
+    "lint:fix": "npx eslint . src/**/*.ts --fix",
+    "deploy": "npm run build && npx gh-pages -d dist -e async-race"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "7.4.0",
+    "@typescript-eslint/parser": "7.4.0",
+    "eslint": "8.57.0",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-config-airbnb-base-typescript": "1.1.0",
+    "eslint-config-airbnb-typescript": "18.0.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-import": "2.29.1",
+    "eslint-plugin-prettier": "5.1.3",
+    "prettier": "3.2.5",
+    "typescript": "5.2.2",
+    "vite": "5.2.0"
+  }
+}
