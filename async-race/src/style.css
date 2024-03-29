@@ -36,7 +36,8 @@ body {
 }
 
 .create-car-area,
-.update-car-area {
+.update-car-area,
+.racing-area {
   display: flex;
   gap: 10px;
   flex-wrap: nowrap;
@@ -148,4 +149,8 @@ body {
   height: 20px;
   justify-content: space-around;
   align-self: start;
+}
+
+.disabled {
+
 }

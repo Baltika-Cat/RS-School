@@ -19,6 +19,14 @@ export default class Controller {
 
   updateCarButton = div('button', this.updateCarArea, 'UPDATE');
 
+  racingArea = div('racing-area', this.controllerWrapper);
+
+  raceButton = div('button', this.racingArea, 'RACE');
+
+  resetButton = div('button', this.racingArea, 'RESET');
+
+  generateCarsButton = div('button', this.racingArea, 'GENERATE CARS');
+
   create = {
     name: this.createCarInput,
     color: this.createCarColor,

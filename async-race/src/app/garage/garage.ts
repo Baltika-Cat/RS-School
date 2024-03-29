@@ -7,9 +7,9 @@ const garageWrapper = div('garage-wrapper');
 
 const carsWrapper = div('cars-wrapper');
 
-const buttonsArea = div('buttons-area', garageWrapper);
+// const buttonsArea = div('buttons-area', garageWrapper);
 
-const renderButton = div('render-button', buttonsArea, 'Render');
+// const renderButton = div('render-button', buttonsArea, 'Render');
 
 const controller = new Controller(garageWrapper);
 
@@ -36,7 +36,7 @@ updateCarButton.addEventListener('click', () => {
   }
 });
 
-renderButton.addEventListener('click', renderCars);
+controller.generateCarsButton.addEventListener('click', renderCars);
 
 export default function getGarage(): HTMLDivElement {
   if (!carsWrapper.children.length) {
