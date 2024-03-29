@@ -4,6 +4,7 @@ import { states } from '../../../shared/states';
 import { getRandomColor } from './track-parameters/random-color';
 import { carNames } from './track-parameters/car-names';
 import { getCoords } from './track-parameters/get-coordinates';
+import { Controller } from '../controller';
 
 
 export class Track {
@@ -25,7 +26,7 @@ export class Track {
 
   static selectedCar: Track;
 
-  constructor(carsWrapper?: HTMLElement, car?: Car) {
+  constructor(controller: Controller, carsWrapper?: HTMLElement, car?: Car) {
     this.track = div('track', carsWrapper);
     this.carController = div('car-controller', this.track);
     this.startButton = div('button', this.carController, 'Start');
@@ -56,7 +57,12 @@ export class Track {
     this.selectButton.addEventListener('click', () => {
       this.selectButton.classList.toggle('button-active');
       if (this.selectButton.classList.contains('button-active')) {
+        controller.update.name.value = this.car.name;
+        controller.update.color.value = this.car.color;
         Track.selectedCar = this;
+      } else {
+        controller.update.name.value = '';
+        controller.update.color.value = '#000000';
       }
     });
     this.deleteButton.addEventListener('click', () => {
