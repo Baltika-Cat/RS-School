@@ -36,6 +36,21 @@ updateCarButton.addEventListener('click', () => {
   }
 });
 
+createCarButton.addEventListener('click', () => {
+  const color = controller.create.color.value;
+  const name = controller.create.name.value;
+  const carParams = {
+    name: name,
+    color: color,
+  }
+  const car = states.createCar(carParams);
+  car.then((resolve) => {
+    console.log(resolve.id)
+    return new Track(controller, carsWrapper, resolve)
+  });
+  garageWrapper.append(carsWrapper);
+})
+
 controller.generateCarsButton.addEventListener('click', renderCars);
 
 export default function getGarage(): HTMLDivElement {
