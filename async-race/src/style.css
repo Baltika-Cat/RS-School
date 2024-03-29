@@ -53,13 +53,13 @@ body {
   font-size: 30px;
   justify-content: center;
   align-items: center;
-  transition: .7s;
+  transition: 0.7s;
   color: #fff;
 }
 
 .render-button:hover {
   transform: scale(1.1);
-  transition: .7s;
+  transition: 0.7s;
 }
 
 .cars-wrapper {
@@ -86,13 +86,13 @@ body {
   border: 2px solid #fff;
   border-radius: 5px;
   white-space: nowrap;
-  transition: .7s;
+  transition: 0.7s;
   cursor: pointer;
 }
 
 .app-button:hover {
   transform: scale(1.1);
-  transition: .7s;
+  transition: 0.7s;
 }
 
 .car-controller {
@@ -112,13 +112,13 @@ body {
   font-size: 16px;
   padding: 2px 3px;
   cursor: pointer;
-  transition: .7s;
+  transition: 0.7s;
   color: #fff;
 }
 
 .button:hover {
   transform: scale(1.1);
-  transition: .7s;
+  transition: 0.7s;
 }
 
 .button-active {

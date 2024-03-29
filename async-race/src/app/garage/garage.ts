@@ -1,7 +1,7 @@
-import { states } from '../shared/states';
+import states from '../shared/states';
 import { div } from '../shared/tags';
-import { Track } from './page-elements/track/track';
-import { Controller } from './page-elements/controller';
+import Track from './page-elements/track/track';
+import Controller from './page-elements/controller';
 
 const garageWrapper = div('garage-wrapper');
 
@@ -27,27 +27,26 @@ function renderCars() {
 
 updateCarButton.addEventListener('click', () => {
   const color = controller.update.color.value;
-  const id = Track.selectedCar.car.id;
-  console.log(id)
+  const { id } = Track.selectedCar.car;
   const name = controller.update.name.value;
   if (id) {
-    states.updateCarParam(id, {name: name, color: color});
+    states.updateCarParam(id, { name, color });
     Track.selectedCar.car.carView?.getSVGDocument()?.getElementById('car-svg')?.setAttribute('fill', color);
     Track.selectedCar.carName.textContent = name;
   }
-})
+});
 
 renderButton.addEventListener('click', renderCars);
 
-export function getGarage(): HTMLDivElement {
+export default function getGarage(): HTMLDivElement {
   if (!carsWrapper.children.length) {
     states.getCars().then((resolve) => {
       resolve.map((item) => {
         const track = new Track(controller, carsWrapper, item);
         return track;
-      })
-    })
-    garageWrapper.append(carsWrapper); 
+      });
+    });
+    garageWrapper.append(carsWrapper);
   }
 
   return garageWrapper;

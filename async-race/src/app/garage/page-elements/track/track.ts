@@ -1,13 +1,12 @@
 import { div, objectTag } from '../../../shared/tags';
 import { Car } from '../../../shared/interfaces';
-import { states } from '../../../shared/states';
-import { getRandomColor } from './track-parameters/random-color';
-import { carNames } from './track-parameters/car-names';
-import { getCoords } from './track-parameters/get-coordinates';
-import { Controller } from '../controller';
+import states from '../../../shared/states';
+import getRandomColor from './track-parameters/random-color';
+import carNames from './track-parameters/car-names';
+import getCoords from './track-parameters/get-coordinates';
+import Controller from '../controller';
 
-
-export class Track {
+export default class Track {
   track: HTMLDivElement;
 
   carController: HTMLDivElement;
@@ -33,15 +32,15 @@ export class Track {
     this.stopButton = div('button', this.carController, 'Stop');
     this.selectButton = div('button', this.carController, 'Select');
     this.deleteButton = div('button', this.carController, 'Delete');
-    
+
     if (car) {
       this.car = car;
       this.car.carView = objectTag('svg', 'src/app/assets/car.svg', this.car.color, this.track);
     } else {
       const color = getRandomColor();
       this.car = {
-        name: this.randomCarName(),
-        color: color,
+        name: Track.randomCarName(),
+        color,
         carView: objectTag('svg', 'src/app/assets/car.svg', color, this.track),
       };
     }
@@ -56,13 +55,14 @@ export class Track {
     });
     this.selectButton.addEventListener('click', () => {
       this.selectButton.classList.toggle('button-active');
+      const controllerCopy = controller;
       if (this.selectButton.classList.contains('button-active')) {
-        controller.update.name.value = this.car.name;
-        controller.update.color.value = this.car.color;
+        controllerCopy.update.name.value = this.car.name;
+        controllerCopy.update.color.value = this.car.color;
         Track.selectedCar = this;
       } else {
-        controller.update.name.value = '';
-        controller.update.color.value = '#000000';
+        controllerCopy.update.name.value = '';
+        controllerCopy.update.color.value = '#000000';
       }
     });
     this.deleteButton.addEventListener('click', () => {
@@ -75,7 +75,7 @@ export class Track {
     });
   }
 
-  randomCarName() {
+  static randomCarName() {
     const randomBrandIndex = Math.floor(Math.random() * carNames.brands.length);
     const randomBrand = carNames.brands[randomBrandIndex];
     const randomModelIndex = Math.floor(Math.random() * carNames.models.length);
@@ -90,12 +90,12 @@ export class Track {
         this.car.carView.style.transition = `${distance / velocity}ms linear`;
         this.car.carView.style.transform = `translateX(${this.track.clientWidth - this.car.carView.clientWidth}px)`;
       }
-    })
+    });
     states.getResponseStatus(this.car.id).then((resolve) => {
       if (resolve === 500) {
         this.stop();
       }
-    })
+    });
   }
 
   stop() {

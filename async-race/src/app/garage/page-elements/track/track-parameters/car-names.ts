@@ -1,4 +1,4 @@
-export const carNames = {
+export default {
   brands: [
     'Audi',
     'BMW',
@@ -12,7 +12,7 @@ export const carNames = {
     'Mercedes',
     'Mitsubishi',
     'Renault',
-    'Volkswagen'
+    'Volkswagen',
   ],
 
   models: [
@@ -54,6 +54,6 @@ export const carNames = {
     'Megan',
     'Polo',
     'Tiguan',
-    'Touareg'
-  ]
-}
+    'Touareg',
+  ],
+};

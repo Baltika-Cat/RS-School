@@ -7,13 +7,13 @@ class States {
     garage: '/garage',
     winners: '/winners',
     engine: '/engine',
-  }
+  };
 
   getCars = async (): Promise<Car[]> => {
     const response = await fetch(`${this.baseUrl}${this.path.garage}`);
     const cars: Car[] = await response.json();
     return cars;
-  }
+  };
 
   createCar = async (body: Car): Promise<Car> => {
     const response = await fetch(`${this.baseUrl}${this.path.garage}`, {
@@ -26,7 +26,7 @@ class States {
     const car: Car = await response.json();
 
     return car;
-  }
+  };
 
   updateCarParam = async (id: number, body: Car): Promise<Car> => {
     const response = await fetch(`${this.baseUrl}${this.path.garage}/${id}`, {
@@ -39,7 +39,7 @@ class States {
     const car: Car = await response.json();
 
     return car;
-  }
+  };
 
   deleteCar = async (id: number): Promise<JSON> => {
     const response = await fetch(`${this.baseUrl}${this.path.garage}/${id}`, {
@@ -48,7 +48,7 @@ class States {
     const car: JSON = await response.json();
 
     return car;
-  }
+  };
 
   setEngineStatus = async (id: number | undefined, status: 'started' | 'stopped'): Promise<CarParams> => {
     const response = await fetch(`${this.baseUrl}${this.path.engine}/?id=${id}&status=${status}`, {
@@ -57,7 +57,7 @@ class States {
     const car: Promise<CarParams> = await response.json();
 
     return car;
-  }
+  };
 
   getResponseStatus = async (id: number | undefined, status = 'drive'): Promise<number> => {
     const response = await fetch(`${this.baseUrl}${this.path.engine}/?id=${id}&status=${status}`, {
@@ -65,7 +65,7 @@ class States {
     });
 
     return response.status;
-  }
+  };
 }
 
-export const states = new States();
+export default new States();

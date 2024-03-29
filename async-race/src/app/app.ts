@@ -1,9 +1,9 @@
 import { div, mainTag, headerTag } from './shared/tags';
-import { getGarage } from './garage/garage';
+import getGarage from './garage/garage';
 
 class App {
   buttonsArea: HTMLDivElement;
-  
+
   toGarageButton: HTMLDivElement;
 
   toWinnersButton: HTMLDivElement;
@@ -27,8 +27,12 @@ class App {
   }
 
   clearPage() {
-    let carsWrappers = [...document.querySelectorAll('.cars-wrapper')];
-    carsWrappers.forEach(item => item.innerHTML = '');
+    const carsWrappers = [...document.querySelectorAll('.cars-wrapper')];
+    carsWrappers.forEach((item) => {
+      const itemCopy = item;
+      itemCopy.innerHTML = '';
+      return item;
+    });
     this.main.innerHTML = '';
   }
 

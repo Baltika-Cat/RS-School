@@ -5,7 +5,7 @@ export function div(className: string, parent?: HTMLElement, text?: string): HTM
     parent.append(divNew);
   }
   if (text) {
-      divNew.textContent = text;
+    divNew.textContent = text;
   }
 
   return divNew;
@@ -34,7 +34,7 @@ export function objectTag(className: string, data: string, color: string, parent
   objectNew.data = data;
   objectNew.onload = function changeColor() {
     objectNew.getSVGDocument()?.getElementById('car-svg')?.setAttribute('fill', color); // что-нибудь придумать со знаком вопроса(или не придумывать)
-  }
+  };
   parent.append(objectNew);
 
   return objectNew;

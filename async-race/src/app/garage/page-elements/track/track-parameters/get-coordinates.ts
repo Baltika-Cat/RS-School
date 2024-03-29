@@ -1,9 +1,9 @@
-export function getCoords(element: HTMLDivElement) {
-  const top = element.getBoundingClientRect().top;
-  const left = element.getBoundingClientRect().left;
+export default function getCoords(element: HTMLDivElement) {
+  const { top } = element.getBoundingClientRect();
+  const { left } = element.getBoundingClientRect();
   const coords = {
-    top: top,
-    left: left
-  }
+    top,
+    left,
+  };
   return coords;
 }
