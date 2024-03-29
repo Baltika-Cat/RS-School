@@ -36,13 +36,13 @@ export class Track {
     
     if (car) {
       this.car = car;
-      this.car.carView = objectTag('svg', 'src/assets/car.svg', this.car.color, this.track);
+      this.car.carView = objectTag('svg', 'src/app/assets/car.svg', this.car.color, this.track);
     } else {
       const color = getRandomColor();
       this.car = {
         name: this.randomCarName(),
         color: color,
-        carView: objectTag('svg', 'src/assets/car.svg', color, this.track),
+        carView: objectTag('svg', 'src/app/assets/car.svg', color, this.track),
       };
     }
 
