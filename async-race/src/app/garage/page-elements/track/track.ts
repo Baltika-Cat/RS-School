@@ -83,8 +83,8 @@ export default class Track {
     return `${randomBrand} ${randomModel}`;
   }
 
-  start() {
-    states.setEngineStatus(this.car.id, 'started').then((resolve) => {
+  async start() {
+    await states.setEngineStatus(this.car.id, 'started').then((resolve) => {
       const { velocity, distance } = resolve;
       if (this.car.carView) {
         this.car.carView.style.transition = `${distance / velocity}ms linear`;
@@ -93,6 +93,7 @@ export default class Track {
     });
     states.getResponseStatus(this.car.id).then((resolve) => {
       if (resolve === 500) {
+        console.log(this.car.name, 'stopped');
         this.stop();
       }
     });
@@ -100,8 +101,8 @@ export default class Track {
 
   stop() {
     if (this.car.carView) {
-      const carX = getCoords(this.car.carView).left;
-      const trackX = getCoords(this.track).left;
+      const carX = getCoords(this.car.carView);
+      const trackX = getCoords(this.track);
       this.car.carView.style.transition = '0s';
       this.car.carView.style.transform = `translateX(${carX - trackX}px)`;
     }

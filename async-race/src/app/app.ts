@@ -1,23 +1,20 @@
 import { div, mainTag, headerTag } from './shared/tags';
-import getGarage from './garage/garage';
+import Garage from './garage/garage';
 
 class App {
-  buttonsArea: HTMLDivElement;
+  garage = new Garage();
 
-  toGarageButton: HTMLDivElement;
+  header = headerTag('header');
 
-  toWinnersButton: HTMLDivElement;
+  main = mainTag('main');
 
-  header: HTMLElement;
+  buttonsArea = div('buttons-area', this.header);
 
-  main: HTMLElement;
+  toGarageButton = div('app-button', this.buttonsArea, 'TO GARAGE');
+
+  toWinnersButton = div('app-button', this.buttonsArea, 'TO WINNERS');
 
   constructor() {
-    this.header = headerTag('header');
-    this.main = mainTag('main');
-    this.buttonsArea = div('buttons-area', this.header);
-    this.toGarageButton = div('app-button', this.buttonsArea, 'TO GARAGE');
-    this.toWinnersButton = div('app-button', this.buttonsArea, 'TO WINNERS');
     this.toGarageButton.addEventListener('click', () => {
       this.toGarage();
     });
@@ -34,11 +31,12 @@ class App {
       return item;
     });
     this.main.innerHTML = '';
+    Garage.carsArray.length = 0;
   }
 
   toGarage() {
     this.clearPage();
-    this.main.append(getGarage());
+    this.main.append(this.garage.getGarage());
   }
 
   toWinners() {
