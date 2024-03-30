@@ -152,5 +152,6 @@ body {
 }
 
 .disabled {
-
+  opacity: .4;
+  pointer-events: none;
 }

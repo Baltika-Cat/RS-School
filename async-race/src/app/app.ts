@@ -15,11 +15,16 @@ class App {
   toWinnersButton = div('app-button', this.buttonsArea, 'TO WINNERS');
 
   constructor() {
+    this.toGarageButton.classList.add('disabled');
     this.toGarageButton.addEventListener('click', () => {
       this.toGarage();
+      this.toGarageButton.classList.add('disabled');
+      this.toWinnersButton.classList.remove('disabled');
     });
     this.toWinnersButton.addEventListener('click', () => {
       this.toWinners();
+      this.toGarageButton.classList.remove(('disabled'));
+      this.toWinnersButton.classList.add('disabled');
     });
   }
 

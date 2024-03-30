@@ -53,13 +53,9 @@ export default class Garage {
     });
 
     this.controller.raceButton.addEventListener('click', () => {
-      let n = 0;
-      if (Garage.carsArray.length > 7) {
-        n = 7;
-      } else {
-        n = Garage.carsArray.length;
-      }
-      for (let i = 0; i < n; i += 1) {
+      const carsOnPage = 7;
+      let carsNumber = Garage.carsArray.length > carsOnPage ? carsOnPage : Garage.carsArray.length;
+      for (let i = 0; i < carsNumber; i += 1) {
         Garage.carsArray[i].start();
       }
     })

@@ -25,6 +25,8 @@ export default class Track {
 
   static selectedCar: Track;
 
+  static activeSelectButton: HTMLDivElement;
+
   constructor(controller: Controller, carsWrapper?: HTMLElement, car?: Car) {
     this.track = div('track', carsWrapper);
     this.carController = div('car-controller', this.track);
@@ -53,8 +55,12 @@ export default class Track {
     this.stopButton.addEventListener('click', () => {
       this.returnCar();
     });
-    this.selectButton.addEventListener('click', () => {
+    this.selectButton.addEventListener('click', (e) => {
+      if (Track.activeSelectButton && Track.activeSelectButton !== e.target) {
+        Track.activeSelectButton.classList.remove('button-active');
+      }
       this.selectButton.classList.toggle('button-active');
+      Track.activeSelectButton = this.selectButton;
       const controllerCopy = controller;
       if (this.selectButton.classList.contains('button-active')) {
         controllerCopy.update.name.value = this.car.name;
@@ -91,10 +97,15 @@ export default class Track {
         this.car.carView.style.transform = `translateX(${this.track.clientWidth - this.car.carView.clientWidth}px)`;
       }
     });
+    this.stopButton.classList.add('disabled');
     states.getResponseStatus(this.car.id).then((resolve) => {
       if (resolve === 500) {
         console.log(this.car.name, 'stopped');
         this.stop();
+        this.stopButton.classList.remove('disabled');
+      }
+      if (resolve === 200) {
+        this.stopButton.classList.remove('disabled');
       }
     });
   }
