@@ -23,7 +23,7 @@ class App {
     });
     this.toWinnersButton.addEventListener('click', () => {
       this.toWinners();
-      this.toGarageButton.classList.remove(('disabled'));
+      this.toGarageButton.classList.remove('disabled');
       this.toWinnersButton.classList.add('disabled');
     });
   }
