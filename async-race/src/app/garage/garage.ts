@@ -18,7 +18,14 @@ export default class Garage {
 
   updateCarButton = this.controller.update.button;
 
+  clickedDeleteButton: HTMLDivElement | undefined;
+
+  carID: number;
+
+  trackElement: HTMLDivElement | undefined;
+
   constructor() {
+    this.carID = 0;
     this.updateCarButton.addEventListener('click', () => {
       const color = this.controller.update.color.value;
       const { id } = Track.selectedCar.car;
@@ -57,6 +64,29 @@ export default class Garage {
         Garage.carsArray[i].start();
       }
     });
+
+    this.carsWrapper.addEventListener('click', (event) => {
+      let target = event.target;
+      if (target instanceof HTMLDivElement) {
+        this.deleteCar(target);
+      }
+    });
+  }
+
+  async deleteCar(target: HTMLDivElement) {
+    if (target.classList.contains('delete-button')) {
+      this.clickedDeleteButton = target;
+      this.trackElement = <HTMLDivElement>target.closest('.track');
+      if (this.carsWrapper && this.trackElement) {
+        this.carID = Number(this.trackElement.getAttribute('id'));
+        const deletedCar = Garage.carsArray.filter((item) => item.car.id === this.carID)[0];
+        const deletedCarIndex = Garage.carsArray.indexOf(deletedCar);
+        Garage.carsArray.splice(deletedCarIndex, 1);
+        this.carsNumber.textContent = `Garage(${Garage.carsArray.length})`;
+        states.deleteCar(this.carID);
+        this.carsWrapper.removeChild(this.trackElement);
+      }
+    }
   }
 
   renderCars() {

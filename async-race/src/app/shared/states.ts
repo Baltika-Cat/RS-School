@@ -15,6 +15,12 @@ class States {
     return cars;
   };
 
+  getCar = async (id: number): Promise<Car> => {
+    const response = await fetch(`${this.baseUrl}${this.path.garage}/${id}`);
+    const car: Car = await response.json();
+    return car;
+  }
+
   createCar = async (body: Car): Promise<Car> => {
     const response = await fetch(`${this.baseUrl}${this.path.garage}`, {
       method: 'POST',

@@ -9,6 +9,8 @@ import Controller from '../controller';
 export default class Track {
   track: HTMLDivElement;
 
+  car: Car;
+
   carController: HTMLDivElement;
 
   startButton: HTMLDivElement;
@@ -18,10 +20,8 @@ export default class Track {
   selectButton: HTMLDivElement;
 
   deleteButton: HTMLDivElement;
-
+  
   carName: HTMLDivElement;
-
-  car: Car;
 
   static selectedCar: Track;
 
@@ -30,10 +30,10 @@ export default class Track {
   constructor(controller: Controller, carsWrapper?: HTMLElement, car?: Car) {
     this.track = div('track', carsWrapper);
     this.carController = div('car-controller', this.track);
-    this.startButton = div('button', this.carController, 'Start');
-    this.stopButton = div('button', this.carController, 'Stop');
-    this.selectButton = div('button', this.carController, 'Select');
-    this.deleteButton = div('button', this.carController, 'Delete');
+    this.startButton = div('start-button', this.carController, 'Start');
+    this.stopButton = div('stop-button', this.carController, 'Stop');
+    this.selectButton = div('select-button', this.carController, 'Select');
+    this.deleteButton = div('delete-button', this.carController, 'Delete');
 
     if (car) {
       this.car = car;
@@ -45,6 +45,10 @@ export default class Track {
         color,
         carView: objectTag('svg', 'src/app/assets/car.svg', color, this.track),
       };
+    }
+
+    if (this.car.id) {
+      this.track.setAttribute('id', this.car.id.toString());
     }
 
     this.carName = div('car-name', this.carController, this.car.name);
@@ -69,14 +73,6 @@ export default class Track {
       } else {
         controllerCopy.update.name.value = '';
         controllerCopy.update.color.value = '#000000';
-      }
-    });
-    this.deleteButton.addEventListener('click', () => {
-      if (this.car.id) {
-        states.deleteCar(this.car.id);
-        if (carsWrapper) {
-          carsWrapper.removeChild(this.track);
-        }
       }
     });
   }
