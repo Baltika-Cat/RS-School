@@ -27,13 +27,19 @@ export default class Track {
 
   static activeSelectButton: HTMLDivElement;
 
+  static winner: Car | undefined;
+
+  static winMessage = div('win-message', document.body);
+
   constructor(controller: Controller, carsWrapper?: HTMLElement, car?: Car) {
     this.track = div('track', carsWrapper);
     this.carController = div('car-controller', this.track);
     this.startButton = div('start-button', this.carController, 'Start');
     this.stopButton = div('stop-button', this.carController, 'Stop');
+    this.stopButton.classList.add('disabled');
     this.selectButton = div('select-button', this.carController, 'Select');
     this.deleteButton = div('delete-button', this.carController, 'Delete');
+    Track.winMessage.classList.add('invisible');
 
     if (car) {
       this.car = car;
@@ -86,22 +92,33 @@ export default class Track {
   }
 
   async start() {
+    let time: number;
+    const msPerSecond = 1000;
     await states.setEngineStatus(this.car.id, 'started').then((resolve) => {
       const { velocity, distance } = resolve;
+      time = distance / velocity;
       if (this.car.carView) {
-        this.car.carView.style.transition = `${distance / velocity}ms linear`;
+        this.car.carView.style.transition = `${time}ms linear`;
         this.car.carView.style.transform = `translateX(${this.track.clientWidth - this.car.carView.clientWidth}px)`;
       }
     });
-    this.stopButton.classList.add('disabled');
-    states.getResponseStatus(this.car.id).then((resolve) => {
+    this.startButton.classList.add('disabled');
+    const toWinnersButton = document.querySelectorAll('.app-button')[1];
+    toWinnersButton.classList.add('disabled');
+    this.stopButton.classList.remove('disabled');
+    states.getResponseStatus(this.car.id, 'drive').then((resolve) => {
       if (resolve === 500) {
         console.log(this.car.name, 'stopped');
         this.stop();
-        this.stopButton.classList.remove('disabled');
+        this.startButton.classList.remove('disabled');
       }
       if (resolve === 200) {
-        this.stopButton.classList.remove('disabled');
+        this.startButton.classList.remove('disabled');
+        if (!Track.winner) {
+          Track.winner = this.car;
+          Track.winMessage.textContent = `${Track.winner.name} went first! (${(time / msPerSecond).toFixed(2)}s)`;
+          Track.winMessage.classList.remove('invisible');
+        }
       }
     });
   }

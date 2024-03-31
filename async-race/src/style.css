@@ -1,9 +1,26 @@
 body {
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #000;
+}
+
+.win-message {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  color: #ff0;
+  background: #000;
+  letter-spacing: 2px;
+  text-align: center;
+  z-index: 10;
 }
 
 .header {
@@ -186,4 +203,8 @@ body {
 .disabled {
   opacity: 0.4;
   pointer-events: none;
+}
+
+.invisible {
+  display: none;
 }

@@ -58,12 +58,26 @@ export default class Garage {
     });
 
     this.controller.raceButton.addEventListener('click', () => {
+      this.controller.raceButton.classList.add('disabled');
+      Track.winner = undefined;
       const carsOnPage = 7;
       const carsNumber = Garage.carsArray.length > carsOnPage ? carsOnPage : Garage.carsArray.length;
       for (let i = 0; i < carsNumber; i += 1) {
         Garage.carsArray[i].start();
       }
     });
+
+    this.controller.resetButton.addEventListener('click', () => {
+      const toWinnersButton = document.querySelectorAll('.app-button')[1];
+      toWinnersButton.classList.remove('disabled');
+      this.controller.raceButton.classList.remove('disabled');
+      Track.winMessage.classList.add('invisible');
+      Garage.carsArray.forEach((car) => {
+        car.returnCar();
+        car.stopButton.classList.add('disabled');
+        car.startButton.classList.remove('disabled');
+      })
+    })
 
     this.carsWrapper.addEventListener('click', (event) => {
       const { target } = event;
