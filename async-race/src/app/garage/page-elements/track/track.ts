@@ -29,6 +29,8 @@ export default class Track {
 
   static winner: Car | undefined;
 
+  static winnerTime: number;
+
   static winMessage = div('win-message', document.body);
 
   constructor(controller: Controller, carsWrapper?: HTMLElement, car?: Car) {
@@ -93,7 +95,6 @@ export default class Track {
 
   async start() {
     let time: number;
-    const msPerSecond = 1000;
     await states.setEngineStatus(this.car.id, 'started').then((resolve) => {
       const { velocity, distance } = resolve;
       time = distance / velocity;
@@ -113,17 +114,44 @@ export default class Track {
         this.startButton.classList.remove('disabled');
       }
       if (resolve === 200) {
-        this.startButton.classList.remove('disabled');
         if (!Track.winner) {
-          Track.winner = this.car;
-          Track.winMessage.textContent = `${Track.winner.name} went first! (${(time / msPerSecond).toFixed(2)}s)`;
-          Track.winMessage.classList.remove('invisible');
+          this.showWinner(time, this.car);
         }
       }
     });
   }
 
-  stop() {
+  showWinner(timeInMs: number, car: Car) {
+    const msPerSecond = 1000;
+    const timeInSeconds = parseFloat((timeInMs / msPerSecond).toFixed(2));
+    this.startButton.classList.remove('disabled');
+    Track.winner = car;
+    console.log('winner', Track.winner);
+    if (Track.winner.id) {
+      states.getWinner(Track.winner.id).then((resolve) => {
+        console.log('resolve', resolve);
+        const id = Track.winner?.id;
+        if (resolve) {
+          const time = timeInSeconds < resolve.time ? timeInSeconds : resolve.time;
+          const wins = resolve.wins + 1;
+          if (id) {
+            states.updateWinner(id, { id, wins, time });
+          }
+        } else {
+          const time = timeInSeconds;
+          const wins = 1;
+          if (id) {
+            states.createWinner({ id, wins, time });
+          }
+        }
+      });
+    }
+    Track.winMessage.textContent = `${Track.winner.name} went first! (${timeInSeconds}s)`;
+    Track.winMessage.classList.remove('invisible');
+  }
+
+  async stop() {
+    await states.setEngineStatus(this.car.id, 'stopped');
     if (this.car.carView) {
       const carX = getCoords(this.car.carView);
       const trackX = getCoords(this.track);

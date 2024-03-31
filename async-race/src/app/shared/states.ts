@@ -80,6 +80,21 @@ class States {
     return winners;
   };
 
+  getWinner = async (id: number): Promise<Winner | undefined> => {
+    const response = await fetch(`${this.baseUrl}${this.path.winners}/${id}`).catch(() => {
+      return new Response();
+    });
+    console.log('');
+    let winner: Winner | undefined;
+    if (response.ok) {
+      winner = await response.json();
+    } else {
+      winner = undefined;
+    }
+
+    return winner;
+  };
+
   createWinner = async (body: Winner): Promise<Winner> => {
     const response = await fetch(`${this.baseUrl}${this.path.winners}`, {
       method: 'POST',

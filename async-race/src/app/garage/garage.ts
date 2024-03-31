@@ -60,6 +60,7 @@ export default class Garage {
     this.controller.raceButton.addEventListener('click', () => {
       this.controller.raceButton.classList.add('disabled');
       Track.winner = undefined;
+      Track.winnerTime = 0;
       const carsOnPage = 7;
       const carsNumber = Garage.carsArray.length > carsOnPage ? carsOnPage : Garage.carsArray.length;
       for (let i = 0; i < carsNumber; i += 1) {
@@ -76,8 +77,8 @@ export default class Garage {
         car.returnCar();
         car.stopButton.classList.add('disabled');
         car.startButton.classList.remove('disabled');
-      })
-    })
+      });
+    });
 
     this.carsWrapper.addEventListener('click', (event) => {
       const { target } = event;

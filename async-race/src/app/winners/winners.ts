@@ -16,7 +16,7 @@ export default class Winners {
       resolve.map(async (item) => {
         states.getCar(item.id).then((carParams) => {
           const winner = {
-            car: objectTag('svg', 'src/app/assets/car.svg', carParams.color),
+            car: objectTag('svg', 'src/app/assets/car-winner.svg', carParams.color),
             name: carParams.name,
             wins: item.wins,
             time: item.time,
