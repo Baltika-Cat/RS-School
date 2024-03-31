@@ -1,3 +1,5 @@
+import { WinnerRow } from './interfaces';
+
 export function div(className: string, parent?: HTMLElement, text?: string): HTMLDivElement {
   const divNew = document.createElement('div');
   divNew.classList.add(className);
@@ -27,15 +29,17 @@ export function mainTag(className: string, parent = document.body): HTMLElement 
   return mainNew;
 }
 
-export function objectTag(className: string, data: string, color: string, parent: HTMLDivElement): HTMLObjectElement {
+export function objectTag(className: string, data: string, color: string, parent?: HTMLDivElement): HTMLObjectElement {
   const objectNew = document.createElement('object');
   objectNew.classList.add(className);
   objectNew.type = 'image/svg+xml';
   objectNew.data = data;
   objectNew.onload = function changeColor() {
-    objectNew.getSVGDocument()?.getElementById('car-svg')?.setAttribute('fill', color); // что-нибудь придумать со знаком вопроса(или не придумывать)
+    objectNew.getSVGDocument()?.getElementById('car-svg')?.setAttribute('fill', color);
   };
-  parent.append(objectNew);
+  if (parent) {
+    parent.append(objectNew);
+  }
 
   return objectNew;
 }
@@ -47,4 +51,45 @@ export function input(className: string, type: string, parent: HTMLDivElement): 
   parent.append(inputNew);
 
   return inputNew;
+}
+
+function tableCell(tag: string, content: string | number | HTMLObjectElement, parent: HTMLTableRowElement) {
+  const cell = document.createElement(tag);
+  if (content instanceof HTMLObjectElement) {
+    cell.append(content);
+  } else {
+    cell.textContent = content.toString();
+  }
+  parent.append(cell);
+}
+
+export function table(className: string, parent: HTMLDivElement): HTMLTableElement {
+  const tableNew = document.createElement('table');
+  tableNew.classList.add(className);
+  const tableHead = document.createElement('thead');
+  const row = document.createElement('tr');
+  tableCell('th', 'Number', row);
+  tableCell('th', 'Car', row);
+  tableCell('th', 'Name', row);
+  tableCell('th', 'Wins', row);
+  tableCell('th', 'Best time', row);
+  tableHead.append(row);
+  tableNew.append(tableHead);
+  parent.append(tableNew);
+
+  return tableNew;
+}
+
+export function tr(winnersData: WinnerRow, parent: HTMLTableElement): HTMLTableRowElement {
+  const row = document.createElement('tr');
+  row.classList.add('winners-row');
+  const number = parent.children.length;
+  tableCell('td', number, row);
+  tableCell('td', winnersData.car, row);
+  tableCell('td', winnersData.name, row);
+  tableCell('td', winnersData.wins, row);
+  tableCell('td', winnersData.time, row);
+  parent.append(row);
+
+  return row;
 }

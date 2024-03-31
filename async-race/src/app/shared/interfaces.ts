@@ -10,3 +10,16 @@ export interface CarParams {
   velocity: number;
   distance: number;
 }
+
+export interface Winner {
+  id: number;
+  wins: number;
+  time: number;
+}
+
+export interface WinnerRow {
+  car: HTMLObjectElement;
+  name: string;
+  wins: number;
+  time: number;
+}

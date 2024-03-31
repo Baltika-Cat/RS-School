@@ -20,7 +20,7 @@ export default class Track {
   selectButton: HTMLDivElement;
 
   deleteButton: HTMLDivElement;
-  
+
   carName: HTMLDivElement;
 
   static selectedCar: Track;

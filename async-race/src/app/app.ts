@@ -1,8 +1,11 @@
 import { div, mainTag, headerTag } from './shared/tags';
 import Garage from './garage/garage';
+import Winners from './winners/winners';
 
 class App {
   garage = new Garage();
+
+  winners = new Winners();
 
   header = headerTag('header');
 
@@ -35,6 +38,11 @@ class App {
       itemCopy.innerHTML = '';
       return item;
     });
+    const winnersTableRows = [...document.querySelectorAll('.winners-row')];
+    winnersTableRows.forEach((row) => {
+      row.remove();
+      return row;
+    });
     this.main.innerHTML = '';
     Garage.carsArray.length = 0;
   }
@@ -46,6 +54,7 @@ class App {
 
   toWinners() {
     this.clearPage();
+    this.main.append(this.winners.renderWinners());
   }
 }
 

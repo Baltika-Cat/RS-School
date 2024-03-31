@@ -66,7 +66,7 @@ export default class Garage {
     });
 
     this.carsWrapper.addEventListener('click', (event) => {
-      let target = event.target;
+      const { target } = event;
       if (target instanceof HTMLDivElement) {
         this.deleteCar(target);
       }
@@ -116,6 +116,7 @@ export default class Garage {
         });
       });
       this.garageWrapper.append(this.carsWrapper);
+      states.getCars().then((resolve) => console.log(resolve));
     }
 
     return this.garageWrapper;
