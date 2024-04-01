@@ -83,6 +83,7 @@ export default class Track {
         controllerCopy.update.color.value = '#000000';
       }
     });
+    Track.winner = this.car;
   }
 
   static randomCarName() {
