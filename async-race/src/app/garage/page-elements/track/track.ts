@@ -110,7 +110,6 @@ export default class Track {
     this.stopButton.classList.remove('disabled');
     await states.getResponseStatus(this.car.id, 'drive').then((resolve) => {
       if (resolve === 500) {
-        console.log(this.car.name, 'stopped');
         this.stop();
         this.startButton.classList.remove('disabled');
       }
@@ -127,11 +126,8 @@ export default class Track {
     const timeInSeconds = parseFloat((timeInMs / msPerSecond).toFixed(2));
     this.startButton.classList.remove('disabled');
     Track.winner = car;
-    console.log('winner', Track.winner);
     if (Track.winner.id) {
       states.getWinner(Track.winner.id).then((resolve) => {
-        console.log(Track.winner?.id)
-        console.log('resolve', resolve);
         const id = Track.winner?.id;
         if (resolve) {
           const time = timeInSeconds < resolve.time ? timeInSeconds : resolve.time;

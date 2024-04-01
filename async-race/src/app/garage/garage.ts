@@ -16,7 +16,9 @@ export default class Garage {
 
   controller = new Controller(this.garageWrapper);
 
-  carsNumber = div('cars-number', this.garageWrapper);
+  carsNumberWrapper = div('cars-number', this.garageWrapper);
+
+  carsNumber = 0;
 
   createCarButton = this.controller.create.button;
 
@@ -60,16 +62,14 @@ export default class Garage {
       };
       const car = states.createCar(carParams);
       car.then((resolve) => {
-        const newCar = new Track(this.controller, this.carsWrapper, resolve);
-        if (Garage.carsArray.length === Garage.carsOnPage) {
-          Garage.carsArray.length = 0;
-          Garage.carsArray.push(newCar);
-        } else {
+        if (Garage.carsArray.length < Garage.carsOnPage) {
+          const newCar = new Track(this.controller, this.carsWrapper, resolve);
           Garage.carsArray.push(newCar);
         }
-        return newCar;
+        this.carsNumber += 1;
+        this.carsNumberWrapper.textContent = `Garage(${this.carsNumber})`;
+        // return newCar;
       });
-      this.garageWrapper.append(this.carsWrapper);
     });
 
     this.controller.generateCarsButton.addEventListener('click', () => {
@@ -80,9 +80,7 @@ export default class Garage {
       this.controller.raceButton.classList.add('disabled');
       Track.winner = undefined;
       Track.winnerTime = 0;
-      const carsNumber = Garage.carsArray.length > Garage.carsOnPage
-          ? Garage.carsOnPage
-          : Garage.carsArray.length;
+      const carsNumber = Garage.carsArray.length > Garage.carsOnPage ? Garage.carsOnPage : Garage.carsArray.length;
       for (let i = 0; i < carsNumber; i += 1) {
         Garage.carsArray[i].start();
       }
@@ -108,6 +106,16 @@ export default class Garage {
         this.deleteCar(target);
       }
     });
+
+    this.prevButton.addEventListener('click', () => {
+      this.carsWrapper.innerHTML = '';
+      this.prevPage();
+    });
+
+    this.nextButton.addEventListener('click', () => {
+      this.carsWrapper.innerHTML = '';
+      this.nextPage();
+    });
   }
 
   deleteCar(target: HTMLDivElement) {
@@ -122,9 +130,10 @@ export default class Garage {
         states.deleteWinner(this.carID);
         states.deleteCar(this.carID);
         this.carsWrapper.removeChild(this.trackElement);
-        states.getCars(1).then((resolve) => {
-          this.carsNumber.textContent = `Garage(${resolve.carsNumber})`;
-        })
+        states.getCars(this.pageNumber).then((resolve) => {
+          this.carsNumber = resolve.carsNumber;
+          this.carsNumberWrapper.textContent = `Garage(${this.carsNumber})`;
+        });
       }
     }
   }
@@ -133,39 +142,81 @@ export default class Garage {
     const renderCarsNumber = 100;
     for (let i = 1; i <= renderCarsNumber; i += 1) {
       states.createCar(new Track(this.controller).car);
-      /*await car.then((resolve) => {
+      /* await car.then((resolve) => {
         const newCar = new Track(this.controller, this.carsWrapper, resolve);
         Garage.carsArray.push(newCar);
         return newCar;
-      });*/
-      //if (i === renderCarsNumber)
+      }); */
+      // if (i === renderCarsNumber)
     }
-    await states.getCars(1).then((resolve) => {
+    await states.getCars(this.pageNumber).then((resolve) => {
       this.carsWrapper.innerHTML = '';
       const { cars } = resolve;
       Garage.carsArray.length = 0;
       cars.forEach((car) => {
         const newCar = new Track(this.controller, this.carsWrapper, car);
-        Garage.carsArray.push(newCar)
+        Garage.carsArray.push(newCar);
       });
+      this.nextButton.classList.remove('disabled');
       this.garageWrapper.append(this.carsWrapper);
-      this.carsNumber.textContent = `Garage(${resolve.carsNumber})`;
-    })
+      this.carsNumber = resolve.carsNumber;
+      this.carsNumberWrapper.textContent = `Garage(${this.carsNumber})`;
+    });
     // console.log(Garage.carsArray);
+  }
+
+  prevPage() {
+    this.nextButton.classList.remove('disabled');
+    Garage.carsArray.length = 0;
+    this.pageNumber -= 1;
+    if (this.pageNumber === 1) {
+      this.prevButton.classList.add('disabled');
+    }
+    states.getCars(this.pageNumber).then((resolve) => {
+      resolve.cars.forEach((car) => {
+        const newCar = new Track(this.controller, this.carsWrapper, car);
+        Garage.carsArray.push(newCar);
+      });
+    });
+  }
+
+  nextPage() {
+    this.prevButton.classList.remove('disabled');
+    Garage.carsArray.length = 0;
+    const lastPage = Math.ceil(this.carsNumber / Garage.carsOnPage);
+    this.pageNumber += 1;
+    if (this.pageNumber === lastPage) {
+      this.nextButton.classList.add('disabled');
+    }
+    states.getCars(this.pageNumber).then((resolve) => {
+      resolve.cars.forEach((car) => {
+        const newCar = new Track(this.controller, this.carsWrapper, car);
+        Garage.carsArray.push(newCar);
+      });
+    });
   }
 
   getGarage(): HTMLDivElement {
     if (!this.carsWrapper.children.length) {
-      states.getCars(1).then((resolve) => {
+      states.getCars(this.pageNumber).then((resolve) => {
         resolve.cars.map((item, index) => {
           const track = new Track(this.controller, this.carsWrapper, item);
           Garage.carsArray.push(track);
           if (index === resolve.cars.length - 1) {
-            this.carsNumber.textContent = `Garage(${resolve.carsNumber})`;
+            this.carsNumber = resolve.carsNumber;
+            this.carsNumberWrapper.textContent = `Garage(${this.carsNumber})`;
+            const lastPage = Math.ceil(this.carsNumber / Garage.carsOnPage);
+            if (this.pageNumber === lastPage) {
+              this.nextButton.classList.add('disabled');
+            }
           }
           return track;
         });
       });
+
+      if (this.pageNumber === 1) {
+        this.prevButton.classList.add('disabled');
+      }
       this.garageWrapper.append(this.carsWrapper);
       this.garageWrapper.append(this.pageNavigation);
     }

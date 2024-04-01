@@ -16,7 +16,6 @@ export default class Winners {
   renderWinners(): HTMLDivElement {
     states.getWinners(1).then((resolve) => {
       this.winnersNumber.textContent = `Winners(${resolve.winners.length})`;
-      console.log('winners', resolve)
       resolve.winners.map(async (item) => {
         states.getCar(item.id).then((carParams) => {
           const winner = {

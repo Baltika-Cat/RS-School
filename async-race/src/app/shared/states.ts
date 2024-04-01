@@ -12,7 +12,7 @@ class States {
   };
 
   carsOnPage = '&_limit=7';
-  
+
   winnersOnPage = '&_limit=10';
 
   getCars = async (page: number): Promise<Garage> => {
@@ -95,7 +95,6 @@ class States {
     const response = await fetch(`${this.baseUrl}${this.path.winners}/${id}`).catch(() => {
       return new Response();
     });
-    console.log('');
     let winner: Winner | undefined;
     if (response.ok) {
       winner = await response.json();
