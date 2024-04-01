@@ -38,6 +38,7 @@ body {
 }
 
 .garage-wrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -95,6 +96,14 @@ body {
   gap: 20px;
 }
 
+.page-navigation {
+  position: absolute;
+  bottom: -50px;
+  display: flex;
+  margin-top: 20px;
+  gap: 10px;
+}
+
 .app-button {
   display: flex;
   justify-content: center;
@@ -130,7 +139,8 @@ body {
 .start-button,
 .stop-button,
 .select-button,
-.delete-button {
+.delete-button,
+.page-navigation-button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -148,7 +158,8 @@ body {
 .start-button:hover,
 .stop-button:hover,
 .select-button:hover,
-.delete-button:hover {
+.delete-button:hover,
+.page-navigation-button:hover {
   transform: scale(1.1);
   transition: 0.7s;
 }

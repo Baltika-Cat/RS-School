@@ -11,6 +11,11 @@ export interface CarParams {
   distance: number;
 }
 
+export interface Garage {
+  cars: Car[];
+  carsNumber: number;
+}
+
 export interface Winner {
   id: number;
   wins: number;
@@ -22,4 +27,9 @@ export interface WinnerRow {
   name: string;
   wins: number;
   time: number;
+}
+
+export interface WinnersData {
+  winners: Winner[];
+  winnersNumber: number;
 }

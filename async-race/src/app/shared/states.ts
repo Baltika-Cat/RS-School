@@ -1,4 +1,4 @@
-import { Car, CarParams, Winner } from './interfaces';
+import { Car, CarParams, Winner, Garage, WinnersData } from './interfaces';
 
 class States {
   baseUrl = 'http://127.0.0.1:3000';
@@ -11,15 +11,22 @@ class States {
     engine: '/engine',
   };
 
-  getCars = async (): Promise<Car[]> => {
-    const response = await fetch(`${this.baseUrl}${this.path.garage}`);
+  carsOnPage = '&_limit=7';
+  
+  winnersOnPage = '&_limit=10';
+
+  getCars = async (page: number): Promise<Garage> => {
+    const response = await fetch(`${this.baseUrl}${this.path.garage}/?_page=${page}${this.carsOnPage}`);
     const cars: Car[] = await response.json();
-    return cars;
+    const carsNumber: number = Number(response.headers.get('X-Total-Count'));
+
+    return { cars, carsNumber };
   };
 
   getCar = async (id: number): Promise<Car> => {
     const response = await fetch(`${this.baseUrl}${this.path.garage}/${id}`);
     const car: Car = await response.json();
+
     return car;
   };
 
@@ -76,11 +83,12 @@ class States {
     return response.status;
   };
 
-  getWinners = async (): Promise<Winner[]> => {
-    const response = await fetch(`${this.baseUrl}${this.path.winners}`);
+  getWinners = async (page: number): Promise<WinnersData> => {
+    const response = await fetch(`${this.baseUrl}${this.path.winners}/?_page=${page}${this.winnersOnPage}`);
     const winners: Winner[] = await response.json();
+    const winnersNumber: number = Number(response.headers.get('X-Total-Count'));
 
-    return winners;
+    return { winners, winnersNumber };
   };
 
   getWinner = async (id: number): Promise<Winner | undefined> => {

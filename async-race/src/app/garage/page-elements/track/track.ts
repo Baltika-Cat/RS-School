@@ -108,7 +108,7 @@ export default class Track {
     const toWinnersButton = document.querySelectorAll('.app-button')[1];
     toWinnersButton.classList.add('disabled');
     this.stopButton.classList.remove('disabled');
-    states.getResponseStatus(this.car.id, 'drive').then((resolve) => {
+    await states.getResponseStatus(this.car.id, 'drive').then((resolve) => {
       if (resolve === 500) {
         console.log(this.car.name, 'stopped');
         this.stop();
@@ -152,8 +152,8 @@ export default class Track {
     Track.winMessage.classList.remove('invisible');
   }
 
-  async stop() {
-    await states.setEngineStatus(this.car.id, 'stopped');
+  stop() {
+    states.setEngineStatus(this.car.id, 'stopped');
     if (this.car.carView) {
       const carX = getCoords(this.car.carView);
       const trackX = getCoords(this.track);

@@ -14,10 +14,10 @@ export default class Winners {
   }
 
   renderWinners(): HTMLDivElement {
-    states.getWinners().then((resolve) => {
-      this.winnersNumber.textContent = `Winners(${resolve.length})`;
+    states.getWinners(1).then((resolve) => {
+      this.winnersNumber.textContent = `Winners(${resolve.winners.length})`;
       console.log('winners', resolve)
-      resolve.map(async (item) => {
+      resolve.winners.map(async (item) => {
         states.getCar(item.id).then((carParams) => {
           const winner = {
             car: objectTag('svg', 'src/app/assets/car-winner.svg', carParams.color),
