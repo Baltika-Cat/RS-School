@@ -83,7 +83,7 @@ export function table(className: string, parent: HTMLDivElement): HTMLTableEleme
 export function tr(winnersData: WinnerRow, parent: HTMLTableElement): HTMLTableRowElement {
   const row = document.createElement('tr');
   row.classList.add('winners-row');
-  const number = parent.children.length;
+  const number = parent.children.length - 1;
   tableCell('td', number, row);
   tableCell('td', winnersData.car, row);
   tableCell('td', winnersData.name, row);

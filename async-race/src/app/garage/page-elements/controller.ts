@@ -41,5 +41,6 @@ export default class Controller {
 
   constructor(garageWrapper: HTMLDivElement) {
     garageWrapper.append(this.controllerWrapper);
+    this.updateCarArea.classList.add('disabled');
   }
 }

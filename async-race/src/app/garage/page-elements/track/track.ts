@@ -23,6 +23,10 @@ export default class Track {
 
   carName: HTMLDivElement;
 
+  resetButton: HTMLDivElement;
+
+  updateCarArea: HTMLDivElement;
+
   static selectedCar: Track;
 
   static activeSelectButton: HTMLDivElement;
@@ -41,6 +45,8 @@ export default class Track {
     this.stopButton.classList.add('disabled');
     this.selectButton = div('select-button', this.carController, 'Select');
     this.deleteButton = div('delete-button', this.carController, 'Delete');
+    this.resetButton = controller.resetButton;
+    this.updateCarArea = controller.updateCarArea;
     Track.winMessage.classList.add('invisible');
 
     if (car) {
@@ -70,8 +76,10 @@ export default class Track {
     this.selectButton.addEventListener('click', (e) => {
       if (Track.activeSelectButton && Track.activeSelectButton !== e.target) {
         Track.activeSelectButton.classList.remove('button-active');
+        this.updateCarArea.classList.add('disabled');
       }
       this.selectButton.classList.toggle('button-active');
+      this.updateCarArea.classList.toggle('disabled');
       Track.activeSelectButton = this.selectButton;
       const controllerCopy = controller;
       if (this.selectButton.classList.contains('button-active')) {
@@ -95,6 +103,7 @@ export default class Track {
   }
 
   async start() {
+    this.resetButton.classList.add('disabled');
     let time: number;
     await states.setEngineStatus(this.car.id, 'started').then((resolve) => {
       const { velocity, distance } = resolve;
@@ -105,8 +114,6 @@ export default class Track {
       }
     });
     this.startButton.classList.add('disabled');
-    const toWinnersButton = document.querySelectorAll('.app-button')[1];
-    toWinnersButton.classList.add('disabled');
     this.stopButton.classList.remove('disabled');
     await states.getResponseStatus(this.car.id, 'drive').then((resolve) => {
       if (resolve === 500) {
@@ -114,6 +121,7 @@ export default class Track {
         this.startButton.classList.remove('disabled');
       }
       if (resolve === 200) {
+        this.resetButton.classList.remove('disabled');
         if (!Track.winner) {
           this.showWinner(time, this.car);
         }

@@ -49,10 +49,6 @@ export default class Garage {
       }
     });
 
-    /* states.getCars(1).then((resolve) => {
-      this.carsNumber.textContent = `Garage(${resolve.carsNumber})`;
-    }) */
-
     this.createCarButton.addEventListener('click', () => {
       const color = this.controller.create.color.value;
       const name = this.controller.create.name.value;
@@ -68,7 +64,6 @@ export default class Garage {
         }
         this.carsNumber += 1;
         this.carsNumberWrapper.textContent = `Garage(${this.carsNumber})`;
-        // return newCar;
       });
     });
 
@@ -77,6 +72,8 @@ export default class Garage {
     });
 
     this.controller.raceButton.addEventListener('click', () => {
+      const toWinnersButton = document.querySelectorAll('.app-button')[1];
+      toWinnersButton.classList.add('disabled');
       this.controller.raceButton.classList.add('disabled');
       Track.winner = undefined;
       Track.winnerTime = 0;
@@ -88,6 +85,7 @@ export default class Garage {
 
     this.controller.resetButton.addEventListener('click', () => {
       const toWinnersButton = document.querySelectorAll('.app-button')[1];
+      console.log(toWinnersButton)
       toWinnersButton.classList.remove('disabled');
       this.controller.raceButton.classList.remove('disabled');
       Track.winMessage.classList.add('invisible');
@@ -108,11 +106,18 @@ export default class Garage {
     });
 
     this.prevButton.addEventListener('click', () => {
+      this.controller.raceButton.classList.remove('disabled');
+      const toWinnersButton = document.querySelectorAll('.app-button')[1];
+      toWinnersButton.classList.remove('disabled');
       this.carsWrapper.innerHTML = '';
       this.prevPage();
     });
 
     this.nextButton.addEventListener('click', () => {
+      this.controller.raceButton.classList.remove('disabled');
+      const toWinnersButton = document.querySelectorAll('.app-button')[1];
+      console.log(toWinnersButton)
+      toWinnersButton.classList.remove('disabled');
       this.carsWrapper.innerHTML = '';
       this.nextPage();
     });
@@ -124,9 +129,6 @@ export default class Garage {
       this.trackElement = <HTMLDivElement>target.closest('.track');
       if (this.carsWrapper && this.trackElement) {
         this.carID = Number(this.trackElement.getAttribute('id'));
-        // const deletedCar = Garage.carsArray.filter((item) => item.car.id === this.carID)[0];
-        // const deletedCarIndex = Garage.carsArray.indexOf(deletedCar);
-        // Garage.carsArray.splice(deletedCarIndex, 1);
         states.deleteWinner(this.carID);
         states.deleteCar(this.carID);
         this.carsWrapper.removeChild(this.trackElement);
@@ -142,12 +144,6 @@ export default class Garage {
     const renderCarsNumber = 100;
     for (let i = 1; i <= renderCarsNumber; i += 1) {
       states.createCar(new Track(this.controller).car);
-      /* await car.then((resolve) => {
-        const newCar = new Track(this.controller, this.carsWrapper, resolve);
-        Garage.carsArray.push(newCar);
-        return newCar;
-      }); */
-      // if (i === renderCarsNumber)
     }
     await states.getCars(this.pageNumber).then((resolve) => {
       this.carsWrapper.innerHTML = '';
@@ -162,7 +158,6 @@ export default class Garage {
       this.carsNumber = resolve.carsNumber;
       this.carsNumberWrapper.textContent = `Garage(${this.carsNumber})`;
     });
-    // console.log(Garage.carsArray);
   }
 
   prevPage() {
