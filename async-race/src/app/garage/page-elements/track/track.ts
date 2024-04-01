@@ -118,7 +118,6 @@ export default class Track {
     await states.getResponseStatus(this.car.id, 'drive').then((resolve) => {
       if (resolve === 500) {
         this.stop();
-        this.startButton.classList.remove('disabled');
       }
       if (resolve === 200) {
         this.resetButton.classList.remove('disabled');
@@ -167,6 +166,8 @@ export default class Track {
   }
 
   returnCar() {
+    this.stopButton.classList.add('disabled');
+    this.startButton.classList.remove('disabled');
     if (this.car.carView) {
       this.car.carView.style.transition = '0s';
       this.car.carView.style.transform = 'translateX(0)';
