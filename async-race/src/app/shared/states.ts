@@ -3,6 +3,8 @@ import { Car, CarParams, Winner } from './interfaces';
 class States {
   baseUrl = 'http://127.0.0.1:3000';
 
+  abortController = new AbortController();
+
   path = {
     garage: '/garage',
     winners: '/winners',
@@ -68,6 +70,7 @@ class States {
   getResponseStatus = async (id: number | undefined, status = 'drive'): Promise<number> => {
     const response = await fetch(`${this.baseUrl}${this.path.engine}/?id=${id}&status=${status}`, {
       method: 'PATCH',
+      signal: this.abortController.signal,
     });
 
     return response.status;

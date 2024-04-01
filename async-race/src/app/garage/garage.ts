@@ -74,10 +74,12 @@ export default class Garage {
       this.controller.raceButton.classList.remove('disabled');
       Track.winMessage.classList.add('invisible');
       Garage.carsArray.forEach((car) => {
+        states.abortController.abort('Stop race');
         car.returnCar();
         car.stopButton.classList.add('disabled');
         car.startButton.classList.remove('disabled');
       });
+      states.abortController = new AbortController();
     });
 
     this.carsWrapper.addEventListener('click', (event) => {
