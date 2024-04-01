@@ -5,6 +5,7 @@ import getRandomColor from './track-parameters/random-color';
 import carNames from './track-parameters/car-names';
 import getCoords from './track-parameters/get-coordinates';
 import Controller from '../controller';
+import carImage from './../../../assets/car.svg';
 
 export default class Track {
   track: HTMLDivElement;
@@ -51,13 +52,13 @@ export default class Track {
 
     if (car) {
       this.car = car;
-      this.car.carView = objectTag('svg', 'src/app/assets/car.svg', this.car.color, this.track);
+      this.car.carView = objectTag('svg', carImage, this.car.color, this.track);
     } else {
       const color = getRandomColor();
       this.car = {
         name: Track.randomCarName(),
         color,
-        carView: objectTag('svg', 'src/app/assets/car.svg', color, this.track),
+        carView: objectTag('svg', carImage, color, this.track),
       };
     }
 
@@ -156,7 +157,6 @@ export default class Track {
   }
 
   stop() {
-    states.setEngineStatus(this.car.id, 'stopped');
     if (this.car.carView) {
       const carX = getCoords(this.car.carView);
       const trackX = getCoords(this.track);
@@ -165,7 +165,8 @@ export default class Track {
     }
   }
 
-  returnCar() {
+  async returnCar() {
+    await states.setEngineStatus(this.car.id, 'stopped');
     this.stopButton.classList.add('disabled');
     this.startButton.classList.remove('disabled');
     if (this.car.carView) {

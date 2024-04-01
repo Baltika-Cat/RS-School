@@ -1,5 +1,6 @@
 import { table, tr, div, objectTag } from '../shared/tags';
 import states from '../shared/states';
+import winnersCar from './../assets/car-winner.svg';
 
 export default class Winners {
   winnersOnPage = 10;
@@ -69,7 +70,7 @@ export default class Winners {
       resolve.winners.map((item) => {
         states.getCar(item.id).then((carParams) => {
           const winner = {
-            car: objectTag('svg', 'src/app/assets/car-winner.svg', carParams.color),
+            car: objectTag('svg', winnersCar, carParams.color),
             name: carParams.name,
             wins: item.wins,
             time: item.time,
