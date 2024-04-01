@@ -13,6 +13,7 @@ export default class Winners {
 
   renderWinners(): HTMLDivElement {
     states.getWinners().then((resolve) => {
+      console.log('winners', resolve)
       resolve.map(async (item) => {
         states.getCar(item.id).then((carParams) => {
           const winner = {

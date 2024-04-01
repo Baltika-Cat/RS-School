@@ -125,7 +125,7 @@ class States {
   };
 
   deleteWinner = async (id: number): Promise<Winner> => {
-    const response = await fetch(`${this.baseUrl}${this.path.garage}/${id}`, {
+    const response = await fetch(`${this.baseUrl}${this.path.winners}/${id}`, {
       method: 'DELETE',
     });
     const winner: Winner = await response.json();

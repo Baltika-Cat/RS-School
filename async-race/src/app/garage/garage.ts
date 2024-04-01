@@ -100,6 +100,7 @@ export default class Garage {
         const deletedCarIndex = Garage.carsArray.indexOf(deletedCar);
         Garage.carsArray.splice(deletedCarIndex, 1);
         this.carsNumber.textContent = `Garage(${Garage.carsArray.length})`;
+        states.deleteWinner(this.carID);
         states.deleteCar(this.carID);
         this.carsWrapper.removeChild(this.trackElement);
       }

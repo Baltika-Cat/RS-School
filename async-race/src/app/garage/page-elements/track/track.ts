@@ -129,6 +129,7 @@ export default class Track {
     console.log('winner', Track.winner);
     if (Track.winner.id) {
       states.getWinner(Track.winner.id).then((resolve) => {
+        console.log(Track.winner?.id)
         console.log('resolve', resolve);
         const id = Track.winner?.id;
         if (resolve) {
