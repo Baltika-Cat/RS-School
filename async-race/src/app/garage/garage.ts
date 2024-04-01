@@ -85,7 +85,6 @@ export default class Garage {
 
     this.controller.resetButton.addEventListener('click', () => {
       const toWinnersButton = document.querySelectorAll('.app-button')[1];
-      console.log(toWinnersButton)
       toWinnersButton.classList.remove('disabled');
       this.controller.raceButton.classList.remove('disabled');
       Track.winMessage.classList.add('invisible');
@@ -116,7 +115,6 @@ export default class Garage {
     this.nextButton.addEventListener('click', () => {
       this.controller.raceButton.classList.remove('disabled');
       const toWinnersButton = document.querySelectorAll('.app-button')[1];
-      console.log(toWinnersButton)
       toWinnersButton.classList.remove('disabled');
       this.carsWrapper.innerHTML = '';
       this.nextPage();

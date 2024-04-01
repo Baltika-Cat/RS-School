@@ -5,7 +5,7 @@ import getRandomColor from './track-parameters/random-color';
 import carNames from './track-parameters/car-names';
 import getCoords from './track-parameters/get-coordinates';
 import Controller from '../controller';
-import carImage from './../../../assets/car.svg';
+import carImage from '../../../assets/car.svg';
 
 export default class Track {
   track: HTMLDivElement;

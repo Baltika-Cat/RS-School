@@ -1,6 +1,6 @@
 import { table, tr, div, objectTag } from '../shared/tags';
 import states from '../shared/states';
-import winnersCar from './../assets/car-winner.svg';
+import winnersCar from '../assets/car-winner.svg';
 
 export default class Winners {
   winnersOnPage = 10;
@@ -16,7 +16,7 @@ export default class Winners {
   table = table('table', this.winnersWrapper);
 
   tableHead = this.table.firstChild;
- 
+
   pageNavigation = div('page-navigation');
 
   prevButton = div('page-navigation-button', this.pageNavigation, 'PREV');
@@ -30,7 +30,7 @@ export default class Winners {
         this.table.append(this.tableHead);
       }
       this.prevPage();
-    })
+    });
 
     this.nextButton.addEventListener('click', () => {
       this.table.innerHTML = '';
@@ -38,7 +38,7 @@ export default class Winners {
         this.table.append(this.tableHead);
       }
       this.nextPage();
-    })
+    });
   }
 
   prevPage() {
@@ -77,6 +77,7 @@ export default class Winners {
           };
           tr(winner, this.table);
         });
+        return item;
       });
       const lastPage = Math.ceil(this.winnersNumber / this.winnersOnPage);
       if (this.pageNumber === lastPage) {
