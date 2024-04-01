@@ -5,6 +5,8 @@ import states from '../shared/states';
 export default class Winners {
   winnersWrapper = div('winners-wrapper');
 
+  winnersNumber = div('cars-number', this.winnersWrapper);
+
   table: HTMLTableElement;
 
   constructor() {
@@ -13,6 +15,7 @@ export default class Winners {
 
   renderWinners(): HTMLDivElement {
     states.getWinners().then((resolve) => {
+      this.winnersNumber.textContent = `Winners(${resolve.length})`;
       console.log('winners', resolve)
       resolve.map(async (item) => {
         states.getCar(item.id).then((carParams) => {
