@@ -1,0 +1,35 @@
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+  padding: calc(10% + 10px) calc(5% + 10px);
+  border: 2px solid #444;
+  border-radius: 10px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+  gap: 15px;
+  font-size: 20px;
+}
+
+.login-input {
+  width: 90%;
+  height: 30px;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.login-button {
+  width: 100px;
+  padding: 10px 20px;
+  background-color: #000;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 16px;
+}
