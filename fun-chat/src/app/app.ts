@@ -6,7 +6,7 @@ const url = 'ws://127.0.0.1:4000';
 let interval: number | undefined;
 
 function start() {
-  console.log('Hello!');
+  // console.log('Hello!');
   if (interval) {
     clearInterval(interval);
   }
@@ -18,21 +18,21 @@ function start() {
     socket.send(JSON.stringify(req));
 
     socket.addEventListener('open', () => {
-      console.log(req);
+      // console.log(req);
     });
   });
 
   socket.addEventListener('message', (event) => {
-    console.log(true);
+    // console.log(true);
     if (event.data.type === 'USER_EXTERNAL_LOGIN') {
       // console.log
     }
-    const data = JSON.parse(event.data);
-    console.log(data);
+    // const data = JSON.parse(event.data);
+    // console.log(data);
   });
 
   socket.addEventListener('close', () => {
-    console.log('bye!');
+    // console.log('bye!');
     interval = setInterval(start, 2000);
   });
 }
