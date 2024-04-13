@@ -61,3 +61,31 @@ export function buttonTag(className: string, parent: HTMLElement, text: string):
 
   return buttonNew;
 }
+
+export function h2Tag(className: string, parent: HTMLElement, text: string): HTMLHeadingElement {
+  const title = document.createElement('h2');
+  title.classList.add(className);
+  title.textContent = text;
+  parent.append(title);
+
+  return title;
+}
+
+export function pTag(className: string, parent: HTMLElement, text: string): HTMLParagraphElement {
+  const paragraph = document.createElement('p');
+  paragraph.classList.add(className);
+  paragraph.textContent = text;
+  parent.append(paragraph);
+
+  return paragraph;
+}
+
+export function aTag(className: string, parent: HTMLElement, text: string): HTMLAnchorElement {
+  const link = document.createElement('a');
+  link.href = 'https://github.com/Baltika-Cat';
+  link.classList.add(className);
+  link.textContent = text;
+  parent.append(link);
+
+  return link;
+}

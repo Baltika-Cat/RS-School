@@ -6,6 +6,8 @@ class LoginWindow {
 
   loginForm = form('login-form', this.formWrapper, 'login-form');
 
+  infoButton = buttonTag('button', this.formWrapper, 'Инфо');
+
   inputLoginWrapper = div('input-wrapper', this.loginForm);
 
   inputPasswordWrapper = div('input-wrapper', this.loginForm);
@@ -32,7 +34,7 @@ class LoginWindow {
 
   passwordInput = input(this.passwordOptions);
 
-  loginButton = buttonTag('login-button', this.loginForm, 'Войти');
+  loginButton = buttonTag('button', this.loginForm, 'Войти');
 }
 
 export default new LoginWindow();
