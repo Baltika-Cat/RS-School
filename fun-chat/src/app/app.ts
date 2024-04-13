@@ -1,6 +1,6 @@
 import { buttonTag, mainTag } from './shared/tags';
 import AuthenticationRequest from './shared/request-classes/authentication-request';
-// import LogoutRequest from './shared/request-classes/logout-request';
+import LogoutRequest from './shared/request-classes/logout-request';
 import loginWindow from './login-page/login-page';
 
 const url = 'ws://127.0.0.1:4000';
@@ -47,7 +47,7 @@ class App {
         if (message.type !== 'ERROR') {
           this.clearPage();
           App.button = buttonTag('login-button', this.main, 'Log Out');
-          // this.logout();
+          this.logout();
         }
       });
     });
@@ -58,6 +58,24 @@ class App {
       App.interval = setInterval(() => {
         this.start();
       }, 2000);
+    });
+  }
+
+  logout() {
+    // console.log(App.button);
+    App.button.addEventListener('click', () => {
+      // console.log(true);
+      const request = new LogoutRequest(this.login, this.password);
+      App.socket.send(JSON.stringify(request));
+      App.socket.addEventListener('message', (event) => {
+        const message = JSON.parse(event.data);
+        if (message.type !== 'ERROR') {
+          this.clearPage();
+          this.main.append(loginWindow.formWrapper);
+          // console.log(message);
+        }
+        // console.log(event.data);
+      });
     });
   }
 
