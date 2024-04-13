@@ -1,4 +1,4 @@
-import { div, form, input, buttonTag } from '../shared/tags';
+import { div, form, input, buttonTag, pTag } from '../shared/tags';
 import './login-page-style.css';
 
 class LoginWindow {
@@ -17,24 +17,35 @@ class LoginWindow {
     type: 'text',
     parent: this.inputLoginWrapper,
     placeholder: 'Логин',
-    name: 'login-input',
+    id: 'login-input',
     labelText: 'Введите логин',
   };
 
   loginInput = input(this.loginOptions);
+
+  failedLoginValidation = pTag('failed-validation', this.inputLoginWrapper, '');
 
   passwordOptions = {
     className: 'login-input',
     type: 'password',
     parent: this.inputPasswordWrapper,
     placeholder: 'Пароль',
-    name: 'password-input',
+    id: 'password-input',
     labelText: 'Введите пароль',
   };
 
   passwordInput = input(this.passwordOptions);
 
+  failedPasswordValidation = pTag('failed-validation', this.inputPasswordWrapper, '');
+
   loginButton = buttonTag('button', this.loginForm, 'Войти');
+
+  constructor() {
+    this.loginInput.required = true;
+    this.loginInput.minLength = 4;
+    this.passwordInput.required = true;
+    this.passwordInput.minLength = 4;
+  }
 }
 
 export default new LoginWindow();

@@ -35,17 +35,17 @@ export function form(className: string, parent: HTMLDivElement, name: string) {
   return formNew;
 }
 
-export function input({ className, type, parent, placeholder, name, labelText }: InputOptions): HTMLInputElement {
+export function input({ className, type, parent, placeholder, id, labelText }: InputOptions): HTMLInputElement {
   if (labelText) {
     const label = document.createElement('label');
-    label.htmlFor = name || '';
+    label.htmlFor = id || '';
     label.textContent = labelText;
     parent.append(label);
   }
   const inputNew = document.createElement('input');
   inputNew.type = type;
   inputNew.placeholder = placeholder;
-  inputNew.id = name || '';
+  inputNew.id = id || '';
   inputNew.classList.add(className);
   parent.append(inputNew);
 

@@ -6,10 +6,21 @@ import informationWindow from './information-page/information-page';
 
 const url = 'ws://127.0.0.1:4000';
 
+const {
+  formWrapper,
+  loginForm,
+  loginInput,
+  passwordInput,
+  loginButton,
+  infoButton,
+  failedLoginValidation,
+  failedPasswordValidation,
+} = loginWindow;
+
 class App {
   main = mainTag('main');
 
-  static button = buttonTag('login-button', loginWindow.loginForm, 'meow');
+  button: HTMLButtonElement;
 
   static socket: WebSocket;
 
@@ -19,7 +30,12 @@ class App {
 
   password = '';
 
-  prevPage = loginWindow.formWrapper;
+  prevPage: HTMLDivElement;
+
+  constructor() {
+    this.prevPage = formWrapper;
+    this.button = buttonTag('login-button', loginForm, 'meow');
+  }
 
   start() {
     if (App.interval) {
@@ -27,9 +43,11 @@ class App {
     }
     App.socket = new WebSocket(url);
     // console.log('socket', App.socket);
-
+    loginButton.classList.add('disabled');
+    // console.log(loginInput.minLength)
     this.submitForm();
     this.toInformation();
+    App.validateForm();
 
     /* App.socket.addEventListener('message', (event) => {
       if (event.data.type === 'USER_EXTERNAL_LOGIN') {
@@ -39,10 +57,10 @@ class App {
   }
 
   submitForm() {
-    loginWindow.loginForm.addEventListener('submit', (event) => {
+    loginForm.addEventListener('submit', (event) => {
       event.preventDefault();
-      this.login = loginWindow.loginInput.value;
-      this.password = loginWindow.loginInput.value;
+      this.login = loginInput.value;
+      this.password = loginInput.value;
       const request = new AuthenticationRequest(this.login, this.password);
       App.socket.send(JSON.stringify(request));
       // console.log(request);
@@ -50,10 +68,57 @@ class App {
         const message = JSON.parse(e.data);
         if (message.type !== 'ERROR') {
           this.clearPage();
-          App.button = buttonTag('login-button', this.main, 'Log Out');
+          this.button = buttonTag('login-button', this.main, 'Log Out');
           this.logout();
         }
       });
+    });
+  }
+
+  static validateForm() {
+    let loginValidation = false;
+    let passwordValidation = false;
+    loginInput.addEventListener('input', () => {
+      if (!loginInput.value) {
+        failedLoginValidation.textContent = 'Поле обязательно для заполнения';
+        loginValidation = false;
+        loginButton.classList.add('disabled');
+      } else if (loginInput.value.length < loginInput.minLength) {
+        failedLoginValidation.textContent = `Минимум ${loginInput.minLength} символа`;
+        loginValidation = false;
+        loginButton.classList.add('disabled');
+      } else if (loginInput.value === loginInput.value.toLowerCase()) {
+        failedLoginValidation.textContent = 'Должна быть хотя бы одна заглавная буква';
+        loginValidation = false;
+        loginButton.classList.add('disabled');
+      } else {
+        failedLoginValidation.textContent = '';
+        loginValidation = true;
+        if (passwordValidation) {
+          loginButton.classList.remove('disabled');
+        }
+      }
+    });
+    passwordInput.addEventListener('input', () => {
+      if (!passwordInput.value) {
+        failedPasswordValidation.textContent = 'Поле обязательно для заполнения';
+        passwordValidation = false;
+        loginButton.classList.add('disabled');
+      } else if (passwordInput.value.length < passwordInput.minLength) {
+        failedPasswordValidation.textContent = `Минимум ${passwordInput.minLength} символа`;
+        passwordValidation = false;
+        loginButton.classList.add('disabled');
+      } else if (passwordInput.value === passwordInput.value.toLowerCase()) {
+        failedPasswordValidation.textContent = 'Должна быть хотя бы одна заглавная буква';
+        passwordValidation = false;
+        loginButton.classList.add('disabled');
+      } else {
+        failedPasswordValidation.textContent = '';
+        passwordValidation = true;
+        if (loginValidation) {
+          loginButton.classList.remove('disabled');
+        }
+      }
     });
   }
 
@@ -66,7 +131,7 @@ class App {
   }
 
   toInformation() {
-    loginWindow.infoButton.addEventListener('click', () => {
+    infoButton.addEventListener('click', () => {
       this.clearPage();
       this.main.append(informationWindow.informationWrapper);
       this.fromInformation();
@@ -82,15 +147,16 @@ class App {
 
   logout() {
     // console.log(App.button);
-    App.button.addEventListener('click', () => {
+    this.button.addEventListener('click', () => {
       // console.log(true);
       const request = new LogoutRequest(this.login, this.password);
       App.socket.send(JSON.stringify(request));
+      // console.log(true, request)
       App.socket.addEventListener('message', (event) => {
         const message = JSON.parse(event.data);
         if (message.type !== 'ERROR') {
           this.clearPage();
-          this.main.append(loginWindow.formWrapper);
+          this.main.append(formWrapper);
           // console.log(message);
         }
         // console.log(event.data);
@@ -104,5 +170,5 @@ class App {
 }
 
 const app = new App();
-app.main.append(loginWindow.formWrapper);
+app.main.append(formWrapper);
 app.start();

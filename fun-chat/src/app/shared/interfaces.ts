@@ -17,6 +17,6 @@ export interface InputOptions {
   type: string;
   parent: HTMLElement;
   placeholder: string;
-  name?: string;
+  id?: string;
   labelText?: string;
 }
