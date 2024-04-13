@@ -1,7 +1,7 @@
-export default class AuthenticationRequest {
-  id = 'meow';
+export default class LogoutRequest {
+  id = 'logout_request';
 
-  type = 'USER_LOGIN';
+  type = 'USER_LOGOUT';
 
   payload = {
     user: {

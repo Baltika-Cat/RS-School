@@ -1,10 +1,8 @@
-import { mainTag, div, form, input, buttonTag } from '../shared/tags';
+import { div, form, input, buttonTag } from '../shared/tags';
 import './login-page-style.css';
 
-const main = mainTag('main');
-
 class LoginWindow {
-  formWrapper = div('form-wrapper', main);
+  formWrapper = div('form-wrapper');
 
   loginForm = form('login-form', this.formWrapper, 'login-form');
 

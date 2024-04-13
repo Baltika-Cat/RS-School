@@ -1,40 +1,71 @@
-import AuthenticationRequest from './shared/classes/authentication-request-class';
+import { buttonTag, mainTag } from './shared/tags';
+import AuthenticationRequest from './shared/request-classes/authentication-request';
+// import LogoutRequest from './shared/request-classes/logout-request';
 import loginWindow from './login-page/login-page';
 
 const url = 'ws://127.0.0.1:4000';
 
-let interval: number | undefined;
+class App {
+  main = mainTag('main');
 
-function start() {
-  // console.log('Hello!');
-  if (interval) {
-    clearInterval(interval);
-  }
-  const socket = new WebSocket(url);
+  static button = buttonTag('login-button', loginWindow.loginForm, 'meow');
 
-  loginWindow.loginForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const req = new AuthenticationRequest(loginWindow.loginInput.value, loginWindow.passwordInput.value);
-    socket.send(JSON.stringify(req));
+  static socket: WebSocket;
 
-    socket.addEventListener('open', () => {
-      // console.log(req);
-    });
-  });
+  static interval: number | undefined;
 
-  socket.addEventListener('message', (event) => {
-    // console.log(true);
-    if (event.data.type === 'USER_EXTERNAL_LOGIN') {
-      // console.log
+  login = '';
+
+  password = '';
+
+  start() {
+    if (App.interval) {
+      clearInterval(App.interval);
     }
-    // const data = JSON.parse(event.data);
-    // console.log(data);
-  });
+    App.socket = new WebSocket(url);
+    // console.log('socket', App.socket);
 
-  socket.addEventListener('close', () => {
-    // console.log('bye!');
-    interval = setInterval(start, 2000);
-  });
+    this.submitForm();
+
+    /* App.socket.addEventListener('message', (event) => {
+      if (event.data.type === 'USER_EXTERNAL_LOGIN') {
+      }
+    }); */
+    this.reconnection();
+  }
+
+  submitForm() {
+    loginWindow.loginForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      this.login = loginWindow.loginInput.value;
+      this.password = loginWindow.loginInput.value;
+      const request = new AuthenticationRequest(this.login, this.password);
+      App.socket.send(JSON.stringify(request));
+      // console.log(request);
+      App.socket.addEventListener('message', (e) => {
+        const message = JSON.parse(e.data);
+        if (message.type !== 'ERROR') {
+          this.clearPage();
+          App.button = buttonTag('login-button', this.main, 'Log Out');
+          // this.logout();
+        }
+      });
+    });
+  }
+
+  reconnection() {
+    App.socket.addEventListener('close', () => {
+      App.interval = setInterval(() => {
+        this.start();
+      }, 2000);
+    });
+  }
+
+  clearPage() {
+    this.main.innerHTML = '';
+  }
 }
 
-start();
+const app = new App();
+app.main.append(loginWindow.formWrapper);
+app.start();
