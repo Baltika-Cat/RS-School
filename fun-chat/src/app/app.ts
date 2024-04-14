@@ -135,11 +135,11 @@ class App {
         if (this.isLogined) {
           App.socket.addEventListener('open', () => {
             this.authorize();
-            App.socket.addEventListener('message', (e) => {
-              console.log(e.data)
-            })
-          })
-          console.log(true)
+            /* App.socket.addEventListener('message', (e) => {
+              console.log(e.data);
+            }); */
+          });
+          // console.log(true);
         }
       }, 2000);
     });
