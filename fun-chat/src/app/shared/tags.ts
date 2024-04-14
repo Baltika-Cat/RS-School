@@ -54,7 +54,7 @@ export function input({ className, type, parent, placeholder, id, labelText }: I
 
 export function buttonTag(className: string, parent: HTMLElement, text: string): HTMLButtonElement {
   const buttonNew = document.createElement('button');
-  buttonNew.type = 'submit';
+  buttonNew.type = parent instanceof HTMLDivElement ? 'button' : 'submit';
   buttonNew.classList.add(className);
   buttonNew.textContent = text;
   parent.append(buttonNew);
