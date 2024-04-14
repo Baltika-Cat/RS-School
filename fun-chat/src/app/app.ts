@@ -20,6 +20,8 @@ const {
 class App {
   main = mainTag('main');
 
+  isLogined = false;
+
   button: HTMLButtonElement;
 
   static socket: WebSocket;
@@ -44,7 +46,6 @@ class App {
     App.socket = new WebSocket(url);
     // console.log('socket', App.socket);
     loginButton.classList.add('disabled');
-    // console.log(loginInput.minLength)
     this.submitForm();
     this.toInformation();
     App.validateForm();
@@ -53,7 +54,12 @@ class App {
       if (event.data.type === 'USER_EXTERNAL_LOGIN') {
       }
     }); */
-    this.reconnection();
+    this.reconnect();
+  }
+
+  authorize() {
+    const request = new AuthenticationRequest(this.login, this.password);
+    App.socket.send(JSON.stringify(request));
   }
 
   submitForm() {
@@ -61,13 +67,13 @@ class App {
       event.preventDefault();
       this.login = loginInput.value;
       this.password = loginInput.value;
-      const request = new AuthenticationRequest(this.login, this.password);
-      App.socket.send(JSON.stringify(request));
+      this.authorize();
       // console.log(request);
       App.socket.addEventListener('message', (e) => {
         const message = JSON.parse(e.data);
         if (message.type !== 'ERROR') {
           this.clearPage();
+          this.isLogined = true;
           this.button = buttonTag('login-button', this.main, 'Log Out');
           this.logout();
         }
@@ -122,10 +128,19 @@ class App {
     });
   }
 
-  reconnection() {
+  reconnect() {
     App.socket.addEventListener('close', () => {
       App.interval = setInterval(() => {
         this.start();
+        if (this.isLogined) {
+          App.socket.addEventListener('open', () => {
+            this.authorize();
+            App.socket.addEventListener('message', (e) => {
+              console.log(e.data)
+            })
+          })
+          console.log(true)
+        }
       }, 2000);
     });
   }
@@ -146,16 +161,14 @@ class App {
   }
 
   logout() {
-    // console.log(App.button);
     this.button.addEventListener('click', () => {
-      // console.log(true);
       const request = new LogoutRequest(this.login, this.password);
       App.socket.send(JSON.stringify(request));
-      // console.log(true, request)
       App.socket.addEventListener('message', (event) => {
         const message = JSON.parse(event.data);
         if (message.type !== 'ERROR') {
           this.clearPage();
+          this.isLogined = false;
           this.main.append(formWrapper);
           // console.log(message);
         }
