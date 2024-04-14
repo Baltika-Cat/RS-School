@@ -66,16 +66,20 @@ class App {
     loginForm.addEventListener('submit', (event) => {
       event.preventDefault();
       this.login = loginInput.value;
-      this.password = loginInput.value;
+      this.password = passwordInput.value;
       this.authorize();
       // console.log(request);
       App.socket.addEventListener('message', (e) => {
+        // console.log(e.data);
         const message = JSON.parse(e.data);
         if (message.type !== 'ERROR') {
           this.clearPage();
           this.isLogined = true;
           this.button = buttonTag('login-button', this.main, 'Log Out');
           this.logout();
+          // console.log(this.login, this.password);
+        } else {
+          // console.log('huy tebe!');
         }
       });
     });
