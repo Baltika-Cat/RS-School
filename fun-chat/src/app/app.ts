@@ -3,6 +3,7 @@ import AuthenticationRequest from './shared/request-classes/authentication-reque
 import LogoutRequest from './shared/request-classes/logout-request';
 import loginWindow from './login-page/login-page';
 import informationWindow from './information-page/information-page';
+import PopUpWindow from './shared/pop-up-windows/pop-up-windows';
 
 const url = 'ws://127.0.0.1:4000';
 
@@ -27,6 +28,8 @@ class App {
   static socket: WebSocket;
 
   static interval: number | undefined;
+
+  static errorWindow: PopUpWindow | undefined;
 
   login = '';
 
@@ -134,17 +137,23 @@ class App {
 
   reconnect() {
     App.socket.addEventListener('close', () => {
+      if (!App.errorWindow) {
+        App.errorWindow = new PopUpWindow();
+      }
       App.interval = setInterval(() => {
         this.start();
-        if (this.isLogined) {
-          App.socket.addEventListener('open', () => {
+        App.socket.addEventListener('open', () => {
+          // console.log(true);
+          PopUpWindow.removeWindow();
+          App.errorWindow = undefined;
+          if (this.isLogined) {
             this.authorize();
-            /* App.socket.addEventListener('message', (e) => {
+          }
+          /* App.socket.addEventListener('message', (e) => {
               console.log(e.data);
             }); */
-          });
-          // console.log(true);
-        }
+        });
+        // console.log(true);
       }, 2000);
     });
   }
