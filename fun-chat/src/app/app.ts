@@ -37,6 +37,10 @@ class App {
 
   prevPage: HTMLDivElement;
 
+  loginValidation = false;
+
+  passwordValidation = false;
+
   constructor() {
     this.prevPage = formWrapper;
     this.button = buttonTag('login-button', loginForm, 'meow');
@@ -51,7 +55,8 @@ class App {
     loginButton.classList.add('disabled');
     this.submitForm();
     this.toInformation();
-    App.validateForm();
+    this.validateLogin();
+    this.validatePassword();
 
     /* App.socket.addEventListener('message', (event) => {
       if (event.data.type === 'USER_EXTERNAL_LOGIN') {
@@ -88,47 +93,52 @@ class App {
     });
   }
 
-  static validateForm() {
-    let loginValidation = false;
-    let passwordValidation = false;
+  disableButtonDueLogin() {
+    this.loginValidation = false;
+    loginButton.classList.add('disabled');
+  }
+
+  disableButtonDuePassword() {
+    this.passwordValidation = false;
+    loginButton.classList.add('disabled');
+  }
+
+  validateLogin() {
     loginInput.addEventListener('input', () => {
       if (!loginInput.value) {
         failedLoginValidation.textContent = 'Поле обязательно для заполнения';
-        loginValidation = false;
-        loginButton.classList.add('disabled');
+        this.disableButtonDueLogin();
       } else if (loginInput.value.length < loginInput.minLength) {
         failedLoginValidation.textContent = `Минимум ${loginInput.minLength} символа`;
-        loginValidation = false;
-        loginButton.classList.add('disabled');
+        this.disableButtonDueLogin();
       } else if (loginInput.value === loginInput.value.toLowerCase()) {
         failedLoginValidation.textContent = 'Должна быть хотя бы одна заглавная буква';
-        loginValidation = false;
-        loginButton.classList.add('disabled');
+        this.disableButtonDueLogin();
       } else {
         failedLoginValidation.textContent = '';
-        loginValidation = true;
-        if (passwordValidation) {
+        this.loginValidation = true;
+        if (this.passwordValidation) {
           loginButton.classList.remove('disabled');
         }
       }
     });
+  }
+
+  validatePassword() {
     passwordInput.addEventListener('input', () => {
       if (!passwordInput.value) {
         failedPasswordValidation.textContent = 'Поле обязательно для заполнения';
-        passwordValidation = false;
-        loginButton.classList.add('disabled');
+        this.disableButtonDuePassword();
       } else if (passwordInput.value.length < passwordInput.minLength) {
         failedPasswordValidation.textContent = `Минимум ${passwordInput.minLength} символа`;
-        passwordValidation = false;
-        loginButton.classList.add('disabled');
+        this.disableButtonDuePassword();
       } else if (passwordInput.value === passwordInput.value.toLowerCase()) {
         failedPasswordValidation.textContent = 'Должна быть хотя бы одна заглавная буква';
-        passwordValidation = false;
-        loginButton.classList.add('disabled');
+        this.disableButtonDuePassword();
       } else {
         failedPasswordValidation.textContent = '';
-        passwordValidation = true;
-        if (loginValidation) {
+        this.passwordValidation = true;
+        if (this.loginValidation) {
           loginButton.classList.remove('disabled');
         }
       }
