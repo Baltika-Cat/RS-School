@@ -87,7 +87,8 @@ class App {
           this.logout();
           // console.log(this.login, this.password);
         } else {
-          // console.log('huy tebe!');
+          const errorMessage = message.payload.error;
+          App.errorWindow = new PopUpWindow(errorMessage);
         }
       });
     });
