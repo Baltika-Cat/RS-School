@@ -47,9 +47,6 @@ class App {
   }
 
   start() {
-    if (App.interval) {
-      clearInterval(App.interval);
-    }
     App.socket = new WebSocket(url);
     // console.log('socket', App.socket);
     loginButton.classList.add('disabled');
@@ -72,6 +69,7 @@ class App {
 
   submitForm() {
     loginForm.addEventListener('submit', (event) => {
+      // console.log(App.socket);
       event.preventDefault();
       this.login = loginInput.value;
       this.password = passwordInput.value;
@@ -89,6 +87,7 @@ class App {
         } else {
           const errorMessage = message.payload.error;
           App.errorWindow = new PopUpWindow(errorMessage);
+          // console.log(message)
         }
       });
     });
@@ -152,12 +151,14 @@ class App {
         App.errorWindow = new PopUpWindow();
       }
       App.interval = setInterval(() => {
-        this.start();
+        App.socket = new WebSocket(url);
         App.socket.addEventListener('open', () => {
+          clearInterval(App.interval);
           // console.log(true);
           PopUpWindow.removeWindow();
           App.errorWindow = undefined;
           if (this.isLogined) {
+            // console.log(true);
             this.authorize();
           }
           /* App.socket.addEventListener('message', (e) => {

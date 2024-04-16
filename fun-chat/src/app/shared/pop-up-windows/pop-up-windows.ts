@@ -10,12 +10,13 @@ export default class PopUpWindow {
 
   static loadingCircle = div('loading', PopUpWindow.window);
 
-  static problemDescription = pTag('problem-description', this.window, '');
+  static problemDescription = pTag('problem-description', PopUpWindow.window, '');
 
-  static button = buttonTag('button', this.window, 'Ясненько');
+  static button = buttonTag('button', PopUpWindow.window, 'Ясненько');
 
   constructor(errorMessage = 'reconnection') {
     if (errorMessage.includes('reconnection')) {
+      PopUpWindow.problemDescription.textContent = 'Идет восстановление соединения';
       PopUpWindow.loadingCircle.classList.remove('invisible');
       PopUpWindow.button.classList.add('invisible');
       PopUpWindow.generateWindow();
