@@ -1,9 +1,10 @@
-import { buttonTag, mainTag } from './shared/tags';
+import { /* buttonTag, */ mainTag } from './shared/tags';
 import AuthenticationRequest from './shared/request-classes/authentication-request';
 import LogoutRequest from './shared/request-classes/logout-request';
 import loginWindow from './login-page/login-page';
 import informationWindow from './information-page/information-page';
 import PopUpWindow from './shared/pop-up-windows/pop-up-windows';
+import MainPage from './main-page/main-page';
 
 const url = 'ws://127.0.0.1:4000';
 
@@ -23,7 +24,7 @@ class App {
 
   isLogined = false;
 
-  button: HTMLButtonElement;
+  // button: HTMLButtonElement;
 
   static socket: WebSocket;
 
@@ -45,7 +46,7 @@ class App {
 
   constructor() {
     this.prevPage = formWrapper;
-    this.button = buttonTag('login-button', loginForm, 'meow');
+    // this.button = buttonTag('login-button', loginForm, 'meow');
   }
 
   start() {
@@ -86,8 +87,17 @@ class App {
         if (message.type !== 'ERROR') {
           this.clearPage();
           this.isLogined = true;
-          this.button = buttonTag('login-button', this.main, 'Log Out');
-          this.logout();
+          const mainPage = new MainPage(this.login);
+          this.main.append(mainPage.mainPageWrapper);
+          // this.button = buttonTag('login-button', this.main, 'Log Out');
+          /* const logoutOptions = {
+            socket: App.socket,
+            login: this.login,
+            password: this.password,
+          }; */
+          mainPage.logoutButton.addEventListener('click', () => {
+            this.logout();
+          });
           // console.log(this.login, this.password);
         } else {
           const errorMessage = message.payload.error;
@@ -198,20 +208,24 @@ class App {
   }
 
   logout() {
-    this.button.addEventListener('click', () => {
-      const request = new LogoutRequest(this.login, this.password);
-      App.socket.send(JSON.stringify(request));
-      App.socket.addEventListener('message', (event) => {
-        const message = JSON.parse(event.data);
-        if (message.type !== 'ERROR') {
-          this.clearPage();
-          this.isLogined = false;
-          this.main.append(formWrapper);
-          // console.log(message);
-        }
-        // console.log(event.data);
-      });
+    const request = new LogoutRequest(this.login, this.password);
+    App.socket.send(JSON.stringify(request));
+    App.socket.addEventListener('message', (event) => {
+      const message = JSON.parse(event.data);
+      if (message.type !== 'ERROR') {
+        this.clearPage();
+        this.isLogined = false;
+        this.main.append(formWrapper);
+        // console.log(message);
+      }
+      // console.log(event.data);
     });
+  }
+
+  toLoginPage() {
+    this.clearPage();
+    this.isLogined = false;
+    this.main.append(formWrapper);
   }
 
   clearPage() {

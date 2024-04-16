@@ -14,7 +14,7 @@ class InformationWindow {
 
   informationDescription = pTag('description', this.informationWrapper, this.informationText);
 
-  githubLink = aTag('link', this.informationDescription, 'Baltika-Cat');
+  githubLink = aTag('link', this.informationDescription, 'https://github.com/Baltika-Cat', 'Baltika-Cat');
 
   returnButton = buttonTag('button', this.informationWrapper, 'Назад');
 }

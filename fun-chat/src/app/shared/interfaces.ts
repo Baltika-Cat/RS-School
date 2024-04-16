@@ -20,3 +20,9 @@ export interface InputOptions {
   id?: string;
   labelText?: string;
 }
+
+/* export interface LogoutOptions {
+  socket: WebSocket;
+  login: string;
+  password: string;
+} */

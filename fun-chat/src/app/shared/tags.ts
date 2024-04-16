@@ -80,12 +80,12 @@ export function pTag(className: string, parent: HTMLElement, text: string): HTML
   return paragraph;
 }
 
-export function aTag(className: string, parent: HTMLElement, text: string): HTMLAnchorElement {
-  const link = document.createElement('a');
-  link.href = 'https://github.com/Baltika-Cat';
-  link.classList.add(className);
-  link.textContent = text;
-  parent.append(link);
+export function aTag(className: string, parent: HTMLElement, link: string, text: string): HTMLAnchorElement {
+  const linkNew = document.createElement('a');
+  linkNew.href = link;
+  linkNew.classList.add(className);
+  linkNew.textContent = text;
+  parent.append(linkNew);
 
-  return link;
+  return linkNew;
 }
