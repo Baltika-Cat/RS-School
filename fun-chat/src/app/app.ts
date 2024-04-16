@@ -27,7 +27,9 @@ class App {
 
   static socket: WebSocket;
 
-  static interval: number | undefined;
+  static reconnectingInterval: number;
+
+  static checkInterval: number;
 
   static errorWindow: PopUpWindow | undefined;
 
@@ -59,7 +61,10 @@ class App {
       if (event.data.type === 'USER_EXTERNAL_LOGIN') {
       }
     }); */
-    this.reconnect();
+    App.checkInterval = setInterval(() => {
+      // console.log(App.socket)
+      this.reconnect();
+    }, 2000);
   }
 
   authorize() {
@@ -146,27 +151,34 @@ class App {
   }
 
   reconnect() {
+    /* App.socket.addEventListener('message', (e) => {
+      console.log(e.data)
+    }) */
     App.socket.addEventListener('close', () => {
       if (!App.errorWindow) {
         App.errorWindow = new PopUpWindow();
       }
-      App.interval = setInterval(() => {
-        App.socket = new WebSocket(url);
-        App.socket.addEventListener('open', () => {
-          clearInterval(App.interval);
-          // console.log(true);
-          PopUpWindow.removeWindow();
-          App.errorWindow = undefined;
-          if (this.isLogined) {
+      if (!App.reconnectingInterval) {
+        App.reconnectingInterval = setInterval(() => {
+          App.socket = new WebSocket(url);
+          // console.log('try connect')
+          App.socket.addEventListener('open', () => {
+            // console.log('open')
+            PopUpWindow.removeWindow();
+            App.errorWindow = undefined;
+            if (this.isLogined) {
+              this.authorize();
+            }
+            clearInterval(App.reconnectingInterval);
+            App.reconnectingInterval = 0;
             // console.log(true);
-            this.authorize();
-          }
-          /* App.socket.addEventListener('message', (e) => {
-              console.log(e.data);
-            }); */
-        });
-        // console.log(true);
-      }, 2000);
+            /* App.socket.addEventListener('message', (e) => {
+                console.log(e.data);
+              }); */
+          });
+          // console.log(true);
+        }, 2000);
+      }
     });
   }
 
