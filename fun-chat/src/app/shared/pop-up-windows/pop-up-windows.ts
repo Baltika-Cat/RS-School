@@ -6,13 +6,15 @@ export default class PopUpWindow {
 
   static background = div('background', PopUpWindow.popupWrapper);
 
-  static window = div('pop-up-window', PopUpWindow.popupWrapper);
+  static window = div('popup-window', PopUpWindow.popupWrapper);
 
   static loadingCircle = div('loading', PopUpWindow.window);
 
-  static problemDescription = pTag('problem-description', PopUpWindow.window, '');
+  static descriptionWrapper = div('description-wrapper', PopUpWindow.window);
 
-  static button = buttonTag('button', PopUpWindow.window, 'Ясненько');
+  static problemDescription = pTag('problem-description', PopUpWindow.descriptionWrapper, '');
+
+  static button = buttonTag('button', PopUpWindow.descriptionWrapper, 'Ясненько');
 
   constructor(errorMessage = 'reconnection') {
     if (errorMessage.includes('reconnection')) {
