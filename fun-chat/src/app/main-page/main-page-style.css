@@ -52,11 +52,6 @@
   transition: .7s;
 }
 
-.header-button:hover {
-  transform: scale(1.05);
-  transition: .7s;
-}
-
 .main-area {
   display: flex;
   justify-content: space-between;
@@ -131,6 +126,14 @@
   color: #fff;
   border-radius: 5px;
   padding: 10px;
+  cursor: pointer;
+  transition: .7s;
+}
+
+.header-button:hover,
+.send-button:hover {
+  transform: scale(1.05);
+  transition: .7s;
 }
 
 .school-link {
