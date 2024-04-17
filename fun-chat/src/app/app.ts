@@ -89,7 +89,7 @@ class App {
         if (message.type !== 'ERROR') {
           this.clearPage();
           this.isLogined = true;
-          const mainPage = new MainPage(this.login);
+          const mainPage = new MainPage(App.socket, this.login);
           this.prevPage = mainPage.mainPageWrapper;
           this.main.append(mainPage.mainPageWrapper);
           this.info = mainPage.infoButton;
