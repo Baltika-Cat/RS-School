@@ -15,9 +15,9 @@ export default class MainPage {
 
   headerButtonsArea = div('buttons-area', this.header);
 
-  infoButton = buttonTag('button', this.headerButtonsArea, 'Инфо');
+  infoButton = buttonTag('header-button', this.headerButtonsArea, 'Инфо');
 
-  logoutButton = buttonTag('button', this.headerButtonsArea, 'Выйти');
+  logoutButton = buttonTag('header-button', this.headerButtonsArea, 'Выйти');
 
   mainArea = div('main-area', this.mainPageWrapper);
 
@@ -57,7 +57,7 @@ export default class MainPage {
 
   schoolLogo = new Image();
 
-  schoolLink = aTag('school-link', this.footer, 'https://rs.school/courses/javascript-mentoring-program', '');
+  schoolLink = aTag('school-link', this.footer, 'https://rs.school/courses/javascript-preschool', '');
 
   githubLink = aTag('github-link', this.footer, 'https://github.com/Baltika-Cat', 'Baltika-Cat');
 
