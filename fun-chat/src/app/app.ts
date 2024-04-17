@@ -44,6 +44,8 @@ class App {
 
   passwordValidation = false;
 
+  info = infoButton;
+
   constructor() {
     this.prevPage = formWrapper;
     // this.button = buttonTag('login-button', loginForm, 'meow');
@@ -88,7 +90,11 @@ class App {
           this.clearPage();
           this.isLogined = true;
           const mainPage = new MainPage(this.login);
+          this.prevPage = mainPage.mainPageWrapper;
           this.main.append(mainPage.mainPageWrapper);
+          this.info = mainPage.infoButton;
+          // console.log(this.info)
+          this.toInformation();
           // this.button = buttonTag('login-button', this.main, 'Log Out');
           /* const logoutOptions = {
             socket: App.socket,
@@ -193,7 +199,7 @@ class App {
   }
 
   toInformation() {
-    infoButton.addEventListener('click', () => {
+    this.info.addEventListener('click', () => {
       this.clearPage();
       this.main.append(informationWindow.informationWrapper);
       this.fromInformation();
@@ -216,6 +222,8 @@ class App {
         this.clearPage();
         this.isLogined = false;
         this.main.append(formWrapper);
+        this.info = infoButton;
+        this.prevPage = formWrapper;
         // console.log(message);
       }
       // console.log(event.data);
