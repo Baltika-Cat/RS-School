@@ -83,7 +83,7 @@ export default class MainPage {
       const userName = message.payload.user.login;
       const users = [...document.querySelectorAll('.inactive-user')];
       const inactiveUser = users.find((user) => user.textContent === userName);
-      console.log(inactiveUser);
+      // console.log(inactiveUser);
       if (inactiveUser) {
         inactiveUser.classList.remove('inactive-user');
         inactiveUser.classList.add('active-user');
