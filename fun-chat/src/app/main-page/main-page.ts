@@ -1,6 +1,5 @@
-import { div, buttonTag, input, form, pTag, aTag } from '../shared/tags';
-// import LogoutRequest from '../shared/request-classes/logout-request';
-// import { LogoutOptions } from '../shared/interfaces';
+import { div, buttonTag, input, form, pTag, aTag, ul, li } from '../shared/tags';
+import GetUsersRequest from '../shared/request-classes/get-users-request';
 import './main-page-style.css';
 import logo from '../shared/assets/rsschool.svg';
 
@@ -10,8 +9,6 @@ export default class MainPage {
   mainPageWrapper = div('main-wrapper');
 
   header = div('main-header', this.mainPageWrapper);
-
-  // static meow: HTMLParagraphElement;
 
   userName = pTag('user-name', this.header, '');
 
@@ -36,13 +33,13 @@ export default class MainPage {
 
   usersSearch = input(this.searchInputOptions);
 
-  users = div('users', this.usersArea);
+  activeUsers = ul('users', this.usersArea);
+
+  inactiveUsers = ul('users', this.usersArea);
 
   chatWrapper = div('chat-area', this.mainArea);
 
   messageHistory = div('message-history', this.chatWrapper);
-
-  // sendMessageArea = div('send-message-area', this.chatWrapper);
 
   sendMessageForm = form('send-message-form', this.chatWrapper, 'message-form');
 
@@ -67,31 +64,41 @@ export default class MainPage {
 
   year = pTag('year', this.footer, '2024');
 
+  userLogin: string;
+
   constructor(socket: WebSocket, user: string) {
-    // MainPage.meow = pTag('meow', this.users, '');
-    // this.users.append(MainPage.meow);
+    this.userLogin = user;
     this.userName.textContent = `User: ${user}`;
     this.schoolLogo.src = logo;
     this.schoolLink.append(this.schoolLogo);
     this.socket = socket;
     this.socket.addEventListener('message', (e) => {
-      this.addActiveUser(e);
+      this.addNewActiveUser(e);
     });
   }
 
-  addActiveUser(event: MessageEvent) {
+  addNewActiveUser(event: MessageEvent) {
     const message = JSON.parse(event.data);
-    // console.log(message)
     if (message.type === 'USER_EXTERNAL_LOGIN') {
-      const par = pTag('meow', this.users, message.payload.user.login);
-      // console.log(par)
-      this.userName.textContent = 'huy';
-      // console.log(this.userName);
-      // this.mainPageWrapper.innerHTML = '';
-      this.users.append(par);
-      // MainPage.meow.textContent = message.payload.user.login;
-      // this.users.textContent = message.payload.user.login;
+      li('active-user', this.activeUsers, message.payload.user.login);
     }
+  }
+
+  getActiveUsers() {
+    const request = new GetUsersRequest('USER_ACTIVE');
+    this.socket.send(JSON.stringify(request));
+    this.socket.addEventListener('message', (event) => {
+      const message = JSON.parse(event.data);
+      if (message.type === 'USER_ACTIVE') {
+        // console.log(message)
+        const { users } = message.payload;
+        for (let i = 0; i < users.length; i += 1) {
+          if (users[i].login !== this.userLogin) {
+            li('active-user', this.activeUsers, users[i].login);
+          }
+        }
+      }
+    });
   }
   /* toMainPage() {
     return this.mainPageWrapper;

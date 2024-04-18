@@ -90,8 +90,9 @@ class App {
           this.clearPage();
           this.isLogined = true;
           const mainPage = new MainPage(App.socket, this.login);
-          this.prevPage = mainPage.mainPageWrapper;
           this.main.append(mainPage.mainPageWrapper);
+          mainPage.getActiveUsers();
+          this.prevPage = mainPage.mainPageWrapper;
           this.info = mainPage.infoButton;
           // console.log(this.info)
           this.toInformation();
