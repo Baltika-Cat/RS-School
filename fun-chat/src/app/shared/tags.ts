@@ -101,6 +101,8 @@ export function ul(className: string, parent: HTMLDivElement) {
 export function li(className: string, parent: HTMLUListElement, user: string) {
   const listItem = document.createElement('li');
   listItem.classList.add(className);
+  const userStatusWrapper = div('user-status-wrapper', listItem);
+  div('user-status', userStatusWrapper);
   pTag('active-user-name', listItem, user);
   div('unread-messages-count', listItem);
   parent.append(listItem);

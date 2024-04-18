@@ -75,6 +75,7 @@
   width: 95%;
   border-radius: 5px;
   padding: 5px;
+  margin: 5px 0;
 }
 
 .users {
@@ -82,6 +83,40 @@
   flex-direction: column;
   justify-content: start;
   align-items: start;
+  width: 100%;
+}
+
+.active-user,
+.inactive-user {
+  display: flex;
+  list-style: none;
+  width: 100%;
+  list-style-position: outside;
+  font-size: 20px;
+  margin: 5px 0;
+}
+
+.user-status-wrapper {
+  display: flex;
+  width: 15%;
+  max-width: 25px;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-status {
+  width: 6px;
+  height: 6px;
+  border: 1px #000 solid;
+  border-radius: 50%;
+}
+
+.active-user .user-status {
+  background-color: #33ff33;
+}
+
+.inactive-user .user-status {
+  background-color: red;
 }
 
 .chat-area {
