@@ -86,7 +86,7 @@ class App {
       App.socket.addEventListener('message', (e) => {
         // console.log(e.data);
         const message = JSON.parse(e.data);
-        if (message.type !== 'ERROR') {
+        if (message.type === 'USER_LOGIN') {
           this.clearPage();
           this.isLogined = true;
           const mainPage = new MainPage(App.socket, this.login);
@@ -105,7 +105,7 @@ class App {
             this.logout();
           });
           // console.log(this.login, this.password);
-        } else {
+        } else if (message.type === 'ERROR') {
           const errorMessage = message.payload.error;
           App.errorWindow = new PopUpWindow(errorMessage);
           // console.log(message)
