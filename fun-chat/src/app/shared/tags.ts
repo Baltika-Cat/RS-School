@@ -89,3 +89,21 @@ export function aTag(className: string, parent: HTMLElement, link: string, text:
 
   return linkNew;
 }
+
+export function ul(className: string, parent: HTMLDivElement) {
+  const list = document.createElement('ul');
+  list.classList.add(className);
+  parent.append(list);
+
+  return list;
+}
+
+export function li(className: string, parent: HTMLUListElement, user: string) {
+  const listItem = document.createElement('li');
+  listItem.classList.add(className);
+  pTag('active-user-name', listItem, user);
+  div('unread-messages-count', listItem);
+  parent.append(listItem);
+
+  return listItem;
+}
