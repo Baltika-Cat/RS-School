@@ -80,21 +80,33 @@ export default class MainPage {
   addNewActiveUser(event: MessageEvent) {
     const message = JSON.parse(event.data);
     if (message.type === 'USER_EXTERNAL_LOGIN') {
-      li('active-user', this.activeUsers, message.payload.user.login);
+      const userName = message.payload.user.login;
+      const users = [...document.querySelectorAll('.inactive-user')];
+      const inactiveUser = users.find((user) => user.textContent === userName);
+      // console.log(inactiveUser);
+      if (inactiveUser) {
+        inactiveUser.classList.remove('inactive-user');
+        inactiveUser.classList.add('active-user');
+        this.activeUsers.append(inactiveUser);
+      } else {
+        li('active-user', this.activeUsers, userName);
+      }
     }
   }
 
-  getActiveUsers() {
-    const request = new GetUsersRequest('USER_ACTIVE');
+  getUsers(requestType: 'USER_ACTIVE' | 'USER_INACTIVE') {
+    const request = new GetUsersRequest(requestType);
     this.socket.send(JSON.stringify(request));
     this.socket.addEventListener('message', (event) => {
       const message = JSON.parse(event.data);
-      if (message.type === 'USER_ACTIVE') {
+      if (message.type === requestType) {
+        const userClass = requestType === 'USER_ACTIVE' ? 'active-user' : 'inactive-user';
+        const userArea = requestType === 'USER_ACTIVE' ? this.activeUsers : this.inactiveUsers;
         // console.log(message)
         const { users } = message.payload;
         for (let i = 0; i < users.length; i += 1) {
           if (users[i].login !== this.userLogin) {
-            li('active-user', this.activeUsers, users[i].login);
+            li(userClass, userArea, users[i].login);
           }
         }
       }
