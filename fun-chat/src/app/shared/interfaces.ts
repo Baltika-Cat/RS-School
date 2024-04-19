@@ -26,6 +26,19 @@ export interface UserLogined {
   isLogined: boolean;
 }
 
+export interface Message {
+  id: string;
+  from: string;
+  to: string;
+  text: string;
+  datetime: number;
+  status: {
+    isDelivered: boolean;
+    isReaded: boolean;
+    isEdited: boolean;
+  };
+}
+
 /* export interface LogoutOptions {
   socket: WebSocket;
   login: string;
