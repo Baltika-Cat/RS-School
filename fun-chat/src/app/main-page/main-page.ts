@@ -78,12 +78,28 @@ export default class MainPage {
     this.schoolLink.append(this.schoolLogo);
     this.socket = socket;
     this.socket.addEventListener('message', (e) => {
+      const message = JSON.parse(e.data);
       this.addNewActiveUser(e);
       this.makeUserInactive(e);
+      if (message.type === 'USER_ACTIVE' || message.type === 'USER_INACTIVE') {
+        this.getUsers(e);
+      }
     });
     this.usersSearch.addEventListener('input', () => {
       this.searchUsers();
     });
+    /* this.logoutButton.addEventListener('click', () => {
+      console.log('inctive', this.inactiveUsers.childNodes)
+      // console.log(activeUsers);
+      this.activeUsers.childNodes.forEach((item) => {
+        this.activeUsers.removeChild(item);
+      }); 
+      console.log(this.inactiveUsers);
+      while(this.inactiveUsers.lastChild) {
+        this.inactiveUsers.removeChild(this.inactiveUsers.lastChild);
+      }
+      console.log(this.inactiveUsers)
+    }) */
   }
 
   searchUsers() {
@@ -146,21 +162,35 @@ export default class MainPage {
     }
   }
 
-  getUsers(requestType: 'USER_ACTIVE' | 'USER_INACTIVE') {
+  sendGetUsersRequest(requestType: 'USER_ACTIVE' | 'USER_INACTIVE') {
+    // console.log('getusers');
     const request = new GetUsersRequest(requestType);
     this.socket.send(JSON.stringify(request));
-    this.socket.addEventListener('message', (event) => {
+    /* this.socket.addEventListener('message', (event) => {
       const message = JSON.parse(event.data);
       if (message.type === requestType) {
         const userClass = requestType === 'USER_ACTIVE' ? 'active-user' : 'inactive-user';
         const userArea = requestType === 'USER_ACTIVE' ? this.activeUsers : this.inactiveUsers;
-        // console.log(message)
+        console.log(message)
         const { users } = message.payload;
         for (let i = 0; i < users.length; i += 1) {
           if (users[i].login !== this.userLogin) {
             li(userClass, userArea, users[i].login);
           }
         }
+      }
+    }); */
+  }
+
+  getUsers(event: MessageEvent) {
+    const message = JSON.parse(event.data);
+    const userClass = message.type === 'USER_ACTIVE' ? 'active-user' : 'inactive-user';
+    const userArea = message.type === 'USER_ACTIVE' ? this.activeUsers : this.inactiveUsers;
+    // console.log(message);
+    const { users } = message.payload;
+    users.forEach((user: UserLogined) => {
+      if (user.login !== this.userLogin) {
+        li(userClass, userArea, user.login);
       }
     });
   }

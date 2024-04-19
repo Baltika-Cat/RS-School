@@ -59,6 +59,17 @@ class App {
     this.toInformation();
     this.validateLogin();
     this.validatePassword();
+    App.socket.addEventListener('message', (e) => {
+      const message = JSON.parse(e.data);
+      if (message.type === 'USER_LOGIN') {
+        this.toMainPage();
+      } else if (message.type === 'USER_LOGOUT') {
+        this.toLoginPage();
+      } else if (message.type === 'ERROR') {
+        const errorMessage = message.payload.error;
+        App.errorWindow = new PopUpWindow(errorMessage);
+      }
+    });
 
     /* App.socket.addEventListener('message', (event) => {
       if (event.data.type === 'USER_EXTERNAL_LOGIN') {
@@ -83,7 +94,7 @@ class App {
       this.password = passwordInput.value;
       this.authorize();
       // console.log(request);
-      App.socket.addEventListener('message', (e) => {
+      /* App.socket.addEventListener('message', (e) => {
         // console.log(e.data);
         const message = JSON.parse(e.data);
         if (message.type === 'USER_LOGIN') {
@@ -91,6 +102,7 @@ class App {
           this.isLogined = true;
           const mainPage = new MainPage(App.socket, this.login);
           this.main.append(mainPage.mainPageWrapper);
+          console.log('meow')
           mainPage.getUsers('USER_ACTIVE');
           mainPage.getUsers('USER_INACTIVE');
           this.prevPage = mainPage.mainPageWrapper;
@@ -103,8 +115,8 @@ class App {
             login: this.login,
             password: this.password,
           }; */
-          mainPage.logoutButton.addEventListener('click', () => {
-            this.logout();
+      /* mainPage.logoutButton.addEventListener('click', () => {
+            this.sendLogoutRequest();
           });
           // console.log(this.login, this.password);
         } else if (message.type === 'ERROR') {
@@ -112,8 +124,31 @@ class App {
           App.errorWindow = new PopUpWindow(errorMessage);
           // console.log(message)
         }
-      });
+      }); */
     });
+  }
+
+  toMainPage() {
+    this.clearPage();
+    this.isLogined = true;
+    const mainPage = new MainPage(App.socket, this.login);
+    this.main.append(mainPage.mainPageWrapper);
+    mainPage.sendGetUsersRequest('USER_ACTIVE');
+    mainPage.sendGetUsersRequest('USER_INACTIVE');
+    this.prevPage = mainPage.mainPageWrapper;
+    this.info = mainPage.infoButton;
+    // console.log(this.info)
+    this.toInformation();
+    // this.button = buttonTag('login-button', this.main, 'Log Out');
+    /* const logoutOptions = {
+      socket: App.socket,
+      login: this.login,
+      password: this.password,
+    }; */
+    mainPage.logoutButton.addEventListener('click', () => {
+      this.sendLogoutRequest();
+    });
+    // console.log(this.login, this.password);
   }
 
   disableButtonDueLogin() {
@@ -215,12 +250,12 @@ class App {
     });
   }
 
-  logout() {
+  sendLogoutRequest() {
     const request = new LogoutRequest(this.login, this.password);
     App.socket.send(JSON.stringify(request));
-    App.socket.addEventListener('message', (event) => {
+    /* App.socket.addEventListener('message', (event) => {
       const message = JSON.parse(event.data);
-      if (message.type !== 'ERROR') {
+      if (message.type === 'USER_LOGOUT') {
         this.clearPage();
         this.isLogined = false;
         this.main.append(formWrapper);
@@ -229,13 +264,15 @@ class App {
         // console.log(message);
       }
       // console.log(event.data);
-    });
+    }); */
   }
 
   toLoginPage() {
     this.clearPage();
     this.isLogined = false;
     this.main.append(formWrapper);
+    this.info = infoButton;
+    this.prevPage = formWrapper;
   }
 
   clearPage() {
