@@ -1,7 +1,8 @@
 import { div, buttonTag, input, form, pTag, aTag, ul, li } from '../shared/tags';
 import GetUsersRequest from '../shared/request-classes/get-users-request';
 import GetHistoryRequest from '../shared/request-classes/get-history-request';
-import { UserLogined } from '../shared/interfaces';
+import SendMessageRequest from '../shared/request-classes/send-message-request';
+import { UserLogined, Message } from '../shared/interfaces';
 import './main-page-style.css';
 import logo from '../shared/assets/rsschool.svg';
 
@@ -109,7 +110,7 @@ export default class MainPage {
       } else if (message.id === 'for-search') {
         this.searchUsers(e);
       } else if (message.type === 'MSG_FROM_USER') {
-        this.getHistory();
+        this.getHistory(message.payload.messages);
       }
     });
     this.usersSearch.addEventListener('input', () => {
@@ -126,6 +127,11 @@ export default class MainPage {
     });
     this.usersArea.addEventListener('click', (e) => {
       this.startChat(e);
+    });
+    this.sendMessageForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.sendMessageRequest(this.userInChatName, this.messageInput.value);
+      this.messageInput.value = '';
     });
   }
 
@@ -217,9 +223,16 @@ export default class MainPage {
     this.socket.send(JSON.stringify(request));
   }
 
-  getHistory(messages: string[]) {
+  getHistory(messages: Message[]) {
     messages.forEach((message) => {
-      pTag('message-wrapper', this.oldMessages, message);
+      // console.log(message)
+      pTag('message-wrapper', this.oldMessages, message.text);
     });
+    this.messageHistory.append(this.oldMessages);
+  }
+
+  sendMessageRequest(recipient: string, message: string) {
+    const request = new SendMessageRequest(recipient, message);
+    this.socket.send(JSON.stringify(request));
   }
 }
