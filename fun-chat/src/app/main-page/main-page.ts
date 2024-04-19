@@ -42,6 +42,10 @@ export default class MainPage {
 
   messageHistory = div('message-history', this.chatWrapper);
 
+  oldMessages = div('old-messages-wrapper', this.messageHistory);
+
+  newMessages = div('new-messages-wrapper', this.messageHistory);
+
   sendMessageForm = form('send-message-form', this.chatWrapper, 'message-form');
 
   messageInputOptions = {
@@ -72,6 +76,8 @@ export default class MainPage {
   inactiveUsersRequest = new GetUsersRequest('for-search', 'USER_INACTIVE');
 
   constructor(socket: WebSocket, user: string) {
+    this.sendButton.classList.add('disabled');
+    this.messageHistory.textContent = 'Выберите пользователя для отправки сообщения';
     this.userLogin = user;
     this.userName.textContent = `User: ${user}`;
     this.schoolLogo.src = logo;
@@ -80,9 +86,11 @@ export default class MainPage {
     this.socket.addEventListener('message', (e) => {
       const message = JSON.parse(e.data);
       // console.log(message)
-      this.addNewActiveUser(e);
-      this.makeUserInactive(e);
-      if (message.id === 'for-login') {
+      if (message.type === 'USER_EXTERNAL_LOGIN') {
+        this.addNewActiveUser(message.payload.user.login);
+      } else if (message.type === 'USER_EXTERNAL_LOGOUT') {
+        this.makeUserInactive(message.payload.user.login);
+      } else if (message.id === 'for-login') {
         this.getUsers(e);
       } else if (message.id === 'for-search') {
         this.searchUsers(e);
@@ -93,44 +101,18 @@ export default class MainPage {
       this.inactiveUsers.innerHTML = '';
       this.sendSearchUsersRequst();
     });
-    /* this.logoutButton.addEventListener('click', () => {
-      console.log('inctive', this.inactiveUsers.childNodes)
-      // console.log(activeUsers);
-      this.activeUsers.childNodes.forEach((item) => {
-        this.activeUsers.removeChild(item);
-      }); 
-      console.log(this.inactiveUsers);
-      while(this.inactiveUsers.lastChild) {
-        this.inactiveUsers.removeChild(this.inactiveUsers.lastChild);
+    this.messageInput.addEventListener('input', () => {
+      if (this.messageInput.value) {
+        this.sendButton.classList.remove('disabled');
+      } else {
+        this.sendButton.classList.add('disabled');
       }
-      console.log(this.inactiveUsers)
-    }) */
+    });
   }
 
   sendSearchUsersRequst() {
     this.socket.send(JSON.stringify(this.activeUsersRequest));
     this.socket.send(JSON.stringify(this.inactiveUsersRequest));
-    /* this.socket.addEventListener('message', (e) => {
-      const message = JSON.parse(e.data);
-      if (message.id === 'for-search') {
-        if (message.type === 'USER_ACTIVE') {
-          const users = message.payload.users.filter((user: UserLogined) => user.login.includes(this.usersSearch.value));
-          // console.log(users);
-          users.forEach((user: UserLogined) => {
-            if (user.login !== this.userLogin) {
-              li('active-user', this.activeUsers, user.login);
-            }
-          });
-        }
-        if (message.type === 'USER_INACTIVE') {
-          const users = message.payload.users.filter((user: UserLogined) => user.login.includes(this.usersSearch.value));
-          // console.log(users);
-          users.forEach((user: UserLogined) => {
-            li('inactive-user', this.inactiveUsers, user.login);
-          });
-        }
-      }
-    }); */
   }
 
   searchUsers(event: MessageEvent) {
@@ -145,70 +127,43 @@ export default class MainPage {
     }
     if (message.type === 'USER_INACTIVE') {
       const users = message.payload.users.filter((user: UserLogined) => user.login.includes(this.usersSearch.value));
-      // console.log(users);
-      // console.log(inactiveUsers);
       users.forEach((user: UserLogined) => {
-        // console.log(user)
         li('inactive-user', this.inactiveUsers, user.login);
       });
     }
   }
 
-  addNewActiveUser(event: MessageEvent) {
-    const message = JSON.parse(event.data);
-    if (message.type === 'USER_EXTERNAL_LOGIN') {
-      const userName = message.payload.user.login;
-      if (userName.includes(this.usersSearch.value)) {
-        const users = [...document.querySelectorAll('.inactive-user')];
-        const inactiveUser = users.find((user) => user.textContent === userName);
-        if (inactiveUser) {
-          inactiveUser.classList.remove('inactive-user');
-          inactiveUser.classList.add('active-user');
-          this.activeUsers.append(inactiveUser);
-        } else {
-          li('active-user', this.activeUsers, userName);
-        }
+  addNewActiveUser(login: string) {
+    if (login.includes(this.usersSearch.value)) {
+      const users = [...document.querySelectorAll('.inactive-user')];
+      const inactiveUser = users.find((user) => user.textContent === login);
+      if (inactiveUser) {
+        inactiveUser.classList.remove('inactive-user');
+        inactiveUser.classList.add('active-user');
+        this.activeUsers.append(inactiveUser);
+      } else {
+        li('active-user', this.activeUsers, login);
       }
     }
   }
 
-  makeUserInactive(event: MessageEvent) {
-    const message = JSON.parse(event.data);
-    if (message.type === 'USER_EXTERNAL_LOGOUT') {
-      const userName = message.payload.user.login;
-      const users = [...document.querySelectorAll('.active-user')];
-      const activeUser = users.filter((user) => user.textContent === userName)[0];
-      activeUser.classList.remove('active-user');
-      activeUser.classList.add('inactive-user');
-      this.inactiveUsers.append(activeUser);
-    }
+  makeUserInactive(login: string) {
+    const users = [...document.querySelectorAll('.active-user')];
+    const activeUser = users.filter((user) => user.textContent === login)[0];
+    activeUser.classList.remove('active-user');
+    activeUser.classList.add('inactive-user');
+    this.inactiveUsers.append(activeUser);
   }
 
   sendGetUsersRequest(requestType: 'USER_ACTIVE' | 'USER_INACTIVE') {
-    // console.log('getusers');
     const request = new GetUsersRequest('for-login', requestType);
     this.socket.send(JSON.stringify(request));
-    /* this.socket.addEventListener('message', (event) => {
-      const message = JSON.parse(event.data);
-      if (message.type === requestType) {
-        const userClass = requestType === 'USER_ACTIVE' ? 'active-user' : 'inactive-user';
-        const userArea = requestType === 'USER_ACTIVE' ? this.activeUsers : this.inactiveUsers;
-        console.log(message)
-        const { users } = message.payload;
-        for (let i = 0; i < users.length; i += 1) {
-          if (users[i].login !== this.userLogin) {
-            li(userClass, userArea, users[i].login);
-          }
-        }
-      }
-    }); */
   }
 
   getUsers(event: MessageEvent) {
     const message = JSON.parse(event.data);
     const userClass = message.type === 'USER_ACTIVE' ? 'active-user' : 'inactive-user';
     const userArea = message.type === 'USER_ACTIVE' ? this.activeUsers : this.inactiveUsers;
-    // console.log(message);
     const { users } = message.payload;
     users.forEach((user: UserLogined) => {
       if (user.login !== this.userLogin) {
@@ -216,23 +171,4 @@ export default class MainPage {
       }
     });
   }
-  /* toMainPage() {
-    return this.mainPageWrapper;
-  } */
-
-  /* logout(options: LogoutOptions): boolean {
-    let canLogout = false;
-    this.logoutButton.addEventListener('click', () => {
-      const request = new LogoutRequest(options.login, options.password);
-      options.socket.send(JSON.stringify(request));
-      options.socket.addEventListener('message', (event) => {
-        const message = JSON.parse(event.data);
-        if (message.type !== 'ERROR') {
-          canLogout = true;
-          // console.log(message);
-        }
-      });
-    });
-    return canLogout;
-  } */
 }
