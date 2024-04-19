@@ -111,6 +111,10 @@ export default class MainPage {
         this.searchUsers(e);
       } else if (message.type === 'MSG_FROM_USER') {
         this.getHistory(message.payload.messages);
+      } else if (message.type === 'MSG_SEND') {
+        if (message.id) {
+          this.sendMessage(message.payload.message);
+        }
       }
     });
     this.usersSearch.addEventListener('input', () => {
@@ -224,15 +228,32 @@ export default class MainPage {
   }
 
   getHistory(messages: Message[]) {
-    messages.forEach((message) => {
-      // console.log(message)
-      pTag('message-wrapper', this.oldMessages, message.text);
-    });
-    this.messageHistory.append(this.oldMessages);
+    if (messages.length) {
+      this.messageHistory.innerHTML = '';
+      this.oldMessages.innerHTML = '';
+      messages.forEach((message) => {
+        // console.log(message)
+        let messageWrapper;
+        if (message.from === this.userLogin) {
+          messageWrapper = div('sent-message', this.oldMessages);
+        } else {
+          messageWrapper = div('recieved-message', this.oldMessages);
+        }
+        pTag('message-text', messageWrapper, message.text);
+      });
+      this.messageHistory.append(this.oldMessages);
+      this.messageHistory.scrollTop = this.messageHistory.scrollHeight;
+    }
   }
 
   sendMessageRequest(recipient: string, message: string) {
     const request = new SendMessageRequest(recipient, message);
     this.socket.send(JSON.stringify(request));
+  }
+
+  sendMessage(messageData: Message) {
+    const messageWrapper = div('sent-message', this.oldMessages);
+    pTag('message-text', messageWrapper, messageData.text);
+    this.messageHistory.scrollTop = this.messageHistory.scrollHeight;
   }
 }

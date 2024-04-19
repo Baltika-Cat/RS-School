@@ -69,10 +69,11 @@
   border-radius: 15px;
   width: 32%;
   padding: 10px;
+  overflow: auto;
 }
 
 .users-search {
-  width: 95%;
+  width: calc(100% - 30px);
   border-radius: 5px;
   padding: 5px;
   margin: 5px 0;
@@ -83,7 +84,7 @@
   flex-direction: column;
   justify-content: start;
   align-items: start;
-  width: 100%;
+  width: calc(100% - 20px);
 }
 
 .active-user,
@@ -97,6 +98,7 @@
 }
 
 .active-user-name {
+  overflow: hidden;
   cursor: pointer;
 }
 
@@ -148,6 +150,30 @@
   border-top: 2px #000 solid;
   border-bottom: 2px #000 solid;
   font-size: 24px;
+  overflow: auto;
+}
+
+.old-messages-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: end;
+}
+
+.sent-message,
+.recieved-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border: 2px #000 solid;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 6px;
+}
+
+.recieved-message {
+  align-self: start;
 }
 
 .send-message-form {

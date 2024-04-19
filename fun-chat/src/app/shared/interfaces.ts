@@ -27,7 +27,7 @@ export interface UserLogined {
 }
 
 export interface Message {
-  id: string;
+  id: string | null;
   from: string;
   to: string;
   text: string;
