@@ -1,5 +1,6 @@
 import { div, buttonTag, input, form, pTag, aTag, ul, li } from '../shared/tags';
 import GetUsersRequest from '../shared/request-classes/get-users-request';
+import { UserLogined } from '../shared/interfaces';
 import './main-page-style.css';
 import logo from '../shared/assets/rsschool.svg';
 
@@ -66,6 +67,10 @@ export default class MainPage {
 
   userLogin: string;
 
+  activeUsersRequest = new GetUsersRequest('USER_ACTIVE');
+
+  inactiveUsersRequest = new GetUsersRequest('USER_INACTIVE');
+
   constructor(socket: WebSocket, user: string) {
     this.userLogin = user;
     this.userName.textContent = `User: ${user}`;
@@ -75,6 +80,41 @@ export default class MainPage {
     this.socket.addEventListener('message', (e) => {
       this.addNewActiveUser(e);
       this.makeUserInactive(e);
+    });
+    this.usersSearch.addEventListener('input', () => {
+      this.searchUsers();
+    });
+  }
+
+  searchUsers() {
+    const activeUsers = this.activeUsers.childNodes;
+    // console.log(activeUsers);
+    activeUsers.forEach((item) => {
+      item.remove();
+    });
+    const inactiveUsers = this.inactiveUsers.childNodes;
+    // console.log(inactiveUsers);
+    inactiveUsers.forEach((item) => {
+      item.remove();
+    });
+    this.socket.send(JSON.stringify(this.activeUsersRequest));
+    this.socket.send(JSON.stringify(this.inactiveUsersRequest));
+    this.socket.addEventListener('message', (e) => {
+      const message = JSON.parse(e.data);
+      if (message.type === 'USER_ACTIVE') {
+        const users = message.payload.users.filter((user: UserLogined) => user.login.includes(this.usersSearch.value));
+        // console.log(users);
+        users.forEach((user: UserLogined) => {
+          li('active-user', this.activeUsers, user.login);
+        });
+      }
+      if (message.type === 'USER_INACTIVE') {
+        const users = message.payload.users.filter((user: UserLogined) => user.login.includes(this.usersSearch.value));
+        // console.log(users);
+        users.forEach((user: UserLogined) => {
+          li('inactive-user', this.inactiveUsers, user.login);
+        });
+      }
     });
   }
 

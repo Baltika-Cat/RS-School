@@ -21,6 +21,11 @@ export interface InputOptions {
   labelText?: string;
 }
 
+export interface UserLogined {
+  login: string;
+  isLogined: boolean;
+}
+
 /* export interface LogoutOptions {
   socket: WebSocket;
   login: string;
