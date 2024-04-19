@@ -1,11 +1,12 @@
 export default class GetUsersRequest {
-  id = 'get-users';
+  id: string;
 
   type: string;
 
   payload = null;
 
-  constructor(type: 'USER_ACTIVE' | 'USER_INACTIVE') {
+  constructor(id: 'for-login' | 'for-search', type: 'USER_ACTIVE' | 'USER_INACTIVE') {
     this.type = type;
+    this.id = id;
   }
 }

@@ -67,9 +67,9 @@ export default class MainPage {
 
   userLogin: string;
 
-  activeUsersRequest = new GetUsersRequest('USER_ACTIVE');
+  activeUsersRequest = new GetUsersRequest('for-search', 'USER_ACTIVE');
 
-  inactiveUsersRequest = new GetUsersRequest('USER_INACTIVE');
+  inactiveUsersRequest = new GetUsersRequest('for-search', 'USER_INACTIVE');
 
   constructor(socket: WebSocket, user: string) {
     this.userLogin = user;
@@ -79,14 +79,19 @@ export default class MainPage {
     this.socket = socket;
     this.socket.addEventListener('message', (e) => {
       const message = JSON.parse(e.data);
+      // console.log(message)
       this.addNewActiveUser(e);
       this.makeUserInactive(e);
-      if (message.type === 'USER_ACTIVE' || message.type === 'USER_INACTIVE') {
+      if (message.id === 'for-login') {
         this.getUsers(e);
+      } else if (message.id === 'for-search') {
+        this.searchUsers(e);
       }
     });
     this.usersSearch.addEventListener('input', () => {
-      this.searchUsers();
+      this.activeUsers.innerHTML = '';
+      this.inactiveUsers.innerHTML = '';
+      this.sendSearchUsersRequst();
     });
     /* this.logoutButton.addEventListener('click', () => {
       console.log('inctive', this.inactiveUsers.childNodes)
@@ -102,50 +107,67 @@ export default class MainPage {
     }) */
   }
 
-  searchUsers() {
-    const activeUsers = this.activeUsers.childNodes;
-    // console.log(activeUsers);
-    activeUsers.forEach((item) => {
-      item.remove();
-    });
-    const inactiveUsers = this.inactiveUsers.childNodes;
-    // console.log(inactiveUsers);
-    inactiveUsers.forEach((item) => {
-      item.remove();
-    });
+  sendSearchUsersRequst() {
     this.socket.send(JSON.stringify(this.activeUsersRequest));
     this.socket.send(JSON.stringify(this.inactiveUsersRequest));
-    this.socket.addEventListener('message', (e) => {
+    /* this.socket.addEventListener('message', (e) => {
       const message = JSON.parse(e.data);
-      if (message.type === 'USER_ACTIVE') {
-        const users = message.payload.users.filter((user: UserLogined) => user.login.includes(this.usersSearch.value));
-        // console.log(users);
-        users.forEach((user: UserLogined) => {
+      if (message.id === 'for-search') {
+        if (message.type === 'USER_ACTIVE') {
+          const users = message.payload.users.filter((user: UserLogined) => user.login.includes(this.usersSearch.value));
+          // console.log(users);
+          users.forEach((user: UserLogined) => {
+            if (user.login !== this.userLogin) {
+              li('active-user', this.activeUsers, user.login);
+            }
+          });
+        }
+        if (message.type === 'USER_INACTIVE') {
+          const users = message.payload.users.filter((user: UserLogined) => user.login.includes(this.usersSearch.value));
+          // console.log(users);
+          users.forEach((user: UserLogined) => {
+            li('inactive-user', this.inactiveUsers, user.login);
+          });
+        }
+      }
+    }); */
+  }
+
+  searchUsers(event: MessageEvent) {
+    const message = JSON.parse(event.data);
+    if (message.type === 'USER_ACTIVE') {
+      const users = message.payload.users.filter((user: UserLogined) => user.login.includes(this.usersSearch.value));
+      users.forEach((user: UserLogined) => {
+        if (user.login !== this.userLogin) {
           li('active-user', this.activeUsers, user.login);
-        });
-      }
-      if (message.type === 'USER_INACTIVE') {
-        const users = message.payload.users.filter((user: UserLogined) => user.login.includes(this.usersSearch.value));
-        // console.log(users);
-        users.forEach((user: UserLogined) => {
-          li('inactive-user', this.inactiveUsers, user.login);
-        });
-      }
-    });
+        }
+      });
+    }
+    if (message.type === 'USER_INACTIVE') {
+      const users = message.payload.users.filter((user: UserLogined) => user.login.includes(this.usersSearch.value));
+      // console.log(users);
+      // console.log(inactiveUsers);
+      users.forEach((user: UserLogined) => {
+        // console.log(user)
+        li('inactive-user', this.inactiveUsers, user.login);
+      });
+    }
   }
 
   addNewActiveUser(event: MessageEvent) {
     const message = JSON.parse(event.data);
     if (message.type === 'USER_EXTERNAL_LOGIN') {
       const userName = message.payload.user.login;
-      const users = [...document.querySelectorAll('.inactive-user')];
-      const inactiveUser = users.find((user) => user.textContent === userName);
-      if (inactiveUser) {
-        inactiveUser.classList.remove('inactive-user');
-        inactiveUser.classList.add('active-user');
-        this.activeUsers.append(inactiveUser);
-      } else {
-        li('active-user', this.activeUsers, userName);
+      if (userName.includes(this.usersSearch.value)) {
+        const users = [...document.querySelectorAll('.inactive-user')];
+        const inactiveUser = users.find((user) => user.textContent === userName);
+        if (inactiveUser) {
+          inactiveUser.classList.remove('inactive-user');
+          inactiveUser.classList.add('active-user');
+          this.activeUsers.append(inactiveUser);
+        } else {
+          li('active-user', this.activeUsers, userName);
+        }
       }
     }
   }
@@ -164,7 +186,7 @@ export default class MainPage {
 
   sendGetUsersRequest(requestType: 'USER_ACTIVE' | 'USER_INACTIVE') {
     // console.log('getusers');
-    const request = new GetUsersRequest(requestType);
+    const request = new GetUsersRequest('for-login', requestType);
     this.socket.send(JSON.stringify(request));
     /* this.socket.addEventListener('message', (event) => {
       const message = JSON.parse(event.data);
