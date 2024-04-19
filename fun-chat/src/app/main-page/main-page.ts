@@ -1,5 +1,6 @@
 import { div, buttonTag, input, form, pTag, aTag, ul, li } from '../shared/tags';
 import GetUsersRequest from '../shared/request-classes/get-users-request';
+import GetHistoryRequest from '../shared/request-classes/get-history-request';
 import { UserLogined } from '../shared/interfaces';
 import './main-page-style.css';
 import logo from '../shared/assets/rsschool.svg';
@@ -40,11 +41,17 @@ export default class MainPage {
 
   chatWrapper = div('chat-area', this.mainArea);
 
+  userInfo = div('user-info', this.chatWrapper);
+
+  userInfoName = pTag('user-info-name', this.userInfo, '');
+
+  userInfoStatus = pTag('user-info-name', this.userInfo, '');
+
   messageHistory = div('message-history', this.chatWrapper);
 
-  oldMessages = div('old-messages-wrapper', this.messageHistory);
+  oldMessages: HTMLDivElement;
 
-  newMessages = div('new-messages-wrapper', this.messageHistory);
+  newMessages: HTMLDivElement;
 
   sendMessageForm = form('send-message-form', this.chatWrapper, 'message-form');
 
@@ -75,9 +82,16 @@ export default class MainPage {
 
   inactiveUsersRequest = new GetUsersRequest('for-search', 'USER_INACTIVE');
 
+  userInChatName = '';
+
+  userInChatStatus = '';
+
   constructor(socket: WebSocket, user: string) {
     this.sendButton.classList.add('disabled');
+    this.messageInput.classList.add('disabled');
     this.messageHistory.textContent = 'Выберите пользователя для отправки сообщения';
+    this.oldMessages = div('old-messages-wrapper', this.messageHistory);
+    this.newMessages = div('new-messages-wrapper', this.messageHistory);
     this.userLogin = user;
     this.userName.textContent = `User: ${user}`;
     this.schoolLogo.src = logo;
@@ -94,6 +108,8 @@ export default class MainPage {
         this.getUsers(e);
       } else if (message.id === 'for-search') {
         this.searchUsers(e);
+      } else if (message.type === 'MSG_FROM_USER') {
+        this.getHistory();
       }
     });
     this.usersSearch.addEventListener('input', () => {
@@ -107,6 +123,9 @@ export default class MainPage {
       } else {
         this.sendButton.classList.add('disabled');
       }
+    });
+    this.usersArea.addEventListener('click', (e) => {
+      this.startChat(e);
     });
   }
 
@@ -141,6 +160,10 @@ export default class MainPage {
         inactiveUser.classList.remove('inactive-user');
         inactiveUser.classList.add('active-user');
         this.activeUsers.append(inactiveUser);
+        if (this.userInChatName === inactiveUser.textContent) {
+          this.userInChatStatus = 'В сети';
+          this.userInfoStatus.textContent = this.userInChatStatus;
+        }
       } else {
         li('active-user', this.activeUsers, login);
       }
@@ -153,6 +176,10 @@ export default class MainPage {
     activeUser.classList.remove('active-user');
     activeUser.classList.add('inactive-user');
     this.inactiveUsers.append(activeUser);
+    if (this.userInChatName === activeUser.textContent) {
+      this.userInChatStatus = 'Не в сети';
+      this.userInfoStatus.textContent = this.userInChatStatus;
+    }
   }
 
   sendGetUsersRequest(requestType: 'USER_ACTIVE' | 'USER_INACTIVE') {
@@ -169,6 +196,30 @@ export default class MainPage {
       if (user.login !== this.userLogin) {
         li(userClass, userArea, user.login);
       }
+    });
+  }
+
+  startChat(event: Event) {
+    const { target } = event;
+    // console.log(target)
+    this.messageInput.classList.remove('disabled');
+    if (target instanceof HTMLElement && target.tagName.toLowerCase() === 'p') {
+      this.userInChatName = target.textContent ? target.textContent : '';
+      const parent = target.parentElement;
+      if (parent) {
+        this.userInChatStatus = parent.classList.contains('active-user') ? 'В сети' : 'Не в сети';
+        this.userInfoName.textContent = this.userInChatName;
+        this.userInfoStatus.textContent = this.userInChatStatus;
+      }
+    }
+    this.messageHistory.textContent = 'Начните диалог с этим пользователем';
+    const request = new GetHistoryRequest(this.userInChatName);
+    this.socket.send(JSON.stringify(request));
+  }
+
+  getHistory(messages: string[]) {
+    messages.forEach((message) => {
+      pTag('message-wrapper', this.oldMessages, message);
     });
   }
 }
