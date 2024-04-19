@@ -74,6 +74,7 @@ export default class MainPage {
     this.socket = socket;
     this.socket.addEventListener('message', (e) => {
       this.addNewActiveUser(e);
+      this.makeUserInactive(e);
     });
   }
 
@@ -83,7 +84,6 @@ export default class MainPage {
       const userName = message.payload.user.login;
       const users = [...document.querySelectorAll('.inactive-user')];
       const inactiveUser = users.find((user) => user.textContent === userName);
-      // console.log(inactiveUser);
       if (inactiveUser) {
         inactiveUser.classList.remove('inactive-user');
         inactiveUser.classList.add('active-user');
@@ -91,6 +91,18 @@ export default class MainPage {
       } else {
         li('active-user', this.activeUsers, userName);
       }
+    }
+  }
+
+  makeUserInactive(event: MessageEvent) {
+    const message = JSON.parse(event.data);
+    if (message.type === 'USER_EXTERNAL_LOGOUT') {
+      const userName = message.payload.user.login;
+      const users = [...document.querySelectorAll('.active-user')];
+      const activeUser = users.filter((user) => user.textContent === userName)[0];
+      activeUser.classList.remove('active-user');
+      activeUser.classList.add('inactive-user');
+      this.inactiveUsers.append(activeUser);
     }
   }
 
