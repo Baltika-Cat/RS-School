@@ -88,7 +88,7 @@ export default class MainPage {
   userInChatStatus = '';
 
   constructor(socket: WebSocket, user: string) {
-    this.sendButton.classList.add('disabled');
+    this.lockSendButton();
     this.messageInput.classList.add('disabled');
     this.messageHistory.textContent = 'Выберите пользователя для отправки сообщения';
     this.oldMessages = div('old-messages-wrapper', this.messageHistory);
@@ -114,6 +114,8 @@ export default class MainPage {
       } else if (message.type === 'MSG_SEND') {
         if (message.id) {
           this.sendMessage(message.payload.message);
+        } else {
+          this.receiveMessage(message.payload.message);
         }
       }
     });
@@ -124,18 +126,20 @@ export default class MainPage {
     });
     this.messageInput.addEventListener('input', () => {
       if (this.messageInput.value) {
-        this.sendButton.classList.remove('disabled');
+        this.unlockSendButton();
       } else {
-        this.sendButton.classList.add('disabled');
+        this.lockSendButton();
       }
     });
     this.usersArea.addEventListener('click', (e) => {
       this.startChat(e);
+      this.lockSendButton();
     });
     this.sendMessageForm.addEventListener('submit', (e) => {
       e.preventDefault();
       this.sendMessageRequest(this.userInChatName, this.messageInput.value);
       this.messageInput.value = '';
+      this.lockSendButton();
     });
   }
 
@@ -237,7 +241,7 @@ export default class MainPage {
         if (message.from === this.userLogin) {
           messageWrapper = div('sent-message', this.oldMessages);
         } else {
-          messageWrapper = div('recieved-message', this.oldMessages);
+          messageWrapper = div('received-message', this.oldMessages);
         }
         pTag('message-text', messageWrapper, message.text);
       });
@@ -255,5 +259,26 @@ export default class MainPage {
     const messageWrapper = div('sent-message', this.oldMessages);
     pTag('message-text', messageWrapper, messageData.text);
     this.messageHistory.scrollTop = this.messageHistory.scrollHeight;
+  }
+
+  receiveMessage(messageData: Message) {
+    const messageWrapper = div('received-message');
+    pTag('message-text', messageWrapper, messageData.text);
+    if (messageData.from === this.userInChatName) {
+      this.oldMessages.append(messageWrapper);
+      this.messageHistory.scrollTop = this.messageHistory.scrollHeight;
+    } else {
+      this.newMessages.append(messageWrapper);
+    }
+  }
+
+  lockSendButton() {
+    this.sendButton.classList.add('disabled');
+    this.sendButton.disabled = true;
+  }
+
+  unlockSendButton() {
+    this.sendButton.classList.remove('disabled');
+    this.sendButton.disabled = false;
   }
 }
