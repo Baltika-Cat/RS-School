@@ -1,5 +1,5 @@
 export default class GetHistoryRequest {
-  id = 'get-history';
+  id: string;
 
   type = 'MSG_FROM_USER';
 
@@ -9,7 +9,8 @@ export default class GetHistoryRequest {
     },
   };
 
-  constructor(login: string) {
+  constructor(login: string, id: 'get-history-login' | 'get-history-click') {
     this.payload.user.login = login;
+    this.id = id;
   }
 }

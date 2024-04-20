@@ -113,15 +113,13 @@ export default class MainPage {
       } else if (message.id === 'for-search') {
         this.searchUsers(e);
       } else if (message.type === 'MSG_FROM_USER') {
-        this.showHistory(message.payload.messages);
+        this.getHistory(message.id, message.payload.messages);
       } else if (message.type === 'MSG_SEND') {
         if (message.id) {
           this.sendMessage(message.payload.message);
         } else {
           this.receiveMessage(message.payload.message);
         }
-      } else if (message.type === 'MSG_DELIVER') {
-        // console.log(message)
       }
     });
     this.usersSearch.addEventListener('input', () => {
@@ -214,12 +212,13 @@ export default class MainPage {
     users.forEach((user: UserLogined) => {
       if (user.login !== this.userLogin) {
         li(userClass, userArea, user.login);
+        this.sendGetHistoryRequest(user.login, 'get-history-login');
       }
     });
   }
 
-  sendGetHistoryRequest(userName: string) {
-    const request = new GetHistoryRequest(userName);
+  sendGetHistoryRequest(userName: string, id: 'get-history-login' | 'get-history-click') {
+    const request = new GetHistoryRequest(userName, id);
     this.socket.send(JSON.stringify(request));
   }
 
@@ -237,24 +236,58 @@ export default class MainPage {
       }
     }
     this.messageHistory.textContent = 'Начните диалог с этим пользователем';
-    this.sendGetHistoryRequest(this.userInChatName);
+    this.sendGetHistoryRequest(this.userInChatName, 'get-history-click');
+  }
+
+  addMessagesToNewChat() {
+    if (this.messageHistory.textContent) {
+      this.messageHistory.textContent = '';
+      this.messageHistory.append(this.oldMessages);
+    }
+  }
+
+  getHistory(id: 'get-history-login' | 'get-history-click', messages: Message[]): void {
+    if (id === 'get-history-login') {
+      if (messages.length) {
+        // console.log(messages)
+        const messagesFromInterlocuter = messages.filter((message) => message.from !== this.userLogin);
+        const unreadMessages = messagesFromInterlocuter.filter((message) => !message.status.isReaded);
+        if (unreadMessages.length) {
+          const userName = messages[0].from !== this.userLogin ? messages[0].from : messages[0].to;
+          // console.log(this.activeUsers.childNodes)
+          let userMessages = [...this.activeUsers.childNodes].filter((user) => user.textContent === userName)[0];
+          if (!userMessages) {
+            [userMessages] = [...this.inactiveUsers.childNodes].filter((user) => user.textContent === userName);
+            // console.log(userMessages, typeof userMessages)
+          }
+          const messageCount = userMessages.lastChild;
+          if (messageCount instanceof HTMLElement) {
+            messageCount.classList.add('messages-count');
+            messageCount.textContent = String(unreadMessages.length);
+          }
+        }
+        // console.log(activeUserMessages);
+        // console.log(inactiveUserMessages)
+      }
+    } else {
+      this.showHistory(messages);
+    }
   }
 
   showHistory(messages: Message[]) {
     if (messages.length) {
-      this.messageHistory.innerHTML = '';
       this.oldMessages.innerHTML = '';
       messages.forEach((message) => {
         // console.log(message)
         // let messageWrapper;
         if (message.from === this.userLogin) {
-          this.createMessage('sent-message', this.oldMessages, message);
+          MainPage.createMessage('sent-message', this.oldMessages, message);
         } else {
-          this.createMessage('received-message', this.oldMessages, message);
+          MainPage.createMessage('received-message', this.oldMessages, message);
         }
         // pTag('message-text', messageWrapper, message.text);
       });
-      this.messageHistory.append(this.oldMessages);
+      this.addMessagesToNewChat();
       this.messageHistory.scrollTop = this.messageHistory.scrollHeight;
     }
   }
@@ -267,7 +300,8 @@ export default class MainPage {
   sendMessage(messageData: Message) {
     // const messageWrapper = div('sent-message', this.oldMessages);
     // pTag('message-text', messageWrapper, messageData.text);
-    this.createMessage('sent-message', this.oldMessages, messageData);
+    MainPage.createMessage('sent-message', this.oldMessages, messageData);
+    this.addMessagesToNewChat();
     this.messageHistory.scrollTop = this.messageHistory.scrollHeight;
   }
 
@@ -278,10 +312,11 @@ export default class MainPage {
     if (messageData.from === this.userInChatName) {
       // this.createMessage('received-message', this.oldMessages, messageData);
       // this.oldMessages.append(messageWrapper);
-      this.createMessage('received-message', this.oldMessages, messageData);
+      MainPage.createMessage('received-message', this.oldMessages, messageData);
+      this.addMessagesToNewChat();
       this.messageHistory.scrollTop = this.messageHistory.scrollHeight;
     } else {
-      this.createMessage('received-message', this.newMessages, messageData);
+      MainPage.createMessage('received-message', this.newMessages, messageData);
     }
   }
 
@@ -306,7 +341,7 @@ export default class MainPage {
     return `${date}.${month}.${year}, ${hours}:${minutes}`;
   }
 
-  createMessage(className: 'received-message' | 'sent-message', parent: HTMLDivElement, message: Message) {
+  static createMessage(className: 'received-message' | 'sent-message', parent: HTMLDivElement, message: Message) {
     const messageWrapper = div(className);
     const nameAndDateWrapper = div('name-date', messageWrapper);
     const senderName = className === 'received-message' ? message.from : 'Вы';
@@ -314,14 +349,22 @@ export default class MainPage {
     pTag('sender', nameAndDateWrapper, senderName);
     pTag('date', nameAndDateWrapper, date);
     pTag('message-text', messageWrapper, message.text);
+    const editedStatus = message.status.isEdited ? 'Изменено' : '';
     const messageStatusWrapper = div('message-status', messageWrapper);
     if (className === 'sent-message') {
-      pTag('message-edited', messageStatusWrapper, ' ');
-      const messageDelivered = this.userInChatStatus === 'В сети' ? 'Доставлено' : 'Отправлено';
+      pTag('message-edited', messageStatusWrapper, editedStatus);
+      let messageDelivered;
+      if (message.status.isReaded) {
+        messageDelivered = 'Прочитано';
+      } else if (message.status.isDelivered) {
+        messageDelivered = 'Доставлено';
+      } else {
+        messageDelivered = 'Отправлено';
+      }
       pTag('message-delivered', messageStatusWrapper, messageDelivered);
     } else {
-      pTag('message-edited', messageStatusWrapper, ' ');
-      pTag('message-delivered', messageStatusWrapper, ' ');
+      pTag('message-edited', messageStatusWrapper, editedStatus);
+      pTag('message-delivered', messageStatusWrapper, '');
     }
 
     parent.append(messageWrapper);
