@@ -237,13 +237,13 @@ export default class MainPage {
       this.oldMessages.innerHTML = '';
       messages.forEach((message) => {
         // console.log(message)
-        let messageWrapper;
+        // let messageWrapper;
         if (message.from === this.userLogin) {
-          messageWrapper = div('sent-message', this.oldMessages);
+          this.createMessage('sent-message', this.oldMessages, message);
         } else {
-          messageWrapper = div('received-message', this.oldMessages);
+          this.createMessage('received-message', this.oldMessages, message);
         }
-        pTag('message-text', messageWrapper, message.text);
+        // pTag('message-text', messageWrapper, message.text);
       });
       this.messageHistory.append(this.oldMessages);
       this.messageHistory.scrollTop = this.messageHistory.scrollHeight;
@@ -256,19 +256,23 @@ export default class MainPage {
   }
 
   sendMessage(messageData: Message) {
-    const messageWrapper = div('sent-message', this.oldMessages);
-    pTag('message-text', messageWrapper, messageData.text);
+    // const messageWrapper = div('sent-message', this.oldMessages);
+    // pTag('message-text', messageWrapper, messageData.text);
+    this.createMessage('sent-message', this.oldMessages, messageData);
     this.messageHistory.scrollTop = this.messageHistory.scrollHeight;
   }
 
   receiveMessage(messageData: Message) {
-    const messageWrapper = div('received-message');
-    pTag('message-text', messageWrapper, messageData.text);
+    // console.log(messageData)
+    // const messageWrapper = div('received-message');
+    // pTag('message-text', messageWrapper, messageData.text);
     if (messageData.from === this.userInChatName) {
-      this.oldMessages.append(messageWrapper);
+      // this.createMessage('received-message', this.oldMessages, messageData);
+      // this.oldMessages.append(messageWrapper);
+      this.createMessage('received-message', this.oldMessages, messageData);
       this.messageHistory.scrollTop = this.messageHistory.scrollHeight;
     } else {
-      this.newMessages.append(messageWrapper);
+      this.createMessage('received-message', this.newMessages, messageData);
     }
   }
 
@@ -280,5 +284,37 @@ export default class MainPage {
   unlockSendButton() {
     this.sendButton.classList.remove('disabled');
     this.sendButton.disabled = false;
+  }
+
+  static dateFormatter(dateTime: number): string {
+    const messageDate = new Date(dateTime);
+    const date = messageDate.getDate();
+    const month = messageDate.getMonth() + 1;
+    const year = messageDate.getFullYear();
+    const hours = String(messageDate.getHours()).padStart(2, '0');
+    const minutes = String(messageDate.getMinutes()).padStart(2, '0');
+
+    return `${date}.${month}.${year}, ${hours}:${minutes}`;
+  }
+
+  createMessage(className: 'received-message' | 'sent-message', parent: HTMLDivElement, message: Message) {
+    const messageWrapper = div(className);
+    const nameAndDateWrapper = div('name-date', messageWrapper);
+    const senderName = className === 'received-message' ? message.from : 'Вы';
+    const date = MainPage.dateFormatter(message.datetime);
+    pTag('sender', nameAndDateWrapper, senderName);
+    pTag('date', nameAndDateWrapper, date);
+    pTag('message-text', messageWrapper, message.text);
+    const messageStatusWrapper = div('message-status', messageWrapper);
+    if (className === 'sent-message') {
+      pTag('message-edited', messageStatusWrapper, '');
+      const messageDelivered = this.userInChatStatus === 'В сети' ? 'Доставлено' : 'Отправлено';
+      pTag('message-delivered', messageStatusWrapper, messageDelivered);
+    } else {
+      pTag('message-edited', messageStatusWrapper, '');
+      pTag('message-delivered', messageStatusWrapper, '');
+    }
+
+    parent.append(messageWrapper);
   }
 }
