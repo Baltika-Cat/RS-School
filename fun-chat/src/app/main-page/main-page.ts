@@ -307,12 +307,12 @@ export default class MainPage {
     pTag('message-text', messageWrapper, message.text);
     const messageStatusWrapper = div('message-status', messageWrapper);
     if (className === 'sent-message') {
-      pTag('message-edited', messageStatusWrapper, '');
+      pTag('message-edited', messageStatusWrapper, ' ');
       const messageDelivered = this.userInChatStatus === 'В сети' ? 'Доставлено' : 'Отправлено';
       pTag('message-delivered', messageStatusWrapper, messageDelivered);
     } else {
-      pTag('message-edited', messageStatusWrapper, '');
-      pTag('message-delivered', messageStatusWrapper, '');
+      pTag('message-edited', messageStatusWrapper, ' ');
+      pTag('message-delivered', messageStatusWrapper, ' ');
     }
 
     parent.append(messageWrapper);
