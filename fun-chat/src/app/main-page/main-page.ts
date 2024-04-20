@@ -103,6 +103,9 @@ export default class MainPage {
       // console.log(message)
       if (message.type === 'USER_EXTERNAL_LOGIN') {
         this.addNewActiveUser(message.payload.user.login);
+        if (message.payload.user.login === this.userInChatName) {
+          this.startChat(e);
+        }
       } else if (message.type === 'USER_EXTERNAL_LOGOUT') {
         this.makeUserInactive(message.payload.user.login);
       } else if (message.id === 'for-login') {
@@ -110,13 +113,15 @@ export default class MainPage {
       } else if (message.id === 'for-search') {
         this.searchUsers(e);
       } else if (message.type === 'MSG_FROM_USER') {
-        this.getHistory(message.payload.messages);
+        this.showHistory(message.payload.messages);
       } else if (message.type === 'MSG_SEND') {
         if (message.id) {
           this.sendMessage(message.payload.message);
         } else {
           this.receiveMessage(message.payload.message);
         }
+      } else if (message.type === 'MSG_DELIVER') {
+        // console.log(message)
       }
     });
     this.usersSearch.addEventListener('input', () => {
@@ -213,6 +218,11 @@ export default class MainPage {
     });
   }
 
+  sendGetHistoryRequest(userName: string) {
+    const request = new GetHistoryRequest(userName);
+    this.socket.send(JSON.stringify(request));
+  }
+
   startChat(event: Event) {
     const { target } = event;
     // console.log(target)
@@ -227,11 +237,10 @@ export default class MainPage {
       }
     }
     this.messageHistory.textContent = 'Начните диалог с этим пользователем';
-    const request = new GetHistoryRequest(this.userInChatName);
-    this.socket.send(JSON.stringify(request));
+    this.sendGetHistoryRequest(this.userInChatName);
   }
 
-  getHistory(messages: Message[]) {
+  showHistory(messages: Message[]) {
     if (messages.length) {
       this.messageHistory.innerHTML = '';
       this.oldMessages.innerHTML = '';
