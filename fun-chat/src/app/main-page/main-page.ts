@@ -147,6 +147,13 @@ export default class MainPage {
       this.sendMessageRequest(this.userInChatName, this.messageInput.value);
       this.messageInput.value = '';
       this.lockSendButton();
+      this.readNewMessages();
+    });
+    this.messageHistory.addEventListener('click', () => {
+      this.readNewMessages();
+    });
+    this.messageHistory.addEventListener('scroll', () => {
+      this.readNewMessages();
     });
   }
 
@@ -304,11 +311,7 @@ export default class MainPage {
           MainPage.createMessage('sent-message', this.messagesWrapper, message);
         } else {
           if (!message.status.isReaded && !this.hasNewMessagesLine) {
-            const line = document.createElement('div');
-            line.id = 'line';
-            line.textContent = 'Новые сообщения';
-            this.messagesWrapper.append(line);
-            this.hasNewMessagesLine = true;
+            this.createDividingLine();
           }
           MainPage.createMessage('received-message', this.messagesWrapper, message);
         }
@@ -360,12 +363,26 @@ export default class MainPage {
     if (messageData.from === this.userInChatName) {
       // this.createMessage('received-message', this.oldMessages, messageData);
       // this.oldMessages.append(messageWrapper);
-      MainPage.createMessage('received-message', this.messagesWrapper, messageData);
-      this.addMessagesToNewChat();
-      this.messageHistory.scrollTop = this.messageHistory.scrollHeight;
-    } else {
-      // MainPage.createMessage('received-message', this.messagesWrapper, messageData);
+      const line = document.querySelector('#line');
+      if (!line) {
+        this.createDividingLine();
+        MainPage.createMessage('received-message', this.messagesWrapper, messageData);
+        this.addMessagesToNewChat();
+        this.messageHistory.scrollTop = this.messageHistory.scrollHeight;
+      } else {
+        MainPage.createMessage('received-message', this.messagesWrapper, messageData);
+        this.addMessagesToNewChat();
+        window.location.hash = '#line';
+      }
     }
+  }
+
+  createDividingLine() {
+    const line = document.createElement('div');
+    line.id = 'line';
+    line.textContent = 'Новые сообщения';
+    this.messagesWrapper.append(line);
+    this.hasNewMessagesLine = true;
   }
 
   lockSendButton() {
@@ -381,7 +398,7 @@ export default class MainPage {
   static dateFormatter(dateTime: number): string {
     const messageDate = new Date(dateTime);
     const date = messageDate.getDate();
-    const month = messageDate.getMonth() + 1;
+    const month = String(messageDate.getMonth() + 1).padStart(2, '0');
     const year = messageDate.getFullYear();
     const hours = String(messageDate.getHours()).padStart(2, '0');
     const minutes = String(messageDate.getMinutes()).padStart(2, '0');
@@ -425,15 +442,17 @@ export default class MainPage {
 
   readNewMessages() {
     const line = document.querySelector('#line');
-    line?.remove();
-    this.hasNewMessagesLine = false;
-    const selectedUser = [...document.querySelectorAll('.active-user-name')].filter(
-      (user) => user.textContent === this.userInChatName,
-    )[0];
-    const messagesCount = selectedUser?.nextSibling;
-    if (messagesCount instanceof HTMLDivElement) {
-      messagesCount.classList.remove('messages-count');
-      messagesCount.textContent = '';
+    if (line) {
+      line.remove();
+      this.hasNewMessagesLine = false;
+      const selectedUser = [...document.querySelectorAll('.active-user-name')].filter(
+        (user) => user.textContent === this.userInChatName,
+      )[0];
+      const messagesCount = selectedUser?.nextSibling;
+      if (messagesCount instanceof HTMLDivElement) {
+        messagesCount.classList.remove('messages-count');
+        messagesCount.textContent = '';
+      }
     }
   }
 
