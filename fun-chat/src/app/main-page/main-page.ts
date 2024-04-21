@@ -2,6 +2,7 @@ import { div, buttonTag, input, form, pTag, aTag, ul, li } from '../shared/tags'
 import GetUsersRequest from '../shared/request-classes/get-users-request';
 import GetHistoryRequest from '../shared/request-classes/get-history-request';
 import SendMessageRequest from '../shared/request-classes/send-message-request';
+import ReadMessageRequest from '../shared/request-classes/read-message-request';
 import { UserLogined, Message } from '../shared/interfaces';
 import './main-page-style.css';
 import logo from '../shared/assets/rsschool.svg';
@@ -276,10 +277,10 @@ export default class MainPage {
             // console.log(userMessages, typeof userMessages)
           } */
           // console.log(userMessages);
-          const messageCount = userMessages?.nextSibling;
-          if (messageCount instanceof HTMLElement) {
-            messageCount.classList.add('messages-count');
-            messageCount.textContent = String(unreadMessages.length);
+          const messagesCount = userMessages?.nextSibling;
+          if (messagesCount instanceof HTMLElement) {
+            messagesCount.classList.add('messages-count');
+            messagesCount.textContent = String(unreadMessages.length);
           }
         }
         // console.log(activeUserMessages);
@@ -399,5 +400,23 @@ export default class MainPage {
     }
 
     parent.append(messageWrapper);
+  }
+
+  sendReadingMessageRequest(id: string) {
+    const request = new ReadMessageRequest(id);
+    this.socket.send(JSON.stringify(request));
+  }
+
+  readNewMessages() {
+    const line = document.querySelector('#line');
+    line?.remove();
+    this.hasNewMessagesLine = false;
+    const selectedUser = [...document.querySelectorAll('.active-user-name')].filter(
+      (user) => user.textContent === this.userInChatName,
+    )[0];
+    const messagesCount = selectedUser?.nextSibling;
+    if (messagesCount instanceof HTMLDivElement) {
+      messagesCount.classList.remove('messages-count');
+    }
   }
 }
