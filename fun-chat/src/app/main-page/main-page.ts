@@ -50,9 +50,9 @@ export default class MainPage {
 
   messageHistory = div('message-history', this.chatWrapper);
 
-  oldMessages: HTMLDivElement;
+  messagesWrapper: HTMLDivElement;
 
-  newMessages: HTMLDivElement;
+  // newMessages: HTMLDivElement;
 
   sendMessageForm = form('send-message-form', this.chatWrapper, 'message-form');
 
@@ -91,8 +91,8 @@ export default class MainPage {
     this.lockSendButton();
     this.messageInput.classList.add('disabled');
     this.messageHistory.textContent = 'Выберите пользователя для отправки сообщения';
-    this.oldMessages = div('old-messages-wrapper', this.messageHistory);
-    this.newMessages = div('new-messages-wrapper', this.messageHistory);
+    this.messagesWrapper = div('old-messages-wrapper', this.messageHistory);
+    // this.newMessages = div('new-messages-wrapper', this.messageHistory);
     this.userLogin = user;
     this.userName.textContent = `User: ${user}`;
     this.schoolLogo.src = logo;
@@ -171,12 +171,16 @@ export default class MainPage {
 
   addNewActiveUser(login: string) {
     if (login.includes(this.usersSearch.value)) {
-      const users = [...document.querySelectorAll('.inactive-user')];
+      const users = [...document.querySelectorAll('.inactive-user p')];
+      /* users.forEach((user) => { //Потом убрать
+        console.log(user.textContent)
+      }) */
       const inactiveUser = users.find((user) => user.textContent === login);
-      if (inactiveUser) {
-        inactiveUser.classList.remove('inactive-user');
-        inactiveUser.classList.add('active-user');
-        this.activeUsers.append(inactiveUser);
+      if (inactiveUser?.parentElement) {
+        // console.log(inactiveUser, inactiveUser.parentElement)
+        inactiveUser.parentElement.classList.remove('inactive-user');
+        inactiveUser.parentElement.classList.add('active-user');
+        this.activeUsers.append(inactiveUser.parentElement);
         if (this.userInChatName === inactiveUser.textContent) {
           this.userInChatStatus = 'В сети';
           this.userInfoStatus.textContent = this.userInChatStatus;
@@ -190,6 +194,7 @@ export default class MainPage {
   makeUserInactive(login: string) {
     const users = [...document.querySelectorAll('.active-user')];
     const activeUser = users.filter((user) => user.textContent === login)[0];
+    // console.log(activeUser)
     activeUser.classList.remove('active-user');
     activeUser.classList.add('inactive-user');
     this.inactiveUsers.append(activeUser);
@@ -242,7 +247,7 @@ export default class MainPage {
   addMessagesToNewChat() {
     if (this.messageHistory.textContent) {
       this.messageHistory.textContent = '';
-      this.messageHistory.append(this.oldMessages);
+      this.messageHistory.append(this.messagesWrapper);
     }
   }
 
@@ -260,6 +265,7 @@ export default class MainPage {
             [userMessages] = [...this.inactiveUsers.childNodes].filter((user) => user.textContent === userName);
             // console.log(userMessages, typeof userMessages)
           }
+          // console.log(userMessages);
           const messageCount = userMessages.lastChild;
           if (messageCount instanceof HTMLElement) {
             messageCount.classList.add('messages-count');
@@ -275,15 +281,25 @@ export default class MainPage {
   }
 
   showHistory(messages: Message[]) {
+    // console.log(true)
+    /* const oldLine = document.querySelector('#line');
+    oldLine?.remove(); */
     if (messages.length) {
-      this.oldMessages.innerHTML = '';
+      this.messagesWrapper.innerHTML = '';
       messages.forEach((message) => {
         // console.log(message)
         // let messageWrapper;
         if (message.from === this.userLogin) {
-          MainPage.createMessage('sent-message', this.oldMessages, message);
+          MainPage.createMessage('sent-message', this.messagesWrapper, message);
         } else {
-          MainPage.createMessage('received-message', this.oldMessages, message);
+          let line = document.querySelector('#line');
+          if (!message.status.isReaded && !line) {
+            line = document.createElement('div');
+            line.id = 'line';
+            line.textContent = 'Новые сообщения';
+            this.messagesWrapper.append(line);
+          }
+          MainPage.createMessage('received-message', this.messagesWrapper, message);
         }
         // pTag('message-text', messageWrapper, message.text);
       });
@@ -300,7 +316,7 @@ export default class MainPage {
   sendMessage(messageData: Message) {
     // const messageWrapper = div('sent-message', this.oldMessages);
     // pTag('message-text', messageWrapper, messageData.text);
-    MainPage.createMessage('sent-message', this.oldMessages, messageData);
+    MainPage.createMessage('sent-message', this.messagesWrapper, messageData);
     this.addMessagesToNewChat();
     this.messageHistory.scrollTop = this.messageHistory.scrollHeight;
   }
@@ -312,11 +328,11 @@ export default class MainPage {
     if (messageData.from === this.userInChatName) {
       // this.createMessage('received-message', this.oldMessages, messageData);
       // this.oldMessages.append(messageWrapper);
-      MainPage.createMessage('received-message', this.oldMessages, messageData);
+      MainPage.createMessage('received-message', this.messagesWrapper, messageData);
       this.addMessagesToNewChat();
       this.messageHistory.scrollTop = this.messageHistory.scrollHeight;
     } else {
-      MainPage.createMessage('received-message', this.newMessages, messageData);
+      MainPage.createMessage('received-message', this.messagesWrapper, messageData);
     }
   }
 
