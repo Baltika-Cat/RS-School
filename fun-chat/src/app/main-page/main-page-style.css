@@ -156,11 +156,11 @@
 }
 
 .message-history {
+  height: 85%;
   display: flex;
   flex-direction: column;
   text-align: center;
-  justify-content: center;
-  height: 85%;
+  justify-content: space-around;
   border-top: 2px #000 solid;
   border-bottom: 2px #000 solid;
   font-size: 24px;
@@ -172,6 +172,8 @@
   flex-direction: column;
   justify-content: end;
   align-items: end;
+  position: relative;
+  z-index: 10;
 }
 
 #line {
@@ -193,10 +195,12 @@
     background-color: #000;
     position: relative;
 }
+
 #line:before {
     margin-left: -100%;
     left: -14px;
 }
+
 #line:after {
     margin-right: -100%;
     right: -14px;

@@ -315,6 +315,7 @@ export default class MainPage {
         // pTag('message-text', messageWrapper, message.text);
       });
       this.addMessagesToNewChat();
+      this.hasNewMessagesLine = false;
       const line = document.querySelector('#line');
       if (line) {
         window.location.href = '#line';
