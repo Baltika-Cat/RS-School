@@ -107,6 +107,7 @@ export default class MainPage {
           this.startChat(e);
         }
       } else if (message.type === 'USER_EXTERNAL_LOGOUT') {
+        // console.log(message);
         this.makeUserInactive(message.payload.user.login);
       } else if (message.id === 'for-login') {
         this.getUsers(e);
@@ -158,6 +159,7 @@ export default class MainPage {
       users.forEach((user: UserLogined) => {
         if (user.login !== this.userLogin) {
           li('active-user', this.activeUsers, user.login);
+          // console.log('users', us);
         }
       });
     }
@@ -192,15 +194,19 @@ export default class MainPage {
   }
 
   makeUserInactive(login: string) {
-    const users = [...document.querySelectorAll('.active-user')];
+    const users = [...document.querySelectorAll('.active-user p')];
+    // console.log(users);
     const activeUser = users.filter((user) => user.textContent === login)[0];
-    // console.log(activeUser)
-    activeUser.classList.remove('active-user');
-    activeUser.classList.add('inactive-user');
-    this.inactiveUsers.append(activeUser);
-    if (this.userInChatName === activeUser.textContent) {
-      this.userInChatStatus = 'Не в сети';
-      this.userInfoStatus.textContent = this.userInChatStatus;
+    // console.log(activeUser);
+    if (activeUser?.parentElement) {
+      // console.log(activeUser, activeUser.parentElement);
+      activeUser.parentElement.classList.remove('active-user');
+      activeUser.parentElement.classList.add('inactive-user');
+      this.inactiveUsers.append(activeUser.parentElement);
+      if (this.userInChatName === activeUser.textContent) {
+        this.userInChatStatus = 'Не в сети';
+        this.userInfoStatus.textContent = this.userInChatStatus;
+      }
     }
   }
 
@@ -239,9 +245,9 @@ export default class MainPage {
         this.userInfoName.textContent = this.userInChatName;
         this.userInfoStatus.textContent = this.userInChatStatus;
       }
+      this.messageHistory.textContent = 'Начните диалог с этим пользователем';
+      this.sendGetHistoryRequest(this.userInChatName, 'get-history-click');
     }
-    this.messageHistory.textContent = 'Начните диалог с этим пользователем';
-    this.sendGetHistoryRequest(this.userInChatName, 'get-history-click');
   }
 
   addMessagesToNewChat() {
@@ -260,13 +266,15 @@ export default class MainPage {
         if (unreadMessages.length) {
           const userName = messages[0].from !== this.userLogin ? messages[0].from : messages[0].to;
           // console.log(this.activeUsers.childNodes)
-          let userMessages = [...this.activeUsers.childNodes].filter((user) => user.textContent === userName)[0];
+          const userMessages = [...document.querySelectorAll('.active-user-name')].filter(
+            (user) => user.textContent === userName,
+          )[0]; /* [...this.activeUsers.childNodes].filter((user) => user.textContent === userName)[0];
           if (!userMessages) {
             [userMessages] = [...this.inactiveUsers.childNodes].filter((user) => user.textContent === userName);
             // console.log(userMessages, typeof userMessages)
-          }
+          } */
           // console.log(userMessages);
-          const messageCount = userMessages.lastChild;
+          const messageCount = userMessages?.nextSibling;
           if (messageCount instanceof HTMLElement) {
             messageCount.classList.add('messages-count');
             messageCount.textContent = String(unreadMessages.length);
@@ -332,7 +340,7 @@ export default class MainPage {
       this.addMessagesToNewChat();
       this.messageHistory.scrollTop = this.messageHistory.scrollHeight;
     } else {
-      MainPage.createMessage('received-message', this.messagesWrapper, messageData);
+      // MainPage.createMessage('received-message', this.messagesWrapper, messageData);
     }
   }
 
