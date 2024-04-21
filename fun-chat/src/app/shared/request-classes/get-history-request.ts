@@ -1,3 +1,5 @@
+import { historyEvent } from '../interfaces';
+
 export default class GetHistoryRequest {
   id: string;
 
@@ -9,7 +11,7 @@ export default class GetHistoryRequest {
     },
   };
 
-  constructor(login: string, id: 'get-history-login' | 'get-history-click') {
+  constructor(login: string, id: historyEvent) {
     this.payload.user.login = login;
     this.id = id;
   }

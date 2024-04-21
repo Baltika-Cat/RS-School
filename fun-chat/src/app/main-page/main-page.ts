@@ -124,12 +124,16 @@ export default class MainPage {
         } else {
           this.receiveMessage(message.payload.message);
         }
+      } else if (message.type === 'MSG_READ') {
+        if (!message.id) {
+          MainPage.changeStatusToRead(message.payload.message.id);
+        }
       }
     });
     this.usersSearch.addEventListener('input', () => {
       this.activeUsers.innerHTML = '';
       this.inactiveUsers.innerHTML = '';
-      this.sendSearchUsersRequst();
+      this.sendSearchUsersRequest();
     });
     this.messageInput.addEventListener('input', () => {
       if (this.messageInput.value) {
@@ -147,17 +151,20 @@ export default class MainPage {
       this.sendMessageRequest(this.userInChatName, this.messageInput.value);
       this.messageInput.value = '';
       this.lockSendButton();
+      this.getNewMessages();
       this.readNewMessages();
     });
     this.messageHistory.addEventListener('click', () => {
+      this.getNewMessages();
       this.readNewMessages();
     });
     this.messageHistory.addEventListener('scroll', () => {
+      this.getNewMessages();
       this.readNewMessages();
     });
   }
 
-  sendSearchUsersRequst() {
+  sendSearchUsersRequest() {
     this.socket.send(JSON.stringify(this.activeUsersRequest));
     this.socket.send(JSON.stringify(this.inactiveUsersRequest));
   }
@@ -408,6 +415,9 @@ export default class MainPage {
 
   static createMessage(className: 'received-message' | 'sent-message', parent: HTMLDivElement, message: Message) {
     const messageWrapper = div(className);
+    if (message.id) {
+      messageWrapper.setAttribute('data-id', message.id);
+    }
     const nameAndDateWrapper = div('name-date', messageWrapper);
     const senderName = className === 'received-message' ? message.from : 'Вы';
     const date = MainPage.dateFormatter(message.datetime);
@@ -456,10 +466,31 @@ export default class MainPage {
     }
   }
 
-  /* changeStatusToRead() {
-    const unreadStatuses = [...document.querySelectorAll('.message-delivered')].filter(
-      (status) => status.textContent !== 'Прочитано',
-    );
-    unreadStatuses.map((status) => (status.textContent = 'Прочитано'));
+  static changeStatusToRead(id: string) {
+    const messages = [...document.querySelectorAll('.sent-message')];
+    const targetMessage = messages.filter((message) => message.getAttribute('data-id') === id)[0];
+    if (targetMessage) {
+      const messageStatus = targetMessage.querySelector('.message-delivered');
+      if (messageStatus) {
+        messageStatus.textContent = 'Прочитано';
+      }
+    }
+  }
+
+  getNewMessages() {
+    const line = document.querySelector('#line');
+    if (line) {
+      const newMessages = [...document.querySelectorAll('#line ~ .received-message')];
+      const newMessagesId = newMessages.map((message) => message.getAttribute('data-id'));
+      newMessagesId.forEach((messageId) => {
+        if (messageId) {
+          this.sendReadingMessageRequest(messageId);
+        }
+      });
+    }
+  }
+
+  /* searchMessageById(id: string) {
+
   } */
 }
