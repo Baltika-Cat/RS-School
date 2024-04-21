@@ -97,12 +97,19 @@ export default class MainPage {
     this.messagesWrapper = div('old-messages-wrapper', this.messageHistory);
     // this.newMessages = div('new-messages-wrapper', this.messageHistory);
     this.userLogin = user;
+    // console.log(this.userLogin);
     this.userName.textContent = `User: ${user}`;
     this.schoolLogo.src = logo;
     this.schoolLink.append(this.schoolLogo);
     this.socket = socket;
     this.socket.addEventListener('message', (e) => {
       const message = JSON.parse(e.data);
+      if (this.userLogin === '') {
+        return;
+      }
+      if (message.type === 'USER_LOGOUT') {
+        this.userLogin = '';
+      }
       // console.log(message)
       if (message.type === 'USER_EXTERNAL_LOGIN') {
         this.addNewActiveUser(message.payload.user.login);
@@ -117,6 +124,7 @@ export default class MainPage {
       } else if (message.id === 'for-search') {
         this.searchUsers(e);
       } else if (message.type === 'MSG_FROM_USER') {
+        // console.log(message.payload.message);
         this.getHistory(message.id, message.payload.messages);
       } else if (message.type === 'MSG_SEND') {
         if (message.id) {
