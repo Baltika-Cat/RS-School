@@ -87,6 +87,8 @@ export default class MainPage {
 
   userInChatStatus = '';
 
+  hasNewMessagesLine = false;
+
   constructor(socket: WebSocket, user: string) {
     this.lockSendButton();
     this.messageInput.classList.add('disabled');
@@ -236,8 +238,8 @@ export default class MainPage {
   startChat(event: Event) {
     const { target } = event;
     // console.log(target)
-    this.messageInput.classList.remove('disabled');
     if (target instanceof HTMLElement && target.tagName.toLowerCase() === 'p') {
+      this.messageInput.classList.remove('disabled');
       this.userInChatName = target.textContent ? target.textContent : '';
       const parent = target.parentElement;
       if (parent) {
@@ -300,19 +302,24 @@ export default class MainPage {
         if (message.from === this.userLogin) {
           MainPage.createMessage('sent-message', this.messagesWrapper, message);
         } else {
-          let line = document.querySelector('#line');
-          if (!message.status.isReaded && !line) {
-            line = document.createElement('div');
+          if (!message.status.isReaded && !this.hasNewMessagesLine) {
+            const line = document.createElement('div');
             line.id = 'line';
             line.textContent = 'Новые сообщения';
             this.messagesWrapper.append(line);
+            this.hasNewMessagesLine = true;
           }
           MainPage.createMessage('received-message', this.messagesWrapper, message);
         }
         // pTag('message-text', messageWrapper, message.text);
       });
       this.addMessagesToNewChat();
-      this.messageHistory.scrollTop = this.messageHistory.scrollHeight;
+      const line = document.querySelector('#line');
+      if (line) {
+        window.location.href = '#line';
+      } else {
+        this.messageHistory.scrollTop = this.messageHistory.scrollHeight;
+      }
     }
   }
 

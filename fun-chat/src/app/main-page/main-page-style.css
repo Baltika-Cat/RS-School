@@ -177,7 +177,10 @@
 #line {
   display: flex;
   align-self: center;
-  width: 90%;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+  overflow: hidden;
 }
 
 #line:before,
@@ -185,7 +188,7 @@
     content: "";
     display: inline-block;
     vertical-align: middle;
-    width: 100%;
+    width: 50%;
     height: 3px;
     background-color: #000;
     position: relative;
