@@ -339,6 +339,21 @@ export default class MainPage {
   }
 
   receiveMessage(messageData: Message) {
+    const user = [...document.querySelectorAll('.active-user-name')].filter(
+      (currentUser) => currentUser.textContent === messageData.from,
+    )[0];
+    // console.log(user)
+    if (user instanceof HTMLElement) {
+      const sibling = user.nextSibling;
+      if (sibling instanceof HTMLDivElement) {
+        if (sibling.classList.contains('messages-count')) {
+          sibling.textContent = sibling.textContent ? String(Number(sibling.textContent) + 1) : '';
+        } else {
+          sibling.classList.add('messages-count');
+          sibling.textContent = '1';
+        }
+      }
+    }
     // console.log(messageData)
     // const messageWrapper = div('received-message');
     // pTag('message-text', messageWrapper, messageData.text);
@@ -418,6 +433,14 @@ export default class MainPage {
     const messagesCount = selectedUser?.nextSibling;
     if (messagesCount instanceof HTMLDivElement) {
       messagesCount.classList.remove('messages-count');
+      messagesCount.textContent = '';
     }
   }
+
+  /* changeStatusToRead() {
+    const unreadStatuses = [...document.querySelectorAll('.message-delivered')].filter(
+      (status) => status.textContent !== 'Прочитано',
+    );
+    unreadStatuses.map((status) => (status.textContent = 'Прочитано'));
+  } */
 }
