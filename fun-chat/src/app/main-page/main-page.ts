@@ -78,6 +78,12 @@ export default class MainPage {
 
   year = pTag('year', this.footer, '2024');
 
+  contextMenu = div('context-menu', this.messageHistory);
+
+  contextChange = div('context-change', this.contextMenu);
+
+  contextDelete = div('context-delete', this.contextMenu);
+
   userLogin: string;
 
   activeUsersRequest = new GetUsersRequest('for-search', 'USER_ACTIVE');
@@ -91,6 +97,9 @@ export default class MainPage {
   hasNewMessagesLine = false;
 
   constructor(socket: WebSocket, user: string) {
+    this.contextMenu.classList.add('invisible');
+    this.contextChange.textContent = 'Изменить';
+    this.contextDelete.textContent = 'Удалить';
     this.lockSendButton();
     this.messageInput.classList.add('disabled');
     this.messageHistory.textContent = 'Выберите пользователя для отправки сообщения';
@@ -173,6 +182,14 @@ export default class MainPage {
       // console.log('messageHistory is scrolled');
       this.getNewMessages();
       this.readNewMessages();
+    });
+    this.messageHistory.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      this.contextMenu.classList.add('invisible');
+      this.openContextMenu(e);
+    });
+    window.addEventListener('mouseup', () => {
+      this.contextMenu.classList.add('invisible');
     });
   }
 
@@ -503,6 +520,28 @@ export default class MainPage {
         }
       });
     }
+  }
+
+  openContextMenu(e: Event) {
+    const { target } = e;
+    let message;
+    if (target instanceof HTMLElement) {
+      if (target.classList.contains('sent-message')) {
+        message = target;
+      } else if (target.closest('.sent-message')) {
+        message = target.closest('.sent-message');
+      }
+    }
+    if (message) {
+      message.append(this.contextMenu);
+      this.contextMenu.classList.remove('invisible');
+      // console.log(message);
+    }
+    this.contextMenu.childNodes.forEach((child) => {
+      child.addEventListener('click', () => {
+        this.contextMenu.classList.add('invisible');
+      });
+    });
   }
 
   /* searchMessageById(id: string) {

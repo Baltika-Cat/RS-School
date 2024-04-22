@@ -225,6 +225,39 @@
   align-self: start;
 }
 
+.sent-message {
+  position: relative;
+}
+
+.context-menu {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: 2px #000 solid;
+  border-radius: 5px;
+  z-index: 10;
+  background-color: #fff;
+}
+
+.context-change,
+.context-delete {
+  cursor: pointer;
+  transition: .5s;
+}
+
+.context-change {
+  border-bottom: 1px #000 solid;
+}
+
+.context-change:hover,
+.context-delete:hover {
+  background-color: #aaa;
+  transition: .5s;
+}
+
 .name-date,
 .message-status {
   display: flex;
@@ -323,4 +356,8 @@ img {
 .year {
   width: 20%;
   text-align: end;
+}
+
+.invisible {
+  display: none;
 }
