@@ -154,7 +154,7 @@ export default class MainPage {
         }
       } else if (message.type === 'MSG_EDIT') {
         if (!message.id) {
-          this.changeRecipientMessage(message.payload.message.id, message.payload.message.text);
+          MainPage.changeRecipientMessage(message.payload.message.id, message.payload.message.text);
         }
       }
     });
