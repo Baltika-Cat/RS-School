@@ -130,9 +130,11 @@ export default class MainPage {
         if (message.id) {
           this.sendMessage(message.payload.message);
         } else {
+          // console.log(this.hasNewMessagesLine);
           this.receiveMessage(message.payload.message);
         }
       } else if (message.type === 'MSG_READ') {
+        // console.log('send');
         if (!message.id) {
           MainPage.changeStatusToRead(message.payload.message.id);
         }
@@ -163,10 +165,12 @@ export default class MainPage {
       this.readNewMessages();
     });
     this.messageHistory.addEventListener('click', () => {
+      // console.log('messageHistory is clicked');
       this.getNewMessages();
       this.readNewMessages();
     });
-    this.messageHistory.addEventListener('scroll', () => {
+    this.messageHistory.addEventListener('wheel', () => {
+      // console.log('messageHistory is scrolled');
       this.getNewMessages();
       this.readNewMessages();
     });
@@ -380,14 +384,16 @@ export default class MainPage {
       // this.oldMessages.append(messageWrapper);
       const line = document.querySelector('#line');
       if (!line) {
+        // console.log(true);
         this.createDividingLine();
         MainPage.createMessage('received-message', this.messagesWrapper, messageData);
         this.addMessagesToNewChat();
         this.messageHistory.scrollTop = this.messageHistory.scrollHeight;
       } else {
+        // console.log(line);
         MainPage.createMessage('received-message', this.messagesWrapper, messageData);
         this.addMessagesToNewChat();
-        window.location.hash = '#line';
+        window.location.href = '#line';
       }
     }
   }
@@ -398,6 +404,7 @@ export default class MainPage {
     line.textContent = 'Новые сообщения';
     this.messagesWrapper.append(line);
     this.hasNewMessagesLine = true;
+    // console.log('line is created');
   }
 
   lockSendButton() {
