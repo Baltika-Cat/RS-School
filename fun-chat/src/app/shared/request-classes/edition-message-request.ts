@@ -1,4 +1,4 @@
-export default class EditedMessage {
+export default class EditedMessageRequest {
   id = 'edit-message';
 
   type = 'MSG_EDIT';

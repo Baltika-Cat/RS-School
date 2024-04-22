@@ -3,6 +3,7 @@ import GetUsersRequest from '../shared/request-classes/get-users-request';
 import GetHistoryRequest from '../shared/request-classes/get-history-request';
 import SendMessageRequest from '../shared/request-classes/send-message-request';
 import ReadMessageRequest from '../shared/request-classes/read-message-request';
+import EditedMessageRequest from '../shared/request-classes/edition-message-request';
 import { UserLogined, Message } from '../shared/interfaces';
 import './main-page-style.css';
 import logo from '../shared/assets/rsschool.svg';
@@ -96,6 +97,10 @@ export default class MainPage {
 
   hasNewMessagesLine = false;
 
+  changingMessage = false;
+
+  messageForChanging = document.createElement('div');
+
   constructor(socket: WebSocket, user: string) {
     this.contextMenu.classList.add('invisible');
     this.contextChange.textContent = 'Изменить';
@@ -147,6 +152,10 @@ export default class MainPage {
         if (!message.id) {
           MainPage.changeStatusToRead(message.payload.message.id);
         }
+      } else if (message.type === 'MSG_EDIT') {
+        if (!message.id) {
+          this.changeRecipientMessage(message.payload.message.id, message.payload.message.text);
+        }
       }
     });
     this.usersSearch.addEventListener('input', () => {
@@ -167,11 +176,15 @@ export default class MainPage {
     });
     this.sendMessageForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      this.sendMessageRequest(this.userInChatName, this.messageInput.value);
-      this.messageInput.value = '';
-      this.lockSendButton();
-      this.getNewMessages();
-      this.readNewMessages();
+      if (!this.changingMessage) {
+        this.sendMessageRequest(this.userInChatName, this.messageInput.value);
+        this.messageInput.value = '';
+        this.lockSendButton();
+        this.getNewMessages();
+        this.readNewMessages();
+      } else {
+        this.changeMessage();
+      }
     });
     this.messageHistory.addEventListener('click', () => {
       // console.log('messageHistory is clicked');
@@ -522,8 +535,8 @@ export default class MainPage {
     }
   }
 
-  openContextMenu(e: Event) {
-    const { target } = e;
+  openContextMenu(event: Event) {
+    const { target } = event;
     let message;
     if (target instanceof HTMLElement) {
       if (target.classList.contains('sent-message')) {
@@ -532,19 +545,81 @@ export default class MainPage {
         message = target.closest('.sent-message');
       }
     }
-    if (message) {
-      message.append(this.contextMenu);
+    // console.log(message)
+    if (message instanceof HTMLDivElement) {
+      this.messageForChanging = message;
+      this.messageForChanging.append(this.contextMenu);
       this.contextMenu.classList.remove('invisible');
       // console.log(message);
-    }
-    this.contextMenu.childNodes.forEach((child) => {
-      child.addEventListener('click', () => {
-        this.contextMenu.classList.add('invisible');
+      this.contextMenu.childNodes.forEach((child) => {
+        child.addEventListener('click', () => {
+          this.contextMenu.classList.add('invisible');
+          if (child.textContent === 'Изменить') {
+            this.changeSenderMessage();
+          } else if (child.textContent === 'Удалить') {
+            // this.deleteMessage();
+          }
+        });
       });
-    });
+    }
   }
 
-  /* searchMessageById(id: string) {
+  changeSenderMessage() {
+    this.changingMessage = true;
+    const messageText = this.messageForChanging.querySelector('.message-text');
+    // console.log(messageText)
+    if (messageText) {
+      this.messageInput.value = messageText.textContent ?? '';
+      this.messageInput.focus();
+      // this.sendButton.classList.remove('disabled');
+    }
+  }
+
+  changeMessage() {
+    if (this.changingMessage) {
+      const messageText = this.messageForChanging.querySelector('.message-text');
+      if (messageText) {
+        if (messageText.textContent !== this.messageInput.value) {
+          // console.log(messageText)
+          messageText.textContent = this.messageInput.value;
+          const messageEdited = this.messageForChanging.querySelector('.message-edited');
+          if (messageEdited) {
+            messageEdited.textContent = 'Изменено';
+          }
+          const messageId = this.messageForChanging.getAttribute('data-id');
+          if (messageId) {
+            const request = new EditedMessageRequest(messageId, this.messageInput.value);
+            this.socket.send(JSON.stringify(request));
+          }
+        }
+      }
+    }
+    this.messageInput.value = '';
+    this.sendButton.classList.add('disabled');
+    this.changingMessage = false;
+    this.messageInput.blur();
+  }
+
+  static changeRecipientMessage(id: string, text: string) {
+    const messages = [...document.querySelectorAll('.received-message')];
+    const targetMessage = messages.filter((message) => message.getAttribute('data-id') === id)[0];
+    if (targetMessage) {
+      const messageStatus = targetMessage.querySelector('.message-edited');
+      if (messageStatus) {
+        messageStatus.textContent = 'Изменено';
+      }
+      const targetMessageText = targetMessage.querySelector('.message-text');
+      if (targetMessageText) {
+        targetMessageText.textContent = text;
+      }
+    }
+    const line = document.querySelector('#line');
+    if (line) {
+      window.location.href = '#line';
+    }
+  }
+
+  /* deleteMessage() {
 
   } */
 }
