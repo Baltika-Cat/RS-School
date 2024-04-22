@@ -198,6 +198,14 @@ export default class MainPage {
     window.addEventListener('mouseup', () => {
       this.contextMenu.classList.add('invisible');
     });
+    this.contextChange.addEventListener('click', () => {
+      this.contextMenu.classList.add('invisible');
+      this.changeSenderMessage();
+    });
+    this.contextDelete.addEventListener('click', () => {
+      this.contextMenu.classList.add('invisible');
+      this.deleteSenderMessage();
+    });
   }
 
   sendSearchUsersRequest() {
@@ -508,16 +516,6 @@ export default class MainPage {
       this.messageForChanging = message;
       this.messageForChanging.append(this.contextMenu);
       this.contextMenu.classList.remove('invisible');
-      this.contextMenu.childNodes.forEach((child) => {
-        child.addEventListener('click', () => {
-          this.contextMenu.classList.add('invisible');
-          if (child.textContent === 'Изменить') {
-            this.changeSenderMessage();
-          } else if (child.textContent === 'Удалить') {
-            this.deleteSenderMessage(message);
-          }
-        });
-      });
     }
   }
 
@@ -569,13 +567,13 @@ export default class MainPage {
     }
   }
 
-  deleteSenderMessage(message: HTMLDivElement) {
-    const id = message.getAttribute('data-id');
+  deleteSenderMessage() {
+    const id = this.messageForChanging.getAttribute('data-id');
     if (id) {
       const request = new DeletionMessageRequest(id);
       this.socket.send(JSON.stringify(request));
     }
-    message.remove();
+    this.messageForChanging.remove();
   }
 
   static deleteRecipientMessage(id: string) {
