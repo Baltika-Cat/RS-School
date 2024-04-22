@@ -4,6 +4,7 @@ import GetHistoryRequest from '../shared/request-classes/get-history-request';
 import SendMessageRequest from '../shared/request-classes/send-message-request';
 import ReadMessageRequest from '../shared/request-classes/read-message-request';
 import EditedMessageRequest from '../shared/request-classes/edition-message-request';
+import DeletionMessageRequest from '../shared/request-classes/deletion-message-request';
 import { UserLogined, Message } from '../shared/interfaces';
 import './main-page-style.css';
 import logo from '../shared/assets/rsschool.svg';
@@ -156,6 +157,10 @@ export default class MainPage {
         if (!message.id) {
           MainPage.changeRecipientMessage(message.payload.message.id, message.payload.message.text);
         }
+      } else if (message.type === 'MSG_DELETE') {
+        if (!message.id) {
+          MainPage.deleteRecipientMessage(message.payload.message.id);
+        }
       }
     });
     this.usersSearch.addEventListener('input', () => {
@@ -186,7 +191,7 @@ export default class MainPage {
         this.changeMessage();
       }
     });
-    this.messageHistory.addEventListener('click', () => {
+    this.messageHistory.addEventListener('mouseup', () => {
       // console.log('messageHistory is clicked');
       this.getNewMessages();
       this.readNewMessages();
@@ -557,7 +562,7 @@ export default class MainPage {
           if (child.textContent === 'Изменить') {
             this.changeSenderMessage();
           } else if (child.textContent === 'Удалить') {
-            // this.deleteMessage();
+            this.deleteSenderMessage(message);
           }
         });
       });
@@ -613,13 +618,22 @@ export default class MainPage {
         targetMessageText.textContent = text;
       }
     }
-    const line = document.querySelector('#line');
-    if (line) {
-      window.location.href = '#line';
-    }
   }
 
-  /* deleteMessage() {
+  deleteSenderMessage(message: HTMLDivElement) {
+    const id = message.getAttribute('data-id');
+    if (id) {
+      const request = new DeletionMessageRequest(id);
+      this.socket.send(JSON.stringify(request));
+    }
+    message.remove();
+  }
 
-  } */
+  static deleteRecipientMessage(id: string) {
+    const messages = [...document.querySelectorAll('.received-message')];
+    const targetMessage = messages.filter((message) => message.getAttribute('data-id') === id)[0];
+    if (targetMessage) {
+      targetMessage.remove();
+    }
+  }
 }
