@@ -38,16 +38,3 @@ export interface Message {
     isEdited: boolean;
   };
 }
-
-/* export interface UnreadMessages {
-  login: string;
-  messagesId: string[];
-} */
-
-// export type historyEvent = 'get-history-login' | 'get-history-click' | 'get-history-search';
-
-/* export interface LogoutOptions {
-  socket: WebSocket;
-  login: string;
-  password: string;
-} */

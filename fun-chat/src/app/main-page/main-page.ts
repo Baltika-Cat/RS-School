@@ -55,8 +55,6 @@ export default class MainPage {
 
   messagesWrapper: HTMLDivElement;
 
-  // newMessages: HTMLDivElement;
-
   sendMessageForm = form('send-message-form', this.chatWrapper, 'message-form');
 
   messageInputOptions = {
@@ -110,9 +108,7 @@ export default class MainPage {
     this.messageInput.classList.add('disabled');
     this.messageHistory.textContent = 'Выберите пользователя для отправки сообщения';
     this.messagesWrapper = div('old-messages-wrapper', this.messageHistory);
-    // this.newMessages = div('new-messages-wrapper', this.messageHistory);
     this.userLogin = user;
-    // console.log(this.userLogin);
     this.userName.textContent = `User: ${user}`;
     this.schoolLogo.src = logo;
     this.schoolLink.append(this.schoolLogo);
@@ -125,31 +121,26 @@ export default class MainPage {
       if (message.type === 'USER_LOGOUT') {
         this.userLogin = '';
       }
-      // console.log(message)
       if (message.type === 'USER_EXTERNAL_LOGIN') {
         this.addNewActiveUser(message.payload.user.login);
         if (message.payload.user.login === this.userInChatName) {
           this.startChat(e);
         }
       } else if (message.type === 'USER_EXTERNAL_LOGOUT') {
-        // console.log(message);
         this.makeUserInactive(message.payload.user.login);
       } else if (message.id === 'for-login') {
         this.getUsers(e);
       } else if (message.id === 'for-search') {
         this.searchUsers(e);
       } else if (message.type === 'MSG_FROM_USER') {
-        // console.log(message.payload.message);
         this.getHistory(message.id, message.payload.messages);
       } else if (message.type === 'MSG_SEND') {
         if (message.id) {
           this.sendMessage(message.payload.message);
         } else {
-          // console.log(this.hasNewMessagesLine);
           this.receiveMessage(message.payload.message);
         }
       } else if (message.type === 'MSG_READ') {
-        // console.log('send');
         if (!message.id) {
           MainPage.changeStatusToRead(message.payload.message.id);
         }
@@ -192,12 +183,10 @@ export default class MainPage {
       }
     });
     this.messageHistory.addEventListener('mouseup', () => {
-      // console.log('messageHistory is clicked');
       this.getNewMessages();
       this.readNewMessages();
     });
     this.messageHistory.addEventListener('wheel', () => {
-      // console.log('messageHistory is scrolled');
       this.getNewMessages();
       this.readNewMessages();
     });
@@ -223,7 +212,6 @@ export default class MainPage {
       users.forEach((user: UserLogined) => {
         if (user.login !== this.userLogin) {
           li('active-user', this.activeUsers, user.login);
-          // console.log('users', us);
         }
       });
     }
@@ -238,12 +226,8 @@ export default class MainPage {
   addNewActiveUser(login: string) {
     if (login.includes(this.usersSearch.value)) {
       const users = [...document.querySelectorAll('.inactive-user p')];
-      /* users.forEach((user) => { //Потом убрать
-        console.log(user.textContent)
-      }) */
       const inactiveUser = users.find((user) => user.textContent === login);
       if (inactiveUser?.parentElement) {
-        // console.log(inactiveUser, inactiveUser.parentElement)
         inactiveUser.parentElement.classList.remove('inactive-user');
         inactiveUser.parentElement.classList.add('active-user');
         this.activeUsers.append(inactiveUser.parentElement);
@@ -259,11 +243,8 @@ export default class MainPage {
 
   makeUserInactive(login: string) {
     const users = [...document.querySelectorAll('.active-user p')];
-    // console.log(users);
     const activeUser = users.filter((user) => user.textContent === login)[0];
-    // console.log(activeUser);
     if (activeUser?.parentElement) {
-      // console.log(activeUser, activeUser.parentElement);
       activeUser.parentElement.classList.remove('active-user');
       activeUser.parentElement.classList.add('inactive-user');
       this.inactiveUsers.append(activeUser.parentElement);
@@ -299,7 +280,6 @@ export default class MainPage {
 
   startChat(event: Event) {
     const { target } = event;
-    // console.log(target)
     if (target instanceof HTMLElement && target.tagName.toLowerCase() === 'p') {
       this.messageInput.classList.remove('disabled');
       this.userInChatName = target.textContent ? target.textContent : '';
@@ -324,28 +304,19 @@ export default class MainPage {
   getHistory(id: 'get-history-login' | 'get-history-click', messages: Message[]): void {
     if (id === 'get-history-login') {
       if (messages.length) {
-        // console.log(messages)
         const messagesFromInterlocuter = messages.filter((message) => message.from !== this.userLogin);
         const unreadMessages = messagesFromInterlocuter.filter((message) => !message.status.isReaded);
         if (unreadMessages.length) {
           const userName = messages[0].from !== this.userLogin ? messages[0].from : messages[0].to;
-          // console.log(this.activeUsers.childNodes)
           const userMessages = [...document.querySelectorAll('.active-user-name')].filter(
             (user) => user.textContent === userName,
-          )[0]; /* [...this.activeUsers.childNodes].filter((user) => user.textContent === userName)[0];
-          if (!userMessages) {
-            [userMessages] = [...this.inactiveUsers.childNodes].filter((user) => user.textContent === userName);
-            // console.log(userMessages, typeof userMessages)
-          } */
-          // console.log(userMessages);
+          )[0];
           const messagesCount = userMessages?.nextSibling;
           if (messagesCount instanceof HTMLElement) {
             messagesCount.classList.add('messages-count');
             messagesCount.textContent = String(unreadMessages.length);
           }
         }
-        // console.log(activeUserMessages);
-        // console.log(inactiveUserMessages)
       }
     } else {
       this.showHistory(messages);
@@ -353,14 +324,9 @@ export default class MainPage {
   }
 
   showHistory(messages: Message[]) {
-    // console.log(true)
-    /* const oldLine = document.querySelector('#line');
-    oldLine?.remove(); */
     if (messages.length) {
       this.messagesWrapper.innerHTML = '';
       messages.forEach((message) => {
-        // console.log(message)
-        // let messageWrapper;
         if (message.from === this.userLogin) {
           MainPage.createMessage('sent-message', this.messagesWrapper, message);
         } else {
@@ -369,7 +335,6 @@ export default class MainPage {
           }
           MainPage.createMessage('received-message', this.messagesWrapper, message);
         }
-        // pTag('message-text', messageWrapper, message.text);
       });
       this.addMessagesToNewChat();
       this.hasNewMessagesLine = false;
@@ -388,8 +353,6 @@ export default class MainPage {
   }
 
   sendMessage(messageData: Message) {
-    // const messageWrapper = div('sent-message', this.oldMessages);
-    // pTag('message-text', messageWrapper, messageData.text);
     MainPage.createMessage('sent-message', this.messagesWrapper, messageData);
     this.addMessagesToNewChat();
     this.messageHistory.scrollTop = this.messageHistory.scrollHeight;
@@ -399,7 +362,6 @@ export default class MainPage {
     const user = [...document.querySelectorAll('.active-user-name')].filter(
       (currentUser) => currentUser.textContent === messageData.from,
     )[0];
-    // console.log(user)
     if (user instanceof HTMLElement) {
       const sibling = user.nextSibling;
       if (sibling instanceof HTMLDivElement) {
@@ -411,21 +373,14 @@ export default class MainPage {
         }
       }
     }
-    // console.log(messageData)
-    // const messageWrapper = div('received-message');
-    // pTag('message-text', messageWrapper, messageData.text);
     if (messageData.from === this.userInChatName) {
-      // this.createMessage('received-message', this.oldMessages, messageData);
-      // this.oldMessages.append(messageWrapper);
       const line = document.querySelector('#line');
       if (!line) {
-        // console.log(true);
         this.createDividingLine();
         MainPage.createMessage('received-message', this.messagesWrapper, messageData);
         this.addMessagesToNewChat();
         this.messageHistory.scrollTop = this.messageHistory.scrollHeight;
       } else {
-        // console.log(line);
         MainPage.createMessage('received-message', this.messagesWrapper, messageData);
         this.addMessagesToNewChat();
         window.location.href = '#line';
@@ -439,7 +394,6 @@ export default class MainPage {
     line.textContent = 'Новые сообщения';
     this.messagesWrapper.append(line);
     this.hasNewMessagesLine = true;
-    // console.log('line is created');
   }
 
   lockSendButton() {
@@ -550,12 +504,10 @@ export default class MainPage {
         message = target.closest('.sent-message');
       }
     }
-    // console.log(message)
     if (message instanceof HTMLDivElement) {
       this.messageForChanging = message;
       this.messageForChanging.append(this.contextMenu);
       this.contextMenu.classList.remove('invisible');
-      // console.log(message);
       this.contextMenu.childNodes.forEach((child) => {
         child.addEventListener('click', () => {
           this.contextMenu.classList.add('invisible');
@@ -572,11 +524,9 @@ export default class MainPage {
   changeSenderMessage() {
     this.changingMessage = true;
     const messageText = this.messageForChanging.querySelector('.message-text');
-    // console.log(messageText)
     if (messageText) {
       this.messageInput.value = messageText.textContent ?? '';
       this.messageInput.focus();
-      // this.sendButton.classList.remove('disabled');
     }
   }
 
@@ -585,7 +535,6 @@ export default class MainPage {
       const messageText = this.messageForChanging.querySelector('.message-text');
       if (messageText) {
         if (messageText.textContent !== this.messageInput.value) {
-          // console.log(messageText)
           messageText.textContent = this.messageInput.value;
           const messageEdited = this.messageForChanging.querySelector('.message-edited');
           if (messageEdited) {

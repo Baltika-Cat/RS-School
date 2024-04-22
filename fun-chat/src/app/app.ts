@@ -1,4 +1,4 @@
-import { /* buttonTag, */ mainTag } from './shared/tags';
+import { mainTag } from './shared/tags';
 import AuthenticationRequest from './shared/request-classes/authentication-request';
 import LogoutRequest from './shared/request-classes/logout-request';
 import loginWindow from './login-page/login-page';
@@ -24,8 +24,6 @@ class App {
 
   isLogined = false;
 
-  // button: HTMLButtonElement;
-
   static socket: WebSocket;
 
   static reconnectingInterval: number;
@@ -48,12 +46,10 @@ class App {
 
   constructor() {
     this.prevPage = formWrapper;
-    // this.button = buttonTag('login-button', loginForm, 'meow');
   }
 
   start() {
     App.socket = new WebSocket(url);
-    // console.log('socket', App.socket);
     loginButton.classList.add('disabled');
     this.submitForm();
     this.toInformation();
@@ -71,12 +67,7 @@ class App {
       }
     });
 
-    /* App.socket.addEventListener('message', (event) => {
-      if (event.data.type === 'USER_EXTERNAL_LOGIN') {
-      }
-    }); */
     App.checkInterval = setInterval(() => {
-      // console.log(App.socket)
       this.reconnect();
     }, 2000);
   }
@@ -88,43 +79,10 @@ class App {
 
   submitForm() {
     loginForm.addEventListener('submit', (event) => {
-      // console.log(App.socket);
       event.preventDefault();
       this.login = loginInput.value;
       this.password = passwordInput.value;
       this.authorize();
-      // console.log(request);
-      /* App.socket.addEventListener('message', (e) => {
-        // console.log(e.data);
-        const message = JSON.parse(e.data);
-        if (message.type === 'USER_LOGIN') {
-          this.clearPage();
-          this.isLogined = true;
-          const mainPage = new MainPage(App.socket, this.login);
-          this.main.append(mainPage.mainPageWrapper);
-          console.log('meow')
-          mainPage.getUsers('USER_ACTIVE');
-          mainPage.getUsers('USER_INACTIVE');
-          this.prevPage = mainPage.mainPageWrapper;
-          this.info = mainPage.infoButton;
-          // console.log(this.info)
-          this.toInformation();
-          // this.button = buttonTag('login-button', this.main, 'Log Out');
-          /* const logoutOptions = {
-            socket: App.socket,
-            login: this.login,
-            password: this.password,
-          }; */
-      /* mainPage.logoutButton.addEventListener('click', () => {
-            this.sendLogoutRequest();
-          });
-          // console.log(this.login, this.password);
-        } else if (message.type === 'ERROR') {
-          const errorMessage = message.payload.error;
-          App.errorWindow = new PopUpWindow(errorMessage);
-          // console.log(message)
-        }
-      }); */
     });
   }
 
@@ -137,18 +95,10 @@ class App {
     mainPage.sendGetUsersRequest('USER_INACTIVE');
     this.prevPage = mainPage.mainPageWrapper;
     this.info = mainPage.infoButton;
-    // console.log(this.info)
     this.toInformation();
-    // this.button = buttonTag('login-button', this.main, 'Log Out');
-    /* const logoutOptions = {
-      socket: App.socket,
-      login: this.login,
-      password: this.password,
-    }; */
     mainPage.logoutButton.addEventListener('click', () => {
       this.sendLogoutRequest();
     });
-    // console.log(this.login, this.password);
   }
 
   disableButtonDueLogin() {
@@ -204,9 +154,6 @@ class App {
   }
 
   reconnect() {
-    /* App.socket.addEventListener('message', (e) => {
-      console.log(e.data)
-    }) */
     App.socket.addEventListener('close', () => {
       if (!App.errorWindow) {
         App.errorWindow = new PopUpWindow();
@@ -214,9 +161,7 @@ class App {
       if (!App.reconnectingInterval) {
         App.reconnectingInterval = setInterval(() => {
           App.socket = new WebSocket(url);
-          // console.log('try connect')
           App.socket.addEventListener('open', () => {
-            // console.log('open')
             PopUpWindow.removeWindow();
             App.errorWindow = undefined;
             if (this.isLogined) {
@@ -224,12 +169,7 @@ class App {
             }
             clearInterval(App.reconnectingInterval);
             App.reconnectingInterval = 0;
-            // console.log(true);
-            /* App.socket.addEventListener('message', (e) => {
-                console.log(e.data);
-              }); */
           });
-          // console.log(true);
         }, 2000);
       }
     });
@@ -253,18 +193,6 @@ class App {
   sendLogoutRequest() {
     const request = new LogoutRequest(this.login, this.password);
     App.socket.send(JSON.stringify(request));
-    /* App.socket.addEventListener('message', (event) => {
-      const message = JSON.parse(event.data);
-      if (message.type === 'USER_LOGOUT') {
-        this.clearPage();
-        this.isLogined = false;
-        this.main.append(formWrapper);
-        this.info = infoButton;
-        this.prevPage = formWrapper;
-        // console.log(message);
-      }
-      // console.log(event.data);
-    }); */
   }
 
   toLoginPage() {
