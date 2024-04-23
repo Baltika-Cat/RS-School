@@ -124,7 +124,7 @@ export default class MainPage {
       if (message.type === 'USER_EXTERNAL_LOGIN') {
         this.addNewActiveUser(message.payload.user.login);
         if (message.payload.user.login === this.userInChatName) {
-          this.startChat(e);
+          this.sendGetHistoryRequest(this.userInChatName, 'get-history-click');
         }
       } else if (message.type === 'USER_EXTERNAL_LOGOUT') {
         this.makeUserInactive(message.payload.user.login);
